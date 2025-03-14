@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:14:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/14 23:36:51 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/14 23:38:34 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int parssing(char *line)
         }
         else if(line[i] == '<' || line[i] == '>')
         {
-               if(!count(line,&i,line[i]))
+               if(!count_redirection(line,&i,line[i]))
                 return(0);
         }
         i++;
