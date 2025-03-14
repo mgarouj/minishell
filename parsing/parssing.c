@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parssing.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/14 20:14:58 by fbelkass          #+#    #+#             */
+/*   Updated: 2025/03/14 21:43:13 by fbelkass         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 
 #include "../minishell.h"
@@ -52,16 +64,26 @@
 // }
 
 
-int find_quote(char *line)
+int find_dquote(char *line, int *i)
 {
-    int i;
-
-    i = 0;
-    while(line[i])
+    (*i)++;
+    while(line[*i])
     {
-        if(line[i] == '"')
+        if(line[*i] == '"')
             return(1);
-        i++;
+        (*i)++;
+    }
+    return(0);
+}
+
+int find_squote(char *line,int *i)
+{
+    (*i)++;
+    while(line[*i])
+    {
+        if(line[*i] == '\'')
+            return(1);
+        (*i)++;
     }
     return(0);
 }
@@ -69,16 +91,18 @@ int find_quote(char *line)
 int parssing(char *line)
 {
     int i;
-
+    
     i = 0;
     while(line[i])
     {
         if(line[i] == '"')
         {
-            i++;
-            if(find_quote(line + i))
-                i++;
-            else
+            if (!find_dquote(line, &i))
+                return(0);
+        }
+        else if(line[i] == '\'')
+        {
+            if(!find_squote(line , &i))
                 return(0);
         }
         i++;

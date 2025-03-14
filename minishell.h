@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
+/*   Updated: 2025/03/14 20:25:35 by fbelkass         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 
 
@@ -7,6 +18,7 @@
 
 #include <stdlib.h>
 #include<unistd.h>
+#include <stdio.h> 
 #include <readline/readline.h>
 #include <readline/history.h>
 
