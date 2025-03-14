@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:14:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/14 21:43:13 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/14 23:36:01 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,20 @@ int find_squote(char *line,int *i)
     return(0);
 }
 
+int count(char *line,int *i,char t)
+{
+    int c;
+
+    c = 0;
+    while (line[*i] == t)
+    {
+        c++;
+        (*i)++;
+    }
+    (*i)--;
+        return(c <= 2);
+}
+
 int parssing(char *line)
 {
     int i;
@@ -103,6 +117,11 @@ int parssing(char *line)
         else if(line[i] == '\'')
         {
             if(!find_squote(line , &i))
+                return(0);
+        }
+        else if(line[i] == '<' || line[i] == '>')
+        {
+               if(!count(line,&i,line[i]))
                 return(0);
         }
         i++;

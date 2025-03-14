@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/14 21:28:41 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/14 22:06:54 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int ac, char **av, char **env)
 
     char *line;
 
-    line = readline("minishell>>");
+    line = readline("minishell ");
     
     while (line)
     {
@@ -32,7 +32,7 @@ int main(int ac, char **av, char **env)
         }
         else
             write(1,"great\n",6);
-        line = readline("minishell>>");
+        line = readline("minishell ");
     }
     return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/14 20:25:35 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/14 22:59:10 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,14 @@
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
+
+# define MALLOC_ERORR "allocation failed\n"
+# define SYNTAX_ERROR_PIPE "syntax error near unexpected token `|'\n"
+# define SYNTAX_ERROR_QUOTE "syntax error missing quote\n"
+# define SYNTAX_ERROR_REDIRECTION "syntax error near unexpected token `>'\n"
+# define SYNTAX_ERROR_REDIRECTION_2 "syntax error near unexpected token `>>'\n"
+# define FILE_D_ERROR_FAIL "faild to open fd\n"
+
 
 #include <stdlib.h>
 #include<unistd.h>
