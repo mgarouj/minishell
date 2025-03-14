@@ -11,6 +11,8 @@ int main(int ac, char **av, char **env)
     char *line;
     while (line = readline("minishell>>"))
     {
-        // parsing
+        if(!parssing(line))
+            break;
+        
     }
 }

@@ -6,7 +6,9 @@
 #define MINISHELL_H
 
 #include <stdlib.h>
+#include<unistd.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 
 enum token
 {
@@ -36,5 +38,7 @@ typedef struct s_execution
     struct s_execution *next;
 } t_execution;
 
+int parssing(char *line);
+void print_err(char *str);
 
 #endif
