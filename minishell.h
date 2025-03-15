@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/14 22:59:10 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:06:14 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,7 @@ typedef struct s_execution
 
 int parssing(char *line);
 void print_err(char *str);
+char *ft_strtrim(char *s, int size);
+int ft_strlen(char const *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:14:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/15 14:36:17 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 16:59:37 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int count_redirection(char *line,int *i,char t)
         (*i)++;
     }
     (*i)--;
+    // if(c == 3)
+    //     print_err("")
         return(c <= 2);
 }
 
@@ -60,7 +62,6 @@ int parss_pipe(char *line,int *i)
         return(0);
     else if(line[*i] != ' ' && line[(*i) + 1] == '\0')
         return(0);
-    
 }
 
 int parssing(char *line)
@@ -73,24 +74,36 @@ int parssing(char *line)
         if(line[i] == '"')
         {
             if (!find_dquote(line, &i))
-                return(0);
+                {
+                    print_err("syntax error missing quote");
+                    return(0);
+                }
         }
         else if(line[i] == '\'')
         {
             if(!find_squote(line , &i))
+            {
+                print_err("syntax error missing quote");
                 return(0);
+            }
         }
         else if((line[i] == '<' && line[i + 1] == '>') || (line[i] == '>' && line[i + 1] == '<'))
             return(0);
         else if(line[i] == '<' || line[i] == '>')
         {
                if(!count_redirection(line,&i,line[i]))
+               {
+                print_err("error");
+               }
                 return(0);
         }
         else if(line[i] == '|')
         {
             if(!parss_pipe(line,&i))
+            {
+                print_err("syntax error near unexpected token `|'");
                 return(0);
+            }
         }
         i++;
     }

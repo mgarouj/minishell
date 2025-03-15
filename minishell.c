@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/14 22:06:54 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:06:09 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,26 @@ int main(int ac, char **av, char **env)
 
     char *line;
 
-    line = readline("minishell ");
     
-    while (line)
+    
+    while (1)
     {
-        if(!parssing(line))
-        {
-            print_err("syntax error missing quote");
-        }
-        else
-            write(1,"great\n",6);
         line = readline("minishell ");
+        // trim tabs spces 
+        // if empty
+        // continue
+        if(!line)
+        {
+            continue;
+        }
+        
+        line = ft_strtrim(line,ft_strlen(line));
+        if(!line)
+        {
+            continue;
+        }
+        if (parssing(line) == 0)
+            continue;
     }
     return(0);
 }
