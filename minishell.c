@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/15 20:06:09 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 20:57:03 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ int main(int ac, char **av, char **env)
     (void)av;
 
     char *line;
-
-    
+    char *trim;
     
     while (1)
     {
@@ -30,18 +29,29 @@ int main(int ac, char **av, char **env)
         // trim tabs spces 
         // if empty
         // continue
-        if(!line)
+        
+        if (!line)
         {
-            continue;
+            print_err("exit");
+            break;
         }
         
-        line = ft_strtrim(line,ft_strlen(line));
-        if(!line)
+        trim = ft_strtrim(line,ft_strlen(line));
+        free(line);
+        line = trim;
+        
+        if(!line || line[0] == '\0')
         {
+            free(line);
             continue;
         }
         if (parssing(line) == 0)
+        {
+            free(line);
             continue;
+        }
+        free(line);
+         
     }
     return(0);
 }

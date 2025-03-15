@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:14:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/15 16:59:37 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:06:04 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int count_redirection(char *line,int *i,char t)
         (*i)++;
     }
     (*i)--;
-    // if(c == 3)
-    //     print_err("")
         return(c <= 2);
 }
 
@@ -87,11 +85,14 @@ int parssing(char *line)
                 return(0);
             }
         }
-        else if((line[i] == '<' && line[i + 1] == '>') || (line[i] == '>' && line[i + 1] == '<'))
-            return(0);
         else if(line[i] == '<' || line[i] == '>')
         {
-               if(!count_redirection(line,&i,line[i]))
+            if((line[i] == '<' && line[i + 1] == '>') || (line[i] == '>' && line[i + 1] == '<'))
+            {
+                print_err("error");
+                return(0);
+            }
+            else if(!count_redirection(line,&i,line[i]))
                {
                 print_err("error");
                }
