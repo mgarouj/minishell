@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/15 20:57:03 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 21:32:00 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int main(int ac, char **av, char **env)
             print_err("exit");
             break;
         }
+
+        add_history(line);
         
         trim = ft_strtrim(line,ft_strlen(line));
         free(line);
