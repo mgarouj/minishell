@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:14:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/14 23:38:34 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 14:36:17 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,54 +14,6 @@
 
 #include "../minishell.h"
 
-
-
-
-// int find_quote(char *line)
-// {
-//     int i;
-
-//     i = 0;
-//     while(line[i])
-//     {
-//         if(line[i] == '"')
-//             return(++i);
-//         i++;
-//     }
-//     return(0);
-// }
-
-// int find_next_quote(char *line)
-// {
-//     int next;
-
-//     next = find_quote(line);
-//     if(next)
-//     {
-//         return(next);
-//     }
-//     else
-//         return(0);
-
-// }
-
-// int parssing(char *line)
-// {
-//     int i;
-//     int next;
-
-//     i = 0;
-//     next = find_quote(line);
-//     if(next)
-//     {
-//         if(find_next_quote(line + next))
-//         {
-            
-//         }
-//     }
-
-
-// }
 
 
 int find_dquote(char *line, int *i)
@@ -102,6 +54,15 @@ int count_redirection(char *line,int *i,char t)
         return(c <= 2);
 }
 
+int parss_pipe(char *line,int *i)
+{
+    if((*i) == 0)
+        return(0);
+    else if(line[*i] != ' ' && line[(*i) + 1] == '\0')
+        return(0);
+    
+}
+
 int parssing(char *line)
 {
     int i;
@@ -119,9 +80,16 @@ int parssing(char *line)
             if(!find_squote(line , &i))
                 return(0);
         }
+        else if((line[i] == '<' && line[i + 1] == '>') || (line[i] == '>' && line[i + 1] == '<'))
+            return(0);
         else if(line[i] == '<' || line[i] == '>')
         {
                if(!count_redirection(line,&i,line[i]))
+                return(0);
+        }
+        else if(line[i] == '|')
+        {
+            if(!parss_pipe(line,&i))
                 return(0);
         }
         i++;
