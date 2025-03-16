@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/15 21:32:00 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/15 23:19:21 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int main(int ac, char **av, char **env)
     
     while (1)
     {
-        line = readline("minishell ");
+        line = readline("prompt ");
         // trim tabs spces 
         // if empty
         // continue
@@ -35,8 +35,8 @@ int main(int ac, char **av, char **env)
             print_err("exit");
             break;
         }
-
-        add_history(line);
+        if(line[0] != '\0')
+            add_history(line);
         
         trim = ft_strtrim(line,ft_strlen(line));
         free(line);
