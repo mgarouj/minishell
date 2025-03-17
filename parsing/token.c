@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/16 23:51:35 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/17 00:39:50 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void handle_exp(char *line, int *i, t_tokenn **tokens)
     int start;
 
     start = *i;
-    while (line[*i] && !is_operator(line[*i]))
+    while (line[*i] && !is_operator(line[*i]) && line[*i] != '"' && line[*i] != '\'')
         (*i)++;
     add_token(tokens, create_token(EXP, ft_strndup(&line[start], *i - start)));
 }
