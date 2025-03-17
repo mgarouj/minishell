@@ -6,12 +6,14 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/15 23:19:21 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/16 23:52:14 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
+
+#include <stdio.h>
 
 
 
@@ -22,6 +24,7 @@ int main(int ac, char **av, char **env)
 
     char *line;
     char *trim;
+    t_tokenn *token;
     
     while (1)
     {
@@ -47,10 +50,17 @@ int main(int ac, char **av, char **env)
             free(line);
             continue;
         }
-        if (parssing(line) == 0)
+        if (!parssing(line))
         {
             free(line);
             continue;
+        }
+        token = tokenize(line);
+    
+        while (token)
+        {
+            printf("Type: %d, Value: %s \n", token->type, token->value);
+            token = token->next;
         }
         free(line);
          

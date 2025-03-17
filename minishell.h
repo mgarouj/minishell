@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/16 17:29:51 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/16 23:31:59 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_env
     char *key;
     char *value;
     struct s_env *next;
-}t_env; 
+}t_env;
 
 typedef struct s_execution
 {
@@ -69,5 +69,6 @@ int parssing(char *line);
 void print_err(char *str);
 char *ft_strtrim(char *s, int size);
 int ft_strlen(char const *str);
-
+char *ft_strndup(char *s, size_t n);
+t_tokenn *tokenize(char *line);
 #endif

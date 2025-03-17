@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/15 20:06:18 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/03/16 21:11:07 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,25 @@ void print_err(char *str)
     }
     write(2,"\n",1);
 }
-#include <stdlib.h>
+
+
+char *ft_strndup(char *s, size_t n)
+{
+    size_t i;
+    char *dup;
+
+    dup = (char *)malloc(n + 1);
+    if (!dup)
+        return (NULL);
+    i = 0;
+    while (i < n && s[i])
+    {
+        dup[i] = s[i];
+        i++;
+    }
+    dup[i] = '\0';
+    return (dup);
+}
 
 char *sub_str(char *s, int size)
 {
