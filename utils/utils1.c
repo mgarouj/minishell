@@ -67,6 +67,54 @@ char *sub_str(char *s, int size)
     return (r);
 }
 
+char	*ft_strdup(const char *s)
+{
+	size_t	l;
+	size_t	i;
+	char	*r;
+
+	i = 0;
+	l = ft_strlen(s);
+	r = (char *)malloc((l + 1) * sizeof(char));
+	if (!r)
+	{
+		return (NULL);
+	}
+	while (s[i])
+	{
+		r[i] = s[i];
+		i++;
+	}
+	r[i] = '\0';
+	return (r);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*r;
+	size_t	i;
+	size_t	slen;
+
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s) || len == 0)
+		return (ft_strdup(""));
+	if (ft_strlen(s) - start < len)
+		slen = ft_strlen(s) - start;
+	else
+		slen = len;
+	r = (char *)malloc((slen + 1) * sizeof(char));
+	if (!r)
+		return (NULL);
+	i = 0;
+	while (i < slen)
+	{
+		r[i] = s[start + i];
+		i++;
+	}
+	r[i] = '\0';
+	return (r);
+}
 
 int ft_strlen(char const *str)
 {
@@ -102,4 +150,86 @@ char *ft_strtrim(char *s, int size)
     if(!r)
         return(NULL);
     return (r);
+}
+
+
+
+void	free_split(char **split)
+{
+	int	i;
+
+	i = 0;
+	if (!split)
+		return ;
+	while (split[i])
+		free(split[i++]);
+	free(split);
+}
+
+static size_t	count(char const *s, char c)
+{
+	size_t	i;
+	size_t	j;
+
+	j = 0;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != c && (i == 0 || s[i - 1] == c))
+			j++;
+		i++;
+	}
+	return (j);
+}
+
+static char	**copy(char *s, char c, char **r)
+{
+	size_t	i;
+	size_t	start;
+	size_t	l;
+
+	i = 0;
+	l = 0;
+	while (s[i])
+	{
+		while (s[i] && s[i] == c)
+			i++;
+		start = i;
+		while (s[i] && s[i] != c)
+			i++;
+		if (i > start)
+		{
+			r[l] = ft_substr(s, start, i - start);
+			l++;
+		}
+	}
+	r[l] = NULL;
+	return (r);
+}
+
+char	**ft_split(char *s, char c)
+{
+	char	**r;
+
+	if (!s)
+		return (NULL);
+	r = (char **)malloc((count(s, c) + 1) * sizeof(char *));
+	if (!r)
+		return (NULL);
+	return (copy(s, c, r));
+}
+
+
+int ft_strcmp(char *s1,char *s2)
+{
+    int i;
+
+    i = 0;
+    while(s1[i] || s2[i])
+    {
+        if(s1[i] != s2[i])
+            return(0);
+        i++;
+    }
+    return(1);
 }

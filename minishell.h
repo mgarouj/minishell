@@ -71,4 +71,9 @@ char *ft_strtrim(char *s, int size);
 int ft_strlen(char const *str);
 char *ft_strndup(char *s, size_t n);
 t_tokenn *tokenize(char *line);
+
+//utils
+
+char **ft_split(char *, char );
+
 #endif

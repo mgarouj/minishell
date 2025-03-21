@@ -56,16 +56,20 @@ void print_env(t_env *l)
     while (tmp)
     {
         printf("%s=%s\n",tmp->key,tmp->value);
-        tmp = l -> next;
+        tmp = tmp -> next;
     }
     
 }
 
-// int main()
-// {
-//     t_env *l = NULL;
+int main(int ac, char **av, char **env)
+{
+    t_env *l = NULL;
+    int i = 0;
+    while (env[i])
+    {
+        handel_env(env[i], &l);
+        i++;
+    }
 
-//     handel_env("HOME=fbelkasshshhs hfhhf",&l);
-
-//     print_env(l);
-// }
+    print_env(l);
+}
