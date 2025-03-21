@@ -61,11 +61,11 @@ void print_env(t_env *l)
     
 }
 
-int main()
-{
-    t_env *l = NULL;
+// int main()
+// {
+//     t_env *l = NULL;
 
-    handel_env("HOME=fbelkasshshhs hfhhf",&l);
+//     handel_env("HOME=fbelkasshshhs hfhhf",&l);
 
-    print_env(l);
-}
+//     print_env(l);
+// }
