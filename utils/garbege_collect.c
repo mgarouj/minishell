@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 22:37:17 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/11 16:58:07 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/11 17:09:54 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static t_gc	*head;
 
 static t_gc	**gc_list(void)
 {
-	
 	return (&head);
 }
 
@@ -62,7 +61,7 @@ static void	gc_free_all(void)
 		next = current->next;
 		if (current->is_free && current->ptr)
 			free(current->ptr);
-		free(current); // Free the GC node itself
+		free(current);
 		current = next;
 	}
 	*head = NULL;

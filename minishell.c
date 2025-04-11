@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/07 20:31:56 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/11 18:09:00 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,11 @@ int main(int ac, char **av, char **env)
         }
         token = tokenize(line);
     
-        // while (token)
-        // {
-        //     printf("Type: %d, Value: %s \n", token->type, token->value);
-        //     token = token->next;
-        // }
+        while (token)
+        {
+            printf("Type: %d, Value: %s \n", token->type, token->value);
+            token = token->next;
+        }
         free(line);
          
     }

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/08 18:27:33 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/11 18:10:43 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 #include <stdlib.h>
 #include<unistd.h>
+#include <stdbool.h>
 #include <stdio.h> 
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -66,7 +67,7 @@ typedef struct s_execution
 } t_execution;
 
 
-typedef s_gc
+typedef struct s_gc
 {
     void    *ptr;
     bool    is_free;
