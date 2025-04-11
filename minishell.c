@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/16 23:52:14 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/07 20:31:56 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #include <stdio.h>
 
 
-
 int main(int ac, char **av, char **env)
 {
     (void)ac;
@@ -24,12 +23,22 @@ int main(int ac, char **av, char **env)
 
     char *line;
     char *trim;
+    int i;
+    t_env *l;
     t_tokenn *token;
+    
+    l = NULL;
+    i = 0;
+    while(env[i])
+    {
+        handel_env(env[i],&l);
+        i++;
+    }
     
     while (1)
     {
         line = readline("prompt ");
-        // trim tabs spces 
+        // trim tabs spces
         // if empty
         // continue
         
@@ -57,13 +66,14 @@ int main(int ac, char **av, char **env)
         }
         token = tokenize(line);
     
-        while (token)
-        {
-            printf("Type: %d, Value: %s \n", token->type, token->value);
-            token = token->next;
-        }
+        // while (token)
+        // {
+        //     printf("Type: %d, Value: %s \n", token->type, token->value);
+        //     token = token->next;
+        // }
         free(line);
          
     }
+   
     return(0);
 }

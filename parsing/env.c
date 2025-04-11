@@ -1,9 +1,17 @@
-
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   env.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/07 17:47:31 by fbelkass          #+#    #+#             */
+/*   Updated: 2025/04/08 16:03:41 by fbelkass         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 
 #include "../minishell.h"
-
 
 
 t_env *create_env(char *key, char *value)
@@ -46,30 +54,30 @@ void handel_env(char *s,t_env **env)
 
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-void print_env(t_env *l)
-{
-    t_env *tmp;
-    tmp = l;
+// void print_env(t_env *l)
+// {
+//     t_env *tmp;
+//     tmp = l;
 
-    while (tmp)
-    {
-        printf("%s=%s\n",tmp->key,tmp->value);
-        tmp = tmp -> next;
-    }
+//     while (tmp)
+//     {
+//         printf("%s=%s\n",tmp->key,tmp->value);
+//         tmp = tmp -> next;
+//     }
     
-}
+// }
 
-int main(int ac, char **av, char **env)
-{
-    t_env *l = NULL;
-    int i = 0;
-    while (env[i])
-    {
-        handel_env(env[i], &l);
-        i++;
-    }
+// int main(int ac, char **av, char **env)
+// {
+//     t_env *l = NULL;
+//     int i = 0;
+//     while (env[i])
+//     {
+//         handel_env(env[i], &l);
+//         i++;
+//     }
 
-    print_env(l);
-}
+//     print_env(l);
+// }

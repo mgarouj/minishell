@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/03/16 21:11:07 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/07 16:03:14 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,17 +141,14 @@ char *ft_strtrim(char *s, int size)
     start = 0;
     while (s[start] && (s[start] == ' ' || s[start] == '\t'))
         start++;
-
     end = size - 1;
     while (end > start && (s[end] == ' ' || s[end] == '\t'))
         end--;
-
     r = sub_str(s + start, end - start + 1);
     if(!r)
         return(NULL);
     return (r);
 }
-
 
 
 void	free_split(char **split)
