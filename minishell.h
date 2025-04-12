@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/11 18:10:43 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/12 18:06:44 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_execution
     struct s_execution *next;
 } t_execution;
 
-
 typedef struct s_gc
 {
     void    *ptr;
@@ -86,5 +85,6 @@ void handel_env(char *s,t_env **env);
 //utils
 
 char **ft_split(char *, char );
+int ft_strcmp(char *s1,char *s2);
 
 #endif
