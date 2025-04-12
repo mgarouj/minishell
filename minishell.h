@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/12 19:26:23 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/12 20:29:25 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void handel_env(char *s,t_env **env);
 
 char **ft_split(char *, char );
 int ft_strcmp(char *s1,char *s2);
+char *sub_str(char *s, int size);
 
 #endif
