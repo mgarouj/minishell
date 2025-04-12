@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/07 15:32:05 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:29:30 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ void  handle_operator(char *line, int *i, t_tokenn **tokens)
     }
     else if (line[*i] == '>' && line[*i + 1] == '>')
     {
-        type = REDIRECTION_OUT;
+        type = REDIRECTION_AP;
         add_token(tokens, create_token(type,">>"));
-        (*i)++;
+        (*i) += 2;
         return;
     }
     else

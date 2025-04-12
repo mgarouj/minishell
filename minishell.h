@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:18 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/12 18:06:44 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/12 19:26:23 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ enum token
     DOUBLE_QUOTE,
     REDIRECTION_IN,
     REDIRECTION_OUT,
+    REDIRECTION_AP,
     HEREDOC,
 };
 
