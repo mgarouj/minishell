@@ -6,13 +6,12 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/13 19:17:40 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/13 19:39:59 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #include "../minishell.h"
+
 
 void print_err(char *str)
 {
@@ -35,6 +34,18 @@ int	ft_strcmp(char *s1,char *s2)
 	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+int ft_strlen(char *str)
+{
+    int i;
+
+    i = 0;
+    while(str[i])
+        i++;
+
+    return(i);
+
 }
 
 char *ft_strndup(char *s, int n)
@@ -75,7 +86,7 @@ char *sub_str(char *s, int size)
     return (r);
 }
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	int	l;
 	int	i;
@@ -97,7 +108,7 @@ char	*ft_strdup(const char *s)
 	return (r);
 }
 
-char	*ft_substr(char const *s, unsigned int start, int len)
+char	*ft_substr(char *s, unsigned int start, int len)
 {
 	char	*r;
 	int	i;
@@ -124,17 +135,7 @@ char	*ft_substr(char const *s, unsigned int start, int len)
 	return (r);
 }
 
-int ft_strlen(char *str)
-{
-    int i;
 
-    i = 0;
-    while(str[i])
-        i++;
-
-    return(i);
-
-}
 
 int	ft_strlcpy(char *dst,char *src, int dstsize)
 {
@@ -260,16 +261,3 @@ char	**ft_split(char *s, char c)
 }
 
 
-int ft_strcmp(char *s1,char *s2)
-{
-    int i;
-
-    i = 0;
-    while(s1[i] || s2[i])
-    {
-        if(s1[i] != s2[i])
-            return(0);
-        i++;
-    }
-    return(1);
-}
