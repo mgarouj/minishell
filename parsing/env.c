@@ -6,12 +6,12 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:47:31 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/08 16:03:41 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/13 20:47:34 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "../minishell.h"
+#include "../minishell1.h"
 
 
 t_env *create_env(char *key, char *value)
