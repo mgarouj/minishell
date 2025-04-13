@@ -6,14 +6,13 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/12 19:26:59 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/13 19:19:16 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "minishell.h"
 
-#include <stdio.h>
 
 
 int main(int ac, char **av, char **env)
@@ -65,12 +64,12 @@ int main(int ac, char **av, char **env)
             continue;
         }
         token = tokenize(line);
-        
-        while (token)
-        {
-            printf("Type: %d, Value: %s \n", token->type, token->value);
-            token = token->next;
-        }
+        expanding(token, l);
+        // while (token)
+        // {
+        //     printf("Type: %d, Value: %s \n", token->type, token->value);
+        //     token = token->next;
+        // }
         
         free(line);
          

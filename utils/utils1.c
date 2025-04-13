@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/07 16:03:14 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/13 19:17:40 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,18 @@ void print_err(char *str)
     write(2,"\n",1);
 }
 
-
-char *ft_strndup(char *s, size_t n)
+int	ft_strcmp(char *s1,char *s2)
 {
-    size_t i;
+	int i = 0;
+
+	while (s1[i] && s2[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+char *ft_strndup(char *s, int n)
+{
+    int i;
     char *dup;
 
     dup = (char *)malloc(n + 1);
@@ -69,8 +77,8 @@ char *sub_str(char *s, int size)
 
 char	*ft_strdup(const char *s)
 {
-	size_t	l;
-	size_t	i;
+	int	l;
+	int	i;
 	char	*r;
 
 	i = 0;
@@ -89,11 +97,11 @@ char	*ft_strdup(const char *s)
 	return (r);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, int len)
 {
 	char	*r;
-	size_t	i;
-	size_t	slen;
+	int	i;
+	int	slen;
 
 	if (!s)
 		return (NULL);
@@ -116,7 +124,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (r);
 }
 
-int ft_strlen(char const *str)
+int ft_strlen(char *str)
 {
     int i;
 
@@ -128,6 +136,41 @@ int ft_strlen(char const *str)
 
 }
 
+int	ft_strlcpy(char *dst,char *src, int dstsize)
+{
+	int	i = 0;
+
+	if (!dstsize)
+		return (ft_strlen(src));
+	while (src[i] && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (ft_strlen(src));
+}
+
+int	ft_strlcat(char *dst,char *src, int dstsize)
+{
+	int	dst_len = 0;
+	int	src_len = 0;
+	int	i = 0;
+
+	while (dst[dst_len] && dst_len < dstsize)
+		dst_len++;
+	while (src[src_len])
+		src_len++;
+	if (dstsize <= dst_len)
+		return (dstsize + src_len);
+	while (src[i] && dst_len + i < dstsize - 1)
+	{
+		dst[dst_len + i] = src[i];
+		i++;
+	}
+	dst[dst_len + i] = '\0';
+	return (dst_len + src_len);
+}
 
 char *ft_strtrim(char *s, int size)
 {
@@ -163,10 +206,10 @@ void	free_split(char **split)
 	free(split);
 }
 
-static size_t	count(char const *s, char c)
+int	count(char *s, char c)
 {
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	j = 0;
 	i = 0;
@@ -181,9 +224,9 @@ static size_t	count(char const *s, char c)
 
 static char	**copy(char *s, char c, char **r)
 {
-	size_t	i;
-	size_t	start;
-	size_t	l;
+	int	i;
+	int	start;
+	int	l;
 
 	i = 0;
 	l = 0;

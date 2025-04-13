@@ -6,14 +6,13 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/12 19:29:30 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/13 19:15:14 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-
 #include "../minishell.h"
-#include <stdio.h> 
+ 
 
 t_tokenn *create_token(enum token type, char *value)
 {
