@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:35:36 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/13 20:48:42 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:35:08 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ char *handel_afterd(char *exp, t_env *l)
     return (exp);
 }
 
-int expanding(t_tokenn *t,t_env *l)
+
+void expanding(t_tokenn *t,t_env *l)
 {
     t_tokenn *tmp;
 
