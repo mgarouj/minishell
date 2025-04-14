@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/14 15:16:15 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/14 15:32:31 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include <readline/history.h>
 
 // Token types
-enum e_token
+enum token
 {
 	EXP,
 	PIPE,
@@ -40,7 +40,7 @@ enum e_token
 // Token struct
 typedef struct s_tokenn
 {
-	enum e_token	type;
+	enum token	type;
 	char			*value;
 	struct s_tokenn	*next;
 }	t_tokenn;
@@ -77,7 +77,7 @@ char		*ft_strtrim(char *s, int size);
 char		*ft_strndup(char *s, int n);
 t_tokenn	*tokenize(char *line);
 void		handel_env(char *s, t_env **env); // Typo: consider renaming to handle_env
-void		expanding(t_tokenn *t, t_env *l);
+void expanding(t_tokenn *t,t_env *l);
 void print_err(char *str);
 int ft_strlen(char *str);
 
@@ -94,5 +94,5 @@ int			ft_strcmp(char *s1, char *s2);
 char		*sub_str(char *s, int size);
 int			ft_strlcat(char *dst, char *src, int dstsize);
 int			ft_strlcpy(char *dst, char *src, int dstsize);
-
+char *ft_strstr(char *haystack, char *needle);
 #endif // MINISHELL_H
