@@ -6,14 +6,13 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:35:36 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/14 15:35:08 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:01:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
 #include "../minishell.h"
-
 
 int ft_find(char *s,char c)
 {
@@ -36,8 +35,8 @@ void replace(char **exp, char *var_name, t_env *l)
     char *new_exp;
     char *var_pos;
     int prefix_len;
+    int var_len;
 
-    // Find the variable in the environment list
     while (tmp)
     {
         if (ft_strcmp(var_name, tmp->key) == 0)
@@ -50,19 +49,23 @@ void replace(char **exp, char *var_name, t_env *l)
 
     if (new_value)
     {
-        // Allocate memory for the new expression
-        new_exp = malloc(ft_strlen(*exp) + ft_strlen(new_value) - ft_strlen(var_name) + 1);
+        var_pos = ft_strstr(*exp, "$");
+        if (!var_pos)
+            return;
+
+        prefix_len = var_pos - *exp;
+        var_len = ft_strlen(var_name);
+
+        // Allocate enough space: original length - $VAR + new_value + null
+        new_exp = malloc(ft_strlen(*exp) - var_len + ft_strlen(new_value));
         if (!new_exp)
             return;
-        // Replace the $variable with its value in the string
-        var_pos = ft_strstr(*exp, "$");
-        prefix_len = var_pos - *exp;
 
         ft_strlcpy(new_exp, *exp, prefix_len + 1);
         ft_strlcat(new_exp, new_value, ft_strlen(new_exp) + ft_strlen(new_value) + 1);
-        ft_strlcat(new_exp, var_pos + ft_strlen(var_name), ft_strlen(new_exp) + ft_strlen(var_pos + ft_strlen(var_name)) + 1);
+        ft_strlcat(new_exp, var_pos + 1 + var_len, ft_strlen(new_exp) + ft_strlen(var_pos + 1 + var_len) + 1);
 
-        free(*exp);  // Free the old expression
+        free(*exp);
         *exp = new_exp;
     }
 }
