@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/13 20:47:07 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/18 16:54:47 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int main(int ac, char **av, char **env)
         }
         
         free(line);
-         
+        
     }
    
     return(0);

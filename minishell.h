@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/16 17:28:02 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/18 15:16:51 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		count(char *s, char c);
 
 
 // Utils
+int	find_dquote(char *line, int *i);
 char	*ft_strdup(char *s);
 char		**ft_split(char *s, char c);
 int			ft_strcmp(char *s1, char *s2);
