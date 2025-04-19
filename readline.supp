@@ -1,0 +1,9 @@
+{
+   readline_suppress
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:realloc
+   obj:*libreadline*
+   obj:*libhistory*
+}

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/14 15:31:03 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:20:12 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,38 @@ void print_err(char *str)
         i++;
     }
     write(2,"\n",1);
+}
+
+char *ft_strcpy(char *dest, char *src)
+{
+    int i = 0;
+
+    while (src[i])
+    {
+        dest[i] = src[i];
+        i++;
+    }
+    dest[i] = '\0';
+    return dest;
+}
+
+char *ft_strcat(char *dest, char *src)
+{
+    int i = 0;
+    int j = 0;
+
+    while (dest[i])
+        i++;
+
+    while (src[j])
+    {
+        dest[i] = src[j];
+        i++;
+        j++;
+    }
+
+    dest[i] = '\0';
+    return dest;
 }
 
 int	ft_strcmp(char *s1,char *s2)
@@ -75,7 +107,7 @@ char *ft_strndup(char *s, int n)
     int i;
     char *dup;
 
-    dup = (char *)malloc(n + 1);
+    dup = gar_coll(n + 1, 0, true);
     if (!dup)
         return (NULL);
     i = 0;
@@ -93,7 +125,7 @@ char *sub_str(char *s, int size)
     int i;
     char *r;
     
-    r = (char *)malloc(size + 1);
+    r = gar_coll(size + 1, 0, true);
     if (!r)
         return (NULL);
 
@@ -108,55 +140,52 @@ char *sub_str(char *s, int size)
     return (r);
 }
 
-char	*ft_strdup(char *s)
+char *ft_strdup(char *s)
 {
-	int	l;
-	int	i;
-	char	*r;
+    int l;
+    int i;
+    char *r;
 
-	i = 0;
-	l = ft_strlen(s);
-	r = (char *)malloc((l + 1) * sizeof(char));
-	if (!r)
-	{
-		return (NULL);
-	}
-	while (s[i])
-	{
-		r[i] = s[i];
-		i++;
-	}
-	r[i] = '\0';
-	return (r);
+    i = 0;
+    l = ft_strlen(s);
+    r = gar_coll((l + 1) * sizeof(char), 0, true);
+    if (!r)
+        return (NULL);
+    while (s[i])
+    {
+        r[i] = s[i];
+        i++;
+    }
+    r[i] = '\0';
+    return (r);
 }
 
-char	*ft_substr(char *s, unsigned int start, int len)
+char *ft_substr(char *s, unsigned int start, int len)
 {
-	char	*r;
-	int	i;
-	int	slen;
+    char *r;
+    int i;
+    int slen;
 
-	if (!s)
-		return (NULL);
-	if (start > ft_strlen(s) || len == 0)
-		return (ft_strdup(""));
-	if (ft_strlen(s) - start < len)
-		slen = ft_strlen(s) - start;
-	else
-		slen = len;
-	r = (char *)malloc((slen + 1) * sizeof(char));
-	if (!r)
-		return (NULL);
-	i = 0;
-	while (i < slen)
-	{
-		r[i] = s[start + i];
-		i++;
-	}
-	r[i] = '\0';
-	return (r);
+    if (!s)
+        return (NULL);
+    if (start > ft_strlen(s) || len == 0)
+        return (ft_strdup(""));
+    if (ft_strlen(s) - start < len)
+        slen = ft_strlen(s) - start;
+    else
+        slen = len;
+    r = (char *)gar_coll((slen + 1) * sizeof(char), 0, true);
+    if (!r)
+        return (NULL);
+    i = 0;
+    while (i < slen)
+    {
+        r[i] = s[start + i];
+        i++;
+    }
+    r[i] = '\0';
+    return (r);
 }
-
 
 
 int	ft_strlcpy(char *dst,char *src, int dstsize)
@@ -270,16 +299,16 @@ static char	**copy(char *s, char c, char **r)
 	return (r);
 }
 
-char	**ft_split(char *s, char c)
+char **ft_split(char *s, char c)
 {
-	char	**r;
+    char **r;
 
-	if (!s)
-		return (NULL);
-	r = (char **)malloc((count(s, c) + 1) * sizeof(char *));
-	if (!r)
-		return (NULL);
-	return (copy(s, c, r));
+    if (!s)
+        return (NULL);
+    r = (char **)gar_coll((count(s, c) + 1) * sizeof(char *), 0, true);
+    if (!r)
+        return (NULL);
+    return (copy(s, c, r));
 }
 
 

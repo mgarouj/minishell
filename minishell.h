@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/18 15:16:51 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/19 16:31:20 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,10 @@ char	*ft_substr(char *s, unsigned int start, int len);
 void	free_split(char **split);
 int		count(char *s, char c);
 
-
+void	*gar_coll(size_t size, int flag, bool is_free);
 // Utils
+char *ft_strcat(char *dest, char *src);
+char *ft_strcpy(char *dest, char *src);
 int	find_dquote(char *line, int *i);
 char	*ft_strdup(char *s);
 char		**ft_split(char *s, char c);

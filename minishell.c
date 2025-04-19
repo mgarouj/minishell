@@ -6,74 +6,70 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/18 16:54:47 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/19 18:33:51 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "minishell.h"
 
-
-
-int main(int ac, char **av, char **env)
+void	exit_minishell(void)
 {
-    (void)ac;
-    (void)av;
+    
+	gar_coll(0, 'f', 0);
+	exit(0);
+}
 
-    char *line;
-    char *trim;
-    int i;
-    t_env *l;
-    t_tokenn *token;
-    
-    l = NULL;
-    i = 0;
-    while(env[i])
-    {
-        handel_env(env[i],&l);
-        i++;
-    }
-    
-    while (1)
-    {
-        line = readline("prompt ");
-        // trim tabs spces
-        // if empty
-        // continue
-        
-        if (!line)
-        {
-            print_err("exit");
-            break;
-        }
-        if(line[0] != '\0')
-            add_history(line);
-        
-        trim = ft_strtrim(line,ft_strlen(line));
-        free(line);
-        line = trim;
-        
-        if(!line || line[0] == '\0')
-        {
-            free(line);
-            continue;
-        }
-        if (!parssing(line))
-        {
-            free(line);
-            continue;
-        }
-        token = tokenize(line);
-        expanding(token, l);
-        while (token)
-        {
-            printf("Type: %d, Value: %s \n", token->type, token->value);
-            token = token->next;
-        }
-        
-        free(line);
-        
-    }
-   
-    return(0);
+int	main(int ac, char **av, char **env)
+{
+	char		*line;
+	char		*trim;
+	int			i;
+	t_env		*l;
+	t_tokenn	*token;
+	t_tokenn	*tmp;
+
+	(void)ac;
+	(void)av;
+	l = NULL;
+	token = NULL;
+	i = 0;
+	while (env[i])
+	{
+		handel_env(env[i], &l);
+		i++;
+	}
+	while (1)
+	{
+		line = readline("prompt ");
+		if (!line)
+		{
+			print_err("exit");
+			exit_minishell();
+		}
+		if (line[0] != '\0')
+		{
+			add_history(line);
+			trim = ft_strtrim(line, ft_strlen(line));
+			free(line);
+			if (!trim || trim[0] == '\0')
+			{
+				continue ;
+			}
+			if (!parssing(trim))
+			{
+				continue ;
+			}
+			token = tokenize(trim);
+			expanding(token, l);
+			tmp = token;
+			while (tmp)
+			{
+				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+				tmp = tmp->next;
+			}
+		}
+		else
+			free(line);
+	}
+	return (0);
 }
