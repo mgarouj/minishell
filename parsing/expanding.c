@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 19:35:36 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/20 18:05:19 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/20 18:18:50 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ char	*str_append(char *s1, char *s2)
 	// free(s1);
 	return (new_str);
 }
+
+// Memory Reallocation in str_append: Every time you append to result using 
+// str_append or str_append_char, result is reassigned to a new memory location 
+// that holds the old contents plus the new content.
 
 char	*str_append_char(char *s, char c)
 {
