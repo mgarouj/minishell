@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/19 15:49:38 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/20 17:29:07 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,23 +97,23 @@ void  handle_operator(char *line, int *i, t_tokenn **tokens)
         
 }
 
-void handle_quotes(char *line, int *i, t_tokenn **tokens)
-{
-    int start;
-    char quote_type;
+// void handle_quotes(char *line, int *i, t_tokenn **tokens)
+// {
+//     int start;
+//     char quote_type;
 
-    start = *i;
-    quote_type = line[*i];
-    (*i)++;
-    while (line[*i] && line[*i] != quote_type)
-        (*i)++;
-    if (line[*i] == quote_type)
-        (*i)++;
-    if(quote_type == '\'')
-        add_token(tokens,create_token(SINGLE_QUOTE,ft_strndup(&line[start], *i - start)));
-    else if(quote_type == '"')
-        add_token(tokens,create_token(DOUBLE_QUOTE,ft_strndup(&line[start], *i - start)));
-}
+//     start = *i;
+//     quote_type = line[*i];
+//     (*i)++;
+//     while (line[*i] && line[*i] != quote_type)
+//         (*i)++;
+//     if (line[*i] == quote_type)
+//         (*i)++;
+//     // if(quote_type == '\'')
+//     //     add_token(tokens,create_token(SINGLE_QUOTE,ft_strndup(&line[start], *i - start)));
+//     // else if(quote_type == '"')
+//     //     add_token(tokens,create_token(DOUBLE_QUOTE,ft_strndup(&line[start], *i - start)));
+// }
 
 void handle_exp(char *line, int *i, t_tokenn **tokens)
 {

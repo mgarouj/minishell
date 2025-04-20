@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/19 16:31:20 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/20 14:50:39 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ enum token
 {
 	EXP,
 	PIPE,
-	SINGLE_QUOTE,
-	DOUBLE_QUOTE,
 	REDIRECTION_IN,
 	REDIRECTION_OUT,
 	REDIRECTION_AP,
