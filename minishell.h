@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/20 14:50:39 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:46:24 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,17 @@
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+#include <fcntl.h>
 
 // Token types
 enum token
 {
 	EXP,
 	PIPE,
-	REDIRECTION_IN,
-	REDIRECTION_OUT,
-	REDIRECTION_AP,
-	HEREDOC,
+	REDIRECTION_IN, // <
+	REDIRECTION_OUT, // >
+	REDIRECTION_AP, // >>
+	HEREDOC, // <<
 };
 
 // Token struct
@@ -69,6 +70,11 @@ typedef struct s_gc
 	struct s_gc		*next;
 }	t_gc;
 
+typedef struct s_fd_gc {
+    int             fd;
+    struct s_fd_gc *next;
+} t_fd_gc;
+
 // Parsing
 int			parssing(char *line); // Typo: consider renaming to parsing
 char		*ft_strtrim(char *s, int size);
@@ -78,13 +84,15 @@ void		handel_env(char *s, t_env **env); // Typo: consider renaming to handle_env
 void expanding(t_tokenn *t,t_env *l);
 void print_err(char *str);
 int ft_strlen(char *str);
-
+int handel_red(t_tokenn *token,t_execution *exec);
 
 char	*ft_substr(char *s, unsigned int start, int len);
 void	free_split(char **split);
 int		count(char *s, char c);
 
+void fd_collec(int fd, int mode);
 void	*gar_coll(size_t size, int flag, bool is_free);
+
 // Utils
 char *ft_strcat(char *dest, char *src);
 char *ft_strcpy(char *dest, char *src);

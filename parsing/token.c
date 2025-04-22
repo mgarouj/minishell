@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/20 17:29:07 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/21 19:10:34 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,10 @@ t_tokenn *tokenize(char *line)
             handle_operator(line, &i, &tokens);
         // else if (line[i] == '"' || line[i] == '\'')
         //     handle_quotes(line, &i, &tokens);
-        else
+        else if(!is_operator(line[i]) && line[i] != ' ' && line[i] != '\t')
             handle_exp(line, &i, &tokens);
+        else
+            i++;
     }
     return (tokens);
 }

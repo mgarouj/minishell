@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/19 18:33:51 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/22 16:10:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	exit_minishell(void)
 {
-    
 	gar_coll(0, 'f', 0);
+	fd_collec(0,0);
 	exit(0);
 }
 
@@ -27,7 +27,9 @@ int	main(int ac, char **av, char **env)
 	t_env		*l;
 	t_tokenn	*token;
 	t_tokenn	*tmp;
-
+	t_execution *exec;
+	t_execution *t;
+	
 	(void)ac;
 	(void)av;
 	l = NULL;
@@ -67,6 +69,13 @@ int	main(int ac, char **av, char **env)
 				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
 				tmp = tmp->next;
 			}
+			exec = gar_coll(sizeof(t_execution),'a',1);
+			exec->in_file = 0;
+			exec->out_file = 1;
+			if(!handel_red(token,exec))
+				continue;
+			printf("%d\n",exec->out_file);
+			
 		}
 		else
 			free(line);

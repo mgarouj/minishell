@@ -6,13 +6,14 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 22:37:17 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/19 15:08:59 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/22 13:50:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 static t_gc	*head;
+static t_fd_gc *fds ;
 
 static t_gc	**gc_list(void)
 {
@@ -82,4 +83,41 @@ void	*gar_coll(size_t size, int flag, bool is_free)
 		return (free(ptr), NULL);
 	gc_add_node(node);
 	return (ptr);
+}
+
+
+void close_fds(t_fd_gc **fds)
+{
+    t_fd_gc *tmp;
+
+    if (!fds)
+        return;
+
+    while (*fds)
+    {
+        close((*fds)->fd);  // Optionally log error with perror()
+        tmp = *fds;
+        *fds = (*fds)->next;
+        free(tmp);
+    }
+}
+
+void fd_collec(int fd, int mode)
+{
+    t_fd_gc *new_fd;
+
+    if (mode && fd > 2) // Avoid invalid or std fds
+    {
+        new_fd = malloc(sizeof(t_fd_gc));
+        if (!new_fd)
+        {
+            close_fds(&fds);
+            return;
+        }
+        new_fd->fd = fd;
+        new_fd->next = fds;
+        fds = new_fd;
+    }
+    else if (!mode)
+        close_fds(&fds);
 }

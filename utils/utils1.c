@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/19 16:20:12 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/21 15:28:32 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ void print_err(char *str)
         i++;
     }
     write(2,"\n",1);
+}
+
+void close_all(void)
+{
+    int fd;
+
+    fd = 3;
+    while(fd < 1024)
+    {
+        close(fd);
+        fd++;
+    }
 }
 
 char *ft_strcpy(char *dest, char *src)
