@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/22 13:46:24 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:05:36 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ void fd_collec(int fd, int mode);
 void	*gar_coll(size_t size, int flag, bool is_free);
 
 // Utils
+char *ft_strchr(char *s, int c);
 char *ft_strcat(char *dest, char *src);
 char *ft_strcpy(char *dest, char *src);
 int	find_dquote(char *line, int *i);
@@ -104,4 +105,5 @@ char		*sub_str(char *s, int size);
 int			ft_strlcat(char *dst, char *src, int dstsize);
 int			ft_strlcpy(char *dst, char *src, int dstsize);
 char *ft_strstr(char *haystack, char *needle);
+void ft_putstr_fd(char *s,int fd);
 #endif // MINISHELL_H

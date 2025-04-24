@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/21 15:28:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/24 10:05:25 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ char *ft_strcat(char *dest, char *src)
     return dest;
 }
 
+char *ft_strchr(char *s, int c)
+{
+    while (*s)
+    {
+        if (*s == (char)c)
+            return (char *)s;
+        s++;
+    }
+    if ((char)c == '\0')
+        return (char *)s;
+    return NULL;
+}
+
+
 int	ft_strcmp(char *s1,char *s2)
 {
 	int i = 0;
@@ -78,6 +92,13 @@ int	ft_strcmp(char *s1,char *s2)
 	while (s1[i] && s2[i] && s1[i] == s2[i])
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+}
+
+void ft_putstr_fd(char *s,int fd)
+{
+    if(!s)
+        return;
+    write(fd,s,ft_strlen(s));
 }
 
 char *ft_strstr(char *haystack, char *needle)
