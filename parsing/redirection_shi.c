@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:18:00 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/22 16:15:27 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/24 11:52:58 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,52 @@ void handel_redappend(char *filename, t_execution *exec)
     exec->out_file = fd;
 }
 
+
+void handel_heredoc(t_execution *exec,t_tokenn *delimiter)
+{
+    int fd[2];
+    char *line;
+
+    if(!delimiter)
+        return;
+    if(pipe(fd) == -1)
+    {
+        print_err("heredoc error");
+        return;
+    }
+    while(1)
+    {
+        line =readline("> ");
+        if(!line)
+            break;
+        if(!ft_strcmp(line,delimiter->value))
+        {
+            free(line);
+            break;
+        }
+        write(fd[1],line,ft_strlen(line));
+        write(fd[1],"\n",1);
+        free(line);
+    }
+    close(fd[1]);
+    if(exec->in_file != 0)
+        close(exec->in_file);
+    exec->in_file = fd[0];
+}
+
+void heredoc(t_tokenn *token,t_execution *exec)
+{
+    t_tokenn *tmp;
+    
+    tmp = token;
+    while(tmp)
+    {
+        if(tmp->type == HEREDOC && tmp->next)
+            handel_heredoc(exec,tmp->next);
+        tmp = tmp->next;
+    }
+}
+
 int handel_red(t_tokenn *token,t_execution *exec)
 {
     t_tokenn *tmp;
@@ -73,7 +119,7 @@ int handel_red(t_tokenn *token,t_execution *exec)
     {
         if(tmp->type == REDIRECTION_IN ||
             tmp->type == REDIRECTION_OUT ||
-            tmp->type == REDIRECTION_AP)
+            tmp->type == REDIRECTION_AP || tmp->type == HEREDOC)
         {
             if (!tmp->next || tmp->next->type != EXP)
             {
@@ -86,6 +132,8 @@ int handel_red(t_tokenn *token,t_execution *exec)
                 handel_reout(tmp->next->value,exec);
             else if(tmp->type == REDIRECTION_AP)
                 handel_redappend(tmp->next->value,exec);
+            else if(tmp->type == HEREDOC)
+                heredoc(token,exec);
             tmp = tmp->next->next;
         }
         else

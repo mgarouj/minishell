@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/22 16:10:29 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/24 11:53:39 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	main(int ac, char **av, char **env)
 			exec->out_file = 1;
 			if(!handel_red(token,exec))
 				continue;
-			printf("%d\n",exec->out_file);
+			printf("%d\n",exec->in_file);
 			
 		}
 		else
