@@ -69,9 +69,11 @@ void handel_heredoc(t_execution *exec,t_tokenn *delimiter)
 {
     int fd[2];
     char *line;
+    char *del;
 
     if(!delimiter)
         return;
+    del = ft_strtrim(delimiter->value,ft_strlen(delimiter->value));
     if(pipe(fd) == -1)
     {
         print_err("heredoc error");
@@ -81,8 +83,11 @@ void handel_heredoc(t_execution *exec,t_tokenn *delimiter)
     {
         line =readline("> ");
         if(!line)
+        {
+            print_err("herdoc");
             break;
-        if(!ft_strcmp(line,delimiter->value))
+        }
+        if(!ft_strcmp(line,del))
         {
             free(line);
             break;
