@@ -65,15 +65,13 @@ void handel_redappend(char *filename, t_execution *exec)
 }
 
 
-void handel_heredoc(t_execution *exec,t_tokenn *delimiter)
+void handel_heredoc(t_execution *exec,char *delimiter)
 {
     int fd[2];
     char *line;
-    char *del;
 
     if(!delimiter)
         return;
-    del = ft_strtrim(delimiter->value,ft_strlen(delimiter->value));
     if(pipe(fd) == -1)
     {
         print_err("heredoc error");
@@ -87,7 +85,7 @@ void handel_heredoc(t_execution *exec,t_tokenn *delimiter)
             print_err("herdoc");
             break;
         }
-        if(!ft_strcmp(line,del))
+        if(!ft_strcmp(line,delimiter))
         {
             free(line);
             break;
@@ -102,18 +100,82 @@ void handel_heredoc(t_execution *exec,t_tokenn *delimiter)
     exec->in_file = fd[0];
 }
 
-void heredoc(t_tokenn *token,t_execution *exec)
+//implimenting this 
+char *get_and_remove_delimiter(char **str)
+{
+    char *delimiter;
+    int i = 0;
+
+    if (!str || !*str)
+        return (NULL);
+
+    // Find the first space or tab (delimiter)
+    while ((*str)[i] && (*str)[i] != ' ' && (*str)[i] != '\t')
+        i++;
+
+    // Duplicate only the delimiter part
+    delimiter = sub_str(*str, i);
+
+    // If there's more text after the delimiter, shift the string
+    if ((*str)[i])
+    {
+        // Skip spaces or tabs after the delimiter
+        while ((*str)[i] == ' ' || (*str)[i] == '\t')
+            i++;
+
+        if ((*str)[i])
+        {
+            // Duplicate the remaining part of the string
+            char *new_value = ft_strdup(*str + i);
+            free(*str);  // Free old string
+            *str = new_value;
+        }
+        else
+        {
+            // No more text after delimiter
+            free(*str);
+            *str = NULL;
+        }
+    }
+    else
+    {
+        // No extra text after the delimiter
+        free(*str);
+        *str = NULL;
+    }
+
+    return delimiter;
+}
+
+
+//or get function and remove it function 
+
+void heredoc(t_tokenn *token, t_execution *exec)
 {
     t_tokenn *tmp;
-    
+    t_tokenn *to_delete;
+    char *del;
+
     tmp = token;
-    while(tmp)
+    while (tmp)
     {
-        if(tmp->type == HEREDOC && tmp->next)
-            handel_heredoc(exec,tmp->next);
+        if (tmp->type == HEREDOC && tmp->next && tmp->next->type == EXP)
+        {
+            del = get_and_remove_delimiter(&tmp->next->value);
+            handel_heredoc(exec, del);
+
+            // If after handling, the value is NULL, we delete the node
+            if (tmp->next->value == NULL)
+            {
+                to_delete = tmp->next;
+                tmp->next = tmp->next->next;
+                free(to_delete);
+            }
+        }
         tmp = tmp->next;
     }
 }
+
 
 int handel_red(t_tokenn *token,t_execution *exec)
 {
@@ -139,10 +201,13 @@ int handel_red(t_tokenn *token,t_execution *exec)
                 handel_redappend(tmp->next->value,exec);
             else if(tmp->type == HEREDOC)
                 heredoc(token,exec);
-            tmp = tmp->next->next;
+            if (tmp->next)
+                tmp = tmp->next;
+            else
+                break;
         }
         else
-            tmp = tmp->next;
+                tmp = tmp->next;
     }
     return(1);
 }

@@ -63,6 +63,9 @@ int	main(int ac, char **av, char **env)
 			}
 			token = tokenize(trim);
 			expanding(token, l);
+
+			// make exec linked list
+
 			tmp = token;
 			while (tmp)
 			{
@@ -74,7 +77,12 @@ int	main(int ac, char **av, char **env)
 			exec->out_file = 1;
 			if(!handel_red(token,exec))
 				continue;
+			
 			printf("%d\n",exec->in_file);
+
+			printf("%d\n",exec->out_file);
+			// execution 
+			// executionFunction (linkedlisgt, env)
 			
 		}
 		else
