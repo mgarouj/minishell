@@ -108,38 +108,27 @@ char *get_and_remove_delimiter(char **str)
 
     if (!str || !*str)
         return (NULL);
-
-    // Find the first space or tab (delimiter)
     while ((*str)[i] && (*str)[i] != ' ' && (*str)[i] != '\t')
         i++;
-
-    // Duplicate only the delimiter part
     delimiter = sub_str(*str, i);
-
-    // If there's more text after the delimiter, shift the string
     if ((*str)[i])
     {
-        // Skip spaces or tabs after the delimiter
         while ((*str)[i] == ' ' || (*str)[i] == '\t')
             i++;
-
         if ((*str)[i])
         {
-            // Duplicate the remaining part of the string
             char *new_value = ft_strdup(*str + i);
-            free(*str);  // Free old string
+            free(*str);
             *str = new_value;
         }
         else
         {
-            // No more text after delimiter
             free(*str);
             *str = NULL;
         }
     }
     else
     {
-        // No extra text after the delimiter
         free(*str);
         *str = NULL;
     }
@@ -147,8 +136,6 @@ char *get_and_remove_delimiter(char **str)
     return delimiter;
 }
 
-
-//or get function and remove it function 
 
 void heredoc(t_tokenn *token, t_execution *exec)
 {
