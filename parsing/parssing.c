@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:14:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/30 21:33:51 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/04/30 21:36:28 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	find_squote(char *line, int *i)
 	}
 	return (0);
 }
-
+//vali
 int	validate_redirection(char *line, int *i)
 {
 	char	redir;
