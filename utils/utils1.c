@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/24 10:05:25 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/01 20:46:23 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,27 @@ char *sub_str(char *s, int size)
     r[i] = '\0';
     
     return (r);
+}
+
+
+char	*ft_strldup(const char *s, int len)
+{
+	char	*res;
+	int	i;
+
+	if (!s)
+		return (NULL);
+	res = gar_coll((len + 1) * sizeof(char), 0, true);
+	if (!res)
+		return (NULL);
+	i = 0;
+	while (i < len && s[i])
+	{
+		res[i] = s[i];
+		i++;
+	}
+	res[i] = '\0';
+	return (res);
 }
 
 char *ft_strdup(char *s)
