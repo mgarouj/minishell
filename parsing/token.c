@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/21 19:10:34 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/02 21:43:58 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,51 @@ void  handle_operator(char *line, int *i, t_tokenn **tokens)
 //     //     add_token(tokens,create_token(DOUBLE_QUOTE,ft_strndup(&line[start], *i - start)));
 // }
 
+// void handle_exp(char *line, int *i, t_tokenn **tokens)
+// {
+//     int start;
+
+//     start = *i;
+//     // while (line[*i] && !is_operator(line[*i]) && line[*i] != '"' && line[*i] != '\'')
+//     //     (*i)++;
+//      while (line[*i] && !is_operator(line[*i]))
+//         (*i)++;
+//     add_token(tokens, create_token(EXP, ft_strndup(&line[start], *i - start)));
+// }
+
 void handle_exp(char *line, int *i, t_tokenn **tokens)
 {
-    int start;
+	int start;
 
-    start = *i;
-    // while (line[*i] && !is_operator(line[*i]) && line[*i] != '"' && line[*i] != '\'')
-    //     (*i)++;
-     while (line[*i] && !is_operator(line[*i]))
-        (*i)++;
-    add_token(tokens, create_token(EXP, ft_strndup(&line[start], *i - start)));
+	while (line[*i] && !is_operator(line[*i]))
+	{
+		// skip whitespace between EXP chunks
+		while (line[*i] == ' ' || line[*i] == '\t')
+			(*i)++;
+
+		start = *i;
+
+		while (line[*i] && !is_operator(line[*i]) &&
+			line[*i] != ' ' && line[*i] != '\t')
+		{
+			if (line[*i] == '"' || line[*i] == '\'')
+			{
+				char quote = line[*i];
+				(*i)++;
+				while (line[*i] && line[*i] != quote)
+					(*i)++;
+				if (line[*i] == quote)
+					(*i)++;
+			}
+			else
+				(*i)++;
+		}
+
+		if (*i > start)
+			add_token(tokens, create_token(EXP, ft_strndup(&line[start], *i - start)));
+	}
 }
+
 
 t_tokenn *tokenize(char *line)
 {

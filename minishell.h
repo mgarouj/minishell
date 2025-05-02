@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/01 20:50:44 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/02 19:28:01 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char		*ft_strtrim(char *s, int size);
 char		*ft_strndup(char *s, int n);
 t_tokenn	*tokenize(char *line);
 void		handel_env(char *s, t_env **env); // Typo: consider renaming to handle_env
-void expanding(t_tokenn *t,t_env *l);
+void remove_quotes(t_tokenn *t,t_env *l);
 void print_err(char *str);
 int ft_strlen(char *str);
 int handel_red(t_tokenn *token,t_execution *exec);

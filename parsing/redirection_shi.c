@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 18:18:00 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/01 21:12:24 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/02 18:49:54 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	handel_red(t_tokenn *token, t_execution *exec)
 			}
 			tmp = tmp->next;
 		}
+		// pipe -> exit 
 		tmp = tmp->next;
 	}
 	return (1);

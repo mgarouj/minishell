@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/01 20:56:22 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/02 22:07:22 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,32 +58,44 @@ int	main(int ac, char **av, char **env)
 			if (!parssing(trim))
 				continue ;
 			token = tokenize(trim);
-			exec = gar_coll(sizeof(t_execution),'a',1);
-			exec->in_file = 0;
-			exec->out_file = 1;
+
+
 			tmp = token;
 			while (tmp)
 			{
 				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
 				tmp = tmp->next;
 			}
-			if(!heredoc(token,exec))
-				continue;
-			expanding(token, l);
-			
-			// i have to split the cmd and make the execution linked list 
-			
-			if(!handel_red(token,exec))
-				continue;
-			
-				tmp = token;
+			//remove quotes and expaind only if there is no heredoc before
+			remove_quotes(token, l);
+			printf("***************************\n");
+			tmp = token;
 			while (tmp)
 			{
 				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
 				tmp = tmp->next;
 			}
-			// execution 
-			// executionFunction (linkedlisgt, env)
+			// exec = gar_coll(sizeof(t_execution),'a',1);
+			// exec->in_file = 0;
+			// exec->out_file = 1;
+			
+	
+			// if(!heredoc(token,exec))
+			// 	continue;
+			// // i have to split the cmd and make the execution linked list 
+			
+			// if(!handel_red(token,exec))
+			// 	continue;
+			
+			// 	tmp = token;
+			// while (tmp)
+			// {
+			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+			// 	tmp = tmp->next;
+			// }
+			
+			// // execution 
+			// // executionFunction (linkedlisgt, env)
 			
 		}
 		else
