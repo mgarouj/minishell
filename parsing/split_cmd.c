@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/04 19:18:08 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:37:32 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,42 @@ int handel_redappend(char *filename, t_execution *exec)
 }
 
 
+int	handle_heredoc(char *delimiter,t_execution *exec)
+{
+	int		fd[2];
+	char	*line;
+
+	if (!delimiter)
+		return (0);
+	if (pipe(fd) == -1)
+	{
+		print_err("heredoc error");
+		return (0);
+	}
+	while (1)
+	{
+		line = readline("> ");
+		if (!line)
+		{
+			print_err("heredoc input error");
+			break ;
+		}
+		if (!ft_strcmp(line, delimiter))
+		{
+			free(line);
+			break ;
+		}
+		write(fd[1], line, ft_strlen(line));
+		write(fd[1], "\n", 1);
+		free(line);
+	}
+	close(fd[1]);
+	if (exec->in_file != 0)
+		close(exec->in_file);
+	exec->in_file = fd[0];
+    return(1);
+}
+
 int handel_redirections(t_tokenn *token, char *file_name, t_execution *exec)
 {
 	if (token->type == REDIRECTION_IN)
@@ -136,8 +172,8 @@ int handel_redirections(t_tokenn *token, char *file_name, t_execution *exec)
 		return handel_reout(file_name, exec);
 	else if (token->type == REDIRECTION_AP)
 		return handel_redappend(file_name, exec);
-	// else if (token->type == HEREDOC)
-	// 	return handle_heredoc(file_name, exec);
+	else if (token->type == HEREDOC)
+		return handle_heredoc(file_name, exec);
 	return (0);
 }
 
@@ -153,7 +189,7 @@ int split_cmd(t_tokenn *token,t_execution **exec_list)
 			return (0);
 		while (tmp && tmp->type != PIPE)
 		{
-			if (tmp->type == EXP)
+			if (tmp->type == EXP && tmp->value && tmp->value[0])
 			{
 				if (!append_to_cmd(tmp->value, exec))
 					return (0);
