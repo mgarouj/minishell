@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/04 20:53:01 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/04 21:13:13 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ int	main(int ac, char **av, char **env)
 	t_tokenn	*token;
 	t_tokenn	*tmp;
 	
-	t_execution *exec_list = NULL;
+	t_execution *exec_list;
+	
 	(void)ac;
 	(void)av;
 	l = NULL;
@@ -68,6 +69,7 @@ int	main(int ac, char **av, char **env)
 			//remove quotes and expaind only if there is no heredoc before
 			remove_quotes(token, l);
 			printf("***************************\n");
+			exec_list = NULL;
 			if(!split_cmd(token,&exec_list))
 				continue;
 			t_execution *t = exec_list;
