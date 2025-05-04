@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/04 19:47:21 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/04 20:53:01 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,29 @@ int	main(int ac, char **av, char **env)
 			printf("***************************\n");
 			if(!split_cmd(token,&exec_list))
 				continue;
-				t_execution *t = exec_list;
-			while (t)
-			{
-				printf("Command:\n");
-				if (t->cmd)
+			t_execution *t = exec_list;
+			int i;
+				
+				while (t)
 				{
-					for (int i = 0; t->cmd[i]; i++)
-						printf("  [%d]: %s\n", i, t->cmd[i]);
+					printf("Command:\n");
+					i = 0;
+					if (t->cmd)
+					{
+						while (t->cmd[i])
+						{
+							printf("  [%d]: %s\n", i, t->cmd[i]);
+							i++;
+						}
+					}
+					else
+						printf("no command\n");
+					printf("  [%d]: in_file = %d\n", i, t->in_file);
+					printf("  [%d]: out_file = %d\n", i, t->out_file);
+						
+					
+					t = t->next;
 				}
-				else
-					printf("  (no command)\n");
-
-				printf("in_file: %d\n", t->in_file);
-				printf("out_file: %d\n\n", t->out_file);
-				t = t->next;
-			}
-
 			
 			
 			// // execution 
