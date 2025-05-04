@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/02 19:28:01 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:17:36 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void print_err(char *str);
 int ft_strlen(char *str);
 int handel_red(t_tokenn *token,t_execution *exec);
 int	heredoc(t_tokenn *token, t_execution *exec);
+int split_cmd(t_tokenn *token,t_execution **exec);
 
 char	*ft_substr(char *s, unsigned int start, int len);
 void	free_split(char **split);

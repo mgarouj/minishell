@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/03 13:34:33 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:21:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,8 @@ int	main(int ac, char **av, char **env)
 	t_env		*l;
 	t_tokenn	*token;
 	t_tokenn	*tmp;
-	t_execution *exec;
-	t_execution *t;
 	
+	t_execution *exec_list = NULL;
 	(void)ac;
 	(void)av;
 	l = NULL;
@@ -69,12 +68,29 @@ int	main(int ac, char **av, char **env)
 			//remove quotes and expaind only if there is no heredoc before
 			remove_quotes(token, l);
 			printf("***************************\n");
-			tmp = token;
-			while (tmp)
-			{
-				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-				tmp = tmp->next;
-			}
+			if(!split_cmd(token,&exec_list))
+				continue;
+				t_execution *t = exec_list;
+				int i;
+				
+				while (t)
+				{
+					printf("Command:\n");
+					i = 0;
+					if (t->cmd)
+					{
+						while (t->cmd[i])
+						{
+							printf("  [%d]: %s\n", i, t->cmd[i]);
+							i++;
+						}
+					}
+					else
+						printf("  (empty command)\n");
+					t = t->next;
+				}
+			
+			
 			// exec = gar_coll(sizeof(t_execution),'a',1);
 			// exec->in_file = 0;
 			// exec->out_file = 1;
