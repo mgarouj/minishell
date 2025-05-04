@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/04 19:21:29 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/04 19:23:13 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,6 @@ int	main(int ac, char **av, char **env)
 					t = t->next;
 				}
 			
-			
-			// exec = gar_coll(sizeof(t_execution),'a',1);
-			// exec->in_file = 0;
-			// exec->out_file = 1;
-			
-	
-			// if(!heredoc(token,exec))
-			// 	continue;
-			// // i have to split the cmd and make the execution linked list 
-			
-			// if(!handel_red(token,exec))
-			// 	continue;
-			
-			// 	tmp = token;
-			// while (tmp)
-			// {
-			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-			// 	tmp = tmp->next;
-			// }
 			
 			// // execution 
 			// // executionFunction (linkedlisgt, env)
