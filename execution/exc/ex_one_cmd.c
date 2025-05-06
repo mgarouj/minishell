@@ -1,0 +1,122 @@
+#include "../minishell.h"
+
+// execute builtins command 
+
+int execute_builtins(t_execution *cmd, t_env **env)
+{
+	if (ft_strcmp(cmd->cmd[0], "pwd") == 0)
+		return (ft_pwd(env));
+	else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
+		return (ft_cd(cmd->cmd, *env));
+	else if (ft_strcmp(cmd->cmd[0], "env") == 0)
+		return (ft_env(cmd->cmd, env));
+	else if (ft_strcmp(cmd->cmd[0], "export") == 0)
+		return (ft_export(cmd->cmd, env));
+	else if (ft_strcmp(cmd->cmd[0], "echo") == 0)
+		return (ft_echo(cmd->cmd));
+	else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
+		return (ft_unset(cmd->cmd, env));
+	else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
+		return (ft_exit(cmd->cmd, 0));
+	return (1);
+}
+
+void execute_one_builtin(t_execution *cmd, t_env **env)
+{
+    int exit_status;
+	int backup_in;
+	int	backup_out;
+
+	if (cmd->in_file != 0 || cmd->out_file != 1)
+    {
+        backup_in = dup(0);
+        backup_out = dup(1);
+		change_in_out(cmd);
+    }
+	exit_status = execute_builtins(cmd, env);
+	exit_value(env, exit_status);
+    if (cmd->in_file != 0 || cmd->out_file != 1)
+	    restore_std(backup_in, backup_out);
+}
+
+
+
+
+// execute execve 
+
+
+char **change_envlist_to_envchar(t_env *env)
+{
+	t_env *tmp;
+    char **env_array;
+    char *joined;
+    int i;
+    int size;
+
+    tmp = env;
+    size = 0;
+    while (tmp)
+    {
+        if (tmp->value) // just variale contain value 
+            size++;
+        tmp = tmp->next;
+    }
+    env_array = malloc(sizeof(char *) * (size + 1));
+    if (!env_array)
+        return (NULL);
+    tmp = env;
+    i = 0;
+    while (tmp)
+    {
+        if (tmp->value)
+        {
+            joined = ft_strjoin_3(tmp->key, tmp->value); // key=value
+            env_array[i++] = joined;
+        }
+        tmp = tmp->next;
+    }
+    env_array[i] = NULL;
+    return (env_array);
+}
+
+void child_for_one_cmd(t_execution *cmd, t_env **env)
+{
+	char *path;
+
+	path = find_path(cmd, env);
+	if (!path)
+		return ;
+	cmd->path = path;
+	cmd->env = change_envlist_to_envchar(*env);
+	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
+	{
+		perror("execve");
+		exit (1);
+	}
+}
+
+void execute_execve_cmd(t_execution *cmd, t_env **env)
+{
+	pid_t pid;
+	int exit_status;
+	int backup_in;
+	int	backup_out;
+
+	if (cmd->in_file != 0 || cmd->out_file != 1)
+    {
+        backup_in = dup(0);
+        backup_out = dup(1);
+		change_in_out(cmd);
+    }
+	pid = ft_fork("fork one cmd");
+	if (!pid)
+		child_for_one_cmd(cmd, env);
+	else
+	{
+		wait(&exit_status);
+		if (cmd->in_file != 0 || cmd->out_file != 1)
+			restore_std(backup_in, backup_out);
+		if (WIFEXITED(exit_status))
+			exit_value(env, WEXITSTATUS(exit_status));
+	}
+}
