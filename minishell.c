@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/04 21:13:13 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:08:56 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int ac, char **av, char **env)
 	}
 	while (1)
 	{
+		signal_handler();
 		line = readline("prompt ");
 		if (!line)
 		{

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/04 19:17:36 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/12 16:08:45 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 #include <fcntl.h>
+#include <signal.h>
 
 // Token types
 enum token
@@ -87,6 +88,7 @@ int ft_strlen(char *str);
 int handel_red(t_tokenn *token,t_execution *exec);
 int	heredoc(t_tokenn *token, t_execution *exec);
 int split_cmd(t_tokenn *token,t_execution **exec);
+void signal_handler(void);
 
 char	*ft_substr(char *s, unsigned int start, int len);
 void	free_split(char **split);
