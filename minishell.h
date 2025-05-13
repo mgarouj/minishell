@@ -25,7 +25,7 @@
 # include <readline/history.h>
 #include <fcntl.h>
 #include <signal.h>
-#include <wait.h>
+#include <sys/wait.h>
 
 // Token types
 enum token

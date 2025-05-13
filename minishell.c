@@ -45,7 +45,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		signal_handler();
-		line = readline("prompt ");
+		line = readline("minishell $ ");
 		if (!line)
 		{
 			print_err("exit");
