@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/12 16:08:45 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:17:36 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <readline/history.h>
 #include <fcntl.h>
 #include <signal.h>
+#include <wait.h>
 
 // Token types
 enum token
@@ -48,20 +49,30 @@ typedef struct s_tokenn
 // Environment variable struct
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
-	struct s_env	*next;
+	char *key;
+	char *value;
+	int	exit_status;
+	struct s_env *next;
 }	t_env;
 
 // Execution struct
 typedef struct s_execution
 {
+	pid_t				pid;
+	bool				is_builtin;
+	char				*full_path;
+	int pipe_fd[2];	
+	bool				is_last;
+	bool 				is_first;
+
 	char				**cmd;
 	int					in_file;
 	int					out_file;
 	char				**env;
+	char				*path;
 	struct s_execution	*next;
 }	t_execution;
+
 
 // Garbage collector struct
 typedef struct s_gc
@@ -111,4 +122,69 @@ int			ft_strlcpy(char *dst, char *src, int dstsize);
 char *ft_strstr(char *haystack, char *needle);
 void ft_putstr_fd(char *s,int fd);
 char	*ft_strldup(const char *s, int len);
+
+
+
+// execution 
+
+char	*ft_itoa(int n);
+int	ft_atoi(const char *str);
+int	ft_lstsize(t_env *lst);
+char	*ft_strnstr(char *haystack, char *needle, size_t len);
+char	*ft_strjoin(char *s1, char *s2);
+int	ft_lstsize_cmd_list(t_execution *cmd_list);
+int	ft_isalnum(int c);
+pid_t ft_fork(const char *msg);
+int	ft_isalpha(int c);
+void	ft_3putstr(char *s1, char *s2, char *s3, char *s4);
+
+
+
+//env 
+char	*get_env_value(char *key, t_env *env);
+
+void change_env_value(t_env **env, char *key, char *new_value);
+t_env *find_var(t_env *env, char *key);
+int	ft_strlen(char *s);
+char *ft_substr(char *s, unsigned int start, int len);
+void	ft_lstadd_back(t_env **lst, t_env *new);
+t_env *env_to_list(char **env);
+char 	**ft_envsplit(char *env, char c);
+
+// builtins 
+
+void export_in_env(t_env **env, char *key, char *value);
+int ft_cd(char **arg, t_env *env);
+int ft_echo(char **arg);
+int ft_export(char **args, t_env **env);
+void export_plus_equal(t_env **env, char *arg);
+void normal_export(t_env **env, char *arg);
+int ft_unset(char **arg, t_env **env);
+int ft_env(char **arg, t_env **env);
+int ft_exit(char **arg, int exit_status);
+int ft_pwd(t_env **env);
+char *ft_strjoin_3(char *s1, char *s2);
+
+//exec
+
+void execute_cmd(t_execution **cmd_list, t_env **list_env);
+void init_cmd(t_execution **cmd_list, int n_cmds);
+void change_in_out(t_execution *cmd);
+void restore_std(int in, int out);
+char	*find_path(t_execution *cmd, t_env **env);
+void execute_one_builtin(t_execution *cmd, t_env **env);
+void execute_execve_cmd(t_execution *cmd, t_env **env);
+int execute_builtins(t_execution *cmd, t_env **env);
+
+
+
+// pipe fonction
+void execute_pipe_cmd(t_execution **list_cmd, t_env **env, int n_cmds);
+void	set_exit_status(t_env **env, int exit_status);
+
+
+
+
 #endif // MINISHELL_H
+
+

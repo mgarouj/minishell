@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 17:47:31 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/04/19 15:46:27 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/13 14:19:01 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_env *create_env(char *key, char *value)
         return (NULL);
     new->key = key;
     new->value = value;
+    new->exit_status = 0;
     new->next = NULL;
     return (new);
 }

@@ -34,7 +34,8 @@ void execute_one_builtin(t_execution *cmd, t_env **env)
 		change_in_out(cmd);
     }
 	exit_status = execute_builtins(cmd, env);
-	exit_value(env, exit_status);
+	// exit_value(env, exit_status);
+	set_exit_status(env, exit_status);
     if (cmd->in_file != 0 || cmd->out_file != 1)
 	    restore_std(backup_in, backup_out);
 }
@@ -117,6 +118,7 @@ void execute_execve_cmd(t_execution *cmd, t_env **env)
 		if (cmd->in_file != 0 || cmd->out_file != 1)
 			restore_std(backup_in, backup_out);
 		if (WIFEXITED(exit_status))
-			exit_value(env, WEXITSTATUS(exit_status));
+			set_exit_status(env, WEXITSTATUS(exit_status));
+			// exit_value(env, WEXITSTATUS(exit_status));
 	}
 }

@@ -12,8 +12,6 @@ void normal_export(t_env **env, char *arg)
     key = ft_substr(arg, 0, i);
     value = ft_strdup(arg + i + 1);
     export_in_env(env, key, value);
-    free(key);
-    free(value);
 }
 
 

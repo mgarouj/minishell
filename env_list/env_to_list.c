@@ -2,23 +2,23 @@
 
 // this fonction searching for target in env if target -> env return (env.value) if terget !! env return ("")
 
-char *get_env(t_env *env, char *target)
-{
-    t_env *tmp;
+// char *get_env_value(t_env *env, char *target)
+// {
+//     t_env *tmp;
 
-    if (!target || !*target)
-        return (NULL);
-    tmp = env;
-    while (tmp)
-    {
-        if (!target || !tmp->key)
-            break;
-        if (!ft_strcmp(target, tmp->key))
-            return (tmp->value);
-        tmp = tmp->next;
-    }
-    return (NULL);
-}
+//     if (!target || !*target)
+//         return (NULL);
+//     tmp = env;
+//     while (tmp)
+//     {
+//         if (!target || !tmp->key)
+//             break;
+//         if (!ft_strcmp(target, tmp->key))
+//             return (tmp->value);
+//         tmp = tmp->next;
+//     }
+//     return (NULL);
+// }
 
 void oldpwd_check(char **s)
 {

@@ -1,36 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 09:46:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/04/21 16:59:33 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/13 14:57:26 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strdup(char *s1)
-{
-	size_t	len;
-	char	*dst;
-	size_t	i;
-
-	len = ft_strlen(s1);
-	dst = malloc(len + 1);
-	if (!dst)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		dst[i] = s1[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
 static char	*join_str(char *str, char *s1, char *s2)
 {
 	size_t	x;

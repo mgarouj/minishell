@@ -27,10 +27,7 @@ void print_arg(char **arg)
     while (arg[i])
     {
         if (arg[i + 1])
-        {
-            ft_putstr_fd(arg[i], 1);
-            ft_putstr_fd(" ", 1);
-        }
+            ft_3putstr(arg[i], " ", NULL, NULL);
         else 
             ft_putstr_fd(arg[i], 1);
         i++;

@@ -13,7 +13,7 @@ int ft_env(char **arg, t_env **env)
     t_env *tmp;
 
     tmp = *env;
-    if (!get_env(*env, "PATH"))
+    if (!get_env_value("PATH", *env))
     {
         write(2, "env: No such file or directory\n", 31);
 		return (1);
@@ -25,11 +25,7 @@ int ft_env(char **arg, t_env **env)
     }
     while (tmp)
 	{
-		// printf("%s=%s\n", tmp->key, tmp->value);
-        ft_putstr_fd(tmp->key, 1);
-        ft_putstr_fd("=", 1);
-        ft_putstr_fd(tmp->value, 1);
-        ft_putstr_fd("\n", 1);
+        ft_3putstr(tmp->key, "=", tmp->value, "\n");
 		tmp = tmp->next;
 	}
 	return (0);

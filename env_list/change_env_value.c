@@ -1,13 +1,15 @@
 #include "../minishell.h"
 
-void exit_value(t_env **env, int n)
-{
-    char *value;
+//delete this fonction
 
-    value = ft_itoa(n);
-    export_in_env(env, "?", value);
-    free(value);
-}
+// void exit_value(t_env **env, int n)
+// {
+//     char *value;
+
+//     value = ft_itoa(n);
+//     export_in_env(env, "?", value);
+//     free(value);
+// }
 
 void change_env_value(t_env **env, char *key, char *new_value)
 {

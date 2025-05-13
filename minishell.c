@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/12 16:08:56 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/13 15:05:12 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,13 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
-	while (env[i])
-	{
-		handel_env(env[i], &l);
-		i++;
-	}
+	// while (env[i])
+	// {
+	// 	handel_env(env[i], &l);
+	// 	i++;
+	// }
+	l = env_to_list(env);
+	
 	while (1)
 	{
 		signal_handler();
@@ -99,8 +101,7 @@ int	main(int ac, char **av, char **env)
 			
 			
 			// // execution 
-			// // executionFunction (linkedlisgt, env)
-			
+			execute_cmd(&exec_list, &l);
 		}
 		else
 			free(line);

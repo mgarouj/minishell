@@ -72,7 +72,7 @@ int print_sorted_env(t_env *env)
     ft_sort_env(sort_env, size);
     j = 0;
     while (sort_env[j])
-        printf("declare -x %s\n", sort_env[j++]);
+        ft_3putstr("declare -x ", sort_env[j++], "\n", NULL);
     j = 0;
     while (sort_env[j])
         free(sort_env[j++]);

@@ -13,7 +13,7 @@ char *get_path(char **arg, t_env *env)
 
     if (!arg[1])
     {
-        path = get_env(env, "HOME");
+        path = get_env_value("HOME", env);
         if (!path)
         {
             ft_putstr_fd("cd: HOME not set\n", 1);

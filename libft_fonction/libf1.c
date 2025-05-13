@@ -6,33 +6,13 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:55:56 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/06 13:54:19 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/13 14:53:33 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	size_t	i;
-	char	*str;
 
-	if (!s || start > ft_strlen(s))
-		return (ft_strdup(""));
-	if (len + start > ft_strlen(s))
-		len = ft_strlen(s) - start;
-	str = (char *)malloc(len + 1);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		str[i] = s[start + i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
 
 char	*ft_strnstr(char *haystack, char *needle, size_t len)
 {

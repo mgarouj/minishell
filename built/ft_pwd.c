@@ -8,13 +8,13 @@ int ft_pwd(t_env **env)
     if (!cwd)
     {
         perror("getcwd ");
-        exit_value(env, 1);
+        set_exit_status(env, 1);
         return (1);
     }
     else
     {
-        printf("%s\n", cwd);
-        exit_value(env, 0);
+        ft_3putstr(cwd, "\n", NULL, NULL);
+        set_exit_status(env, 0);
         return (0);
     }
 }

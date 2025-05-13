@@ -6,21 +6,12 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 21:32:48 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/06 16:03:39 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/13 14:56:47 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-size_t	ft_strlen(char *s)
-{
-	size_t	len;
-
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
-}
 
 static int	ft_num_len(int n)
 {
@@ -65,32 +56,4 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-char	*ft_strchr(const char *s, int c)
-{
-	size_t	i;
 
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i++;
-	}
-	if (s[i] == (char)c)
-		return ((char *)(s + i));
-	return (NULL);
-}
-
-void	ft_putstr_fd(char *s, int fd)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s || fd < 0)
-		return ;
-	while (s[i])
-	{
-		write(fd, &s[i], 1);
-		i++;
-	}
-}

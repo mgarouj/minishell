@@ -42,7 +42,7 @@ char    *find_path(t_execution *cmd, t_env **env)
 		return (NULL);
 	if (ft_strchr(cmd->cmd[0], '/'))
 		return (ft_strdup(cmd->cmd[0]));
-	env_path = get_env(*env, "PATH");
+	env_path = get_env_value("PATH", *env);
 	if (!env_path)
 		return (NULL);
 	path = ft_split(env_path, ':');

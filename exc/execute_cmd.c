@@ -18,10 +18,10 @@ void execute_cmd(t_execution **cmd_list, t_env **list_env)
     if (n_cmds <= 0)
         return ; 
 
-    init_cmd(cmd_list);
+    init_cmd(cmd_list, n_cmds);
 
     if (n_cmds == 1)
         execute_one_cmd(cmd_list, list_env);
-    // else
-    //     execute_pipe_cmd(cmd_list, list_env);
+    else
+        execute_pipe_cmd(cmd_list, list_env, n_cmds);
 }

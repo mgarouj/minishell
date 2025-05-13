@@ -19,10 +19,7 @@ int ft_exit(char **arg, int exit_status)
         {
             if (!(arg[1][i] >= '0' && arg[1][i] <= '9'))
             {
-                // printf("exit\nminishell: exit: %s numeric argument required\n", arg[1]);
-                ft_putstr_fd("exit\nminishell: exit: ", 1);
-                ft_putstr_fd(arg[1], 1);
-                ft_putstr_fd(" numeric argument required\n", 1);
+                ft_3putstr("exit\nminishell: exit: ", arg[1], " numeric argument required\n", NULL);
                 exit(255);
             }
             i++;
