@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/13 15:05:12 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/13 17:15:49 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int	main(int ac, char **av, char **env)
 					t = t->next;
 				}
 			
-			
+			printf("\n---------+command line+---------\n");
 			// // execution 
 			execute_cmd(&exec_list, &l);
 		}
