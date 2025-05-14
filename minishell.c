@@ -71,35 +71,35 @@ int	main(int ac, char **av, char **env)
 			}
 			//remove quotes and expaind only if there is no heredoc before
 			remove_quotes(token, l);
-			printf("***************************\n");
+			// printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list))
 				continue;
 			t_execution *t = exec_list;
 			int i;
 				
-				while (t)
-				{
-					printf("Command:\n");
-					i = 0;
-					if (t->cmd)
-					{
-						while (t->cmd[i])
-						{
-							printf("  [%d]: %s\n", i, t->cmd[i]);
-							i++;
-						}
-					}
-					else
-						printf("no command\n");
-					printf("  [%d]: in_file = %d\n", i, t->in_file);
-					printf("  [%d]: out_file = %d\n", i, t->out_file);
+				// while (t)
+				// {
+				// 	printf("Command:\n");
+				// 	i = 0;
+				// 	if (t->cmd)
+				// 	{
+				// 		while (t->cmd[i])
+				// 		{
+				// 			printf("  [%d]: %s\n", i, t->cmd[i]);
+				// 			i++;
+				// 		}
+				// 	}
+				// 	else
+				// 		printf("no command\n");
+				// 	// printf("  [%d]: in_file = %d\n", i, t->in_file);
+				// 	// printf("  [%d]: out_file = %d\n", i, t->out_file);
 						
 					
-					t = t->next;
-				}
+				// 	t = t->next;
+				// }
 			
-			printf("\n---------+command line+---------\n");
+			// printf("\n---------+command line+---------\n");
 			//gcc parsing/*.c utils/*.c env_list/*.c libft_fonction/*.c exc/*.c built/*.c minishell.c -lreadline
 			// // execution 
 			execute_cmd(&exec_list, &l);
