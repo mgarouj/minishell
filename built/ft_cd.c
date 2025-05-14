@@ -69,7 +69,7 @@ int ft_cd(char **arg, t_env *env)
 {
     char *path;
 
-    printf("cd ---------------------\n");
+    // printf("cd ---------------------\n");
     path = get_path(arg, env);
     if (path)
         return (change_directory(path, env));
