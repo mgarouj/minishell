@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/13 15:17:36 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/13 21:28:09 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdlib.h>     // malloc, free
-# include <unistd.h>     // write
-# include <stddef.h>     // NULL
+# include <stdlib.h>     
+# include <unistd.h>     
+# include <stddef.h>     
 # include <stdbool.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 #include <fcntl.h>
 #include <signal.h>
-#include <sys/wait.h>
+#include <wait.h>
 
-// Token types
+
 enum token
 {
 	EXP,
@@ -38,7 +38,7 @@ enum token
 	HEREDOC, // <<
 };
 
-// Token struct
+
 typedef struct s_tokenn
 {
 	enum token	type;
@@ -46,7 +46,7 @@ typedef struct s_tokenn
 	struct s_tokenn	*next;
 }	t_tokenn;
 
-// Environment variable struct
+
 typedef struct s_env
 {
 	char *key;
@@ -55,7 +55,7 @@ typedef struct s_env
 	struct s_env *next;
 }	t_env;
 
-// Execution struct
+
 typedef struct s_execution
 {
 	pid_t				pid;
@@ -74,41 +74,33 @@ typedef struct s_execution
 }	t_execution;
 
 
-// Garbage collector struct
 typedef struct s_gc
 {
 	void			*ptr;
-	bool			is_free;
 	struct s_gc		*next;
 }	t_gc;
 
-typedef struct s_fd_gc {
+typedef struct s_fds {
     int             fd;
-    struct s_fd_gc *next;
-} t_fd_gc;
+    struct s_fds *next;
+} t_fds;
 
 // Parsing
-int			parssing(char *line); // Typo: consider renaming to parsing
-char		*ft_strtrim(char *s, int size);
-char		*ft_strndup(char *s, int n);
+int			parssing(char *line); 
 t_tokenn	*tokenize(char *line);
-void		handel_env(char *s, t_env **env); // Typo: consider renaming to handle_env
-void remove_quotes(t_tokenn *t,t_env *l);
-void print_err(char *str);
-int ft_strlen(char *str);
-int handel_red(t_tokenn *token,t_execution *exec);
-int	heredoc(t_tokenn *token, t_execution *exec);
+void		handel_env(char *s, t_env **env);
+void expand_rm_quotes(t_tokenn *t,t_env *l);
 int split_cmd(t_tokenn *token,t_execution **exec);
 void signal_handler(void);
 
-char	*ft_substr(char *s, unsigned int start, int len);
-void	free_split(char **split);
-int		count(char *s, char c);
+
+//gc
 
 void fd_collec(int fd, int mode);
-void	*gar_coll(size_t size, int flag, bool is_free);
+void	*gar_coll(int size, char flag);
 
 // Utils
+
 char *ft_strchr(char *s, int c);
 char *ft_strcat(char *dest, char *src);
 char *ft_strcpy(char *dest, char *src);
@@ -117,20 +109,19 @@ char	*ft_strdup(char *s);
 char		**ft_split(char *s, char c);
 int			ft_strcmp(char *s1, char *s2);
 char		*sub_str(char *s, int size);
-int			ft_strlcat(char *dst, char *src, int dstsize);
-int			ft_strlcpy(char *dst, char *src, int dstsize);
-char *ft_strstr(char *haystack, char *needle);
 void ft_putstr_fd(char *s,int fd);
-char	*ft_strldup(const char *s, int len);
-
-
+char		*ft_strtrim(char *s, int size);
+char		*ft_strndup(char *s, int n);
+void print_err(char *str);
+int ft_strlen(char *str);
+char	*ft_substr(char *s, unsigned int start, int len);
 
 // execution 
 
 char	*ft_itoa(int n);
 int	ft_atoi(const char *str);
 int	ft_lstsize(t_env *lst);
-char	*ft_strnstr(char *haystack, char *needle, size_t len);
+char	*ft_strnstr(char *haystack, char *needle, int len);
 char	*ft_strjoin(char *s1, char *s2);
 int	ft_lstsize_cmd_list(t_execution *cmd_list);
 int	ft_isalnum(int c);
@@ -139,14 +130,10 @@ int	ft_isalpha(int c);
 void	ft_3putstr(char *s1, char *s2, char *s3, char *s4);
 
 
-
 //env 
 char	*get_env_value(char *key, t_env *env);
-
 void change_env_value(t_env **env, char *key, char *new_value);
 t_env *find_var(t_env *env, char *key);
-int	ft_strlen(char *s);
-char *ft_substr(char *s, unsigned int start, int len);
 void	ft_lstadd_back(t_env **lst, t_env *new);
 t_env *env_to_list(char **env);
 char 	**ft_envsplit(char *env, char c);

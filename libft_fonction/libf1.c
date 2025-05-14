@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libf1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:55:56 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/13 14:53:33 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/13 20:02:03 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 
 
-char	*ft_strnstr(char *haystack, char *needle, size_t len)
+char	*ft_strnstr(char *haystack, char *needle, int len)
 {
-	size_t	i;
-	size_t	j;
-	size_t	n_len;
+	int	i;
+	int	j;
+	int	n_len;
 
 	i = 0;
 	n_len = ft_strlen(needle);

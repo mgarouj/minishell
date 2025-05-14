@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 09:46:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/13 14:57:26 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/13 20:02:18 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static char	*join_str(char *str, char *s1, char *s2)
 {
-	size_t	x;
-	size_t	y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;

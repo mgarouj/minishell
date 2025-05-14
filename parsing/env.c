@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 17:47:31 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/13 14:19:01 by mgarouj          ###   ########.fr       */
+/*   Created: 2025/05/13 16:55:56 by fbelkass          #+#    #+#             */
+/*   Updated: 2025/05/13 19:57:19 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_env *create_env(char *key, char *value)
 {
     t_env *new;
 
-    new = gar_coll(sizeof(t_env), 0, true);
+    new = gar_coll(sizeof(t_env), 'a');
     if (!new)
         return (NULL);
     new->key = key;

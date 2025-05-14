@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/13 17:17:06 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/14 20:49:54 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	exit_minishell(void)
 {
-	gar_coll(0, 'f', 0);
+	gar_coll(0, 'f');
 	fd_collec(0,0);
 	exit(0);
 }
@@ -35,17 +35,18 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
-	// while (env[i])
-	// {
-	// 	handel_env(env[i], &l);
-	// 	i++;
-	// }
-	l = env_to_list(env);
+	while (env[i])
+	{
+		handel_env(env[i], &l);
+		i++;
+	}
+	
+	// l = env_to_list(env);
 	
 	while (1)
 	{
 		signal_handler();
-		line = readline("minishell $ ");
+		line = readline("prompt ");
 		if (!line)
 		{
 			print_err("exit");
@@ -62,47 +63,46 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			token = tokenize(trim);
 
-
+			//remove quotes and expaind only if there is no heredoc before
+			expand_rm_quotes(token, l);
 			tmp = token;
 			while (tmp)
 			{
 				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
 				tmp = tmp->next;
 			}
-			//remove quotes and expaind only if there is no heredoc before
-			remove_quotes(token, l);
-			// printf("***************************\n");
+			
+			printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list))
 				continue;
 			t_execution *t = exec_list;
 			int i;
 				
-				// while (t)
-				// {
-				// 	printf("Command:\n");
-				// 	i = 0;
-				// 	if (t->cmd)
-				// 	{
-				// 		while (t->cmd[i])
-				// 		{
-				// 			printf("  [%d]: %s\n", i, t->cmd[i]);
-				// 			i++;
-				// 		}
-				// 	}
-				// 	else
-				// 		printf("no command\n");
-				// 	// printf("  [%d]: in_file = %d\n", i, t->in_file);
-				// 	// printf("  [%d]: out_file = %d\n", i, t->out_file);
+				while (t)
+				{
+					printf("Command:\n");
+					i = 0;
+					if (t->cmd)
+					{
+						while (t->cmd[i])
+						{
+							printf("  [%d]: %s\n", i, t->cmd[i]);
+							i++;
+						}
+					}
+					else
+						printf("no command\n");
+					printf("  [%d]: in_file = %d\n", i, t->in_file);
+					printf("  [%d]: out_file = %d\n", i, t->out_file);
 						
 					
-				// 	t = t->next;
-				// }
+					t = t->next;
+				}
 			
-			// printf("\n---------+command line+---------\n");
-			//gcc parsing/*.c utils/*.c env_list/*.c libft_fonction/*.c exc/*.c built/*.c minishell.c -lreadline
+			
 			// // execution 
-			execute_cmd(&exec_list, &l);
+			// execute_cmd(&exec_list, &l);
 		}
 		else
 			free(line);

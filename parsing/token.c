@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/02 21:43:58 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:57:52 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_tokenn *create_token(enum token type, char *value)
 {
     t_tokenn *new;
 
-    new = gar_coll(sizeof(t_tokenn), 0, true);
+    new = gar_coll(sizeof(t_tokenn), 'a');
     if (!new)
         return (NULL);
     new->type = type;

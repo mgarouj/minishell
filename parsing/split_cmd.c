@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/04 19:37:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/13 19:57:42 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_execution *creat_node()
 {
 	t_execution *exec;
 
-	exec = gar_coll(sizeof(t_execution), 'a', 1);
+	exec = gar_coll(sizeof(t_execution), 'a');
 	exec->cmd = NULL;
 	exec->in_file = 0;
 	exec->out_file = 1;
@@ -53,7 +53,7 @@ int append_to_cmd(char *exp, t_execution *exec)
 		while (exec->cmd[i])
 			i++;
 	}
-	new_cmd = gar_coll(sizeof(char *) * (i + 2), 'a', 1);
+	new_cmd = gar_coll(sizeof(char *) * (i + 2), 'a');
 	if (!new_cmd)
 		return (0);
 	j = 0;

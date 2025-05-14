@@ -14,7 +14,6 @@ char *get_path(char **arg, t_env *env)
     if (!arg[1])
     {
         path = get_env_value("HOME", env);
-        printf("%s\n", path);
         if (!path)
         {
             ft_putstr_fd("cd: HOME not set\n", 1);
@@ -32,9 +31,7 @@ int change_directory(char *path, t_env *env)
     char *cwd;
 
     cwd = getcwd(NULL, 0);
-
-    printf("cwd = %s \n", cwd);
-    if (!cwd)
+    if (cwd)
     {
         perror("getcwd");
         return (0);
@@ -69,7 +66,6 @@ int ft_cd(char **arg, t_env *env)
 {
     char *path;
 
-    // printf("cd ---------------------\n");
     path = get_path(arg, env);
     if (path)
         return (change_directory(path, env));
