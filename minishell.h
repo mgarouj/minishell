@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/13 21:28:09 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:23:30 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_execution
 	char				*full_path;
 	int pipe_fd[2];	
 	bool				is_last;
-	bool 				is_first;
+	// bool 				is_first;
 
 	char				**cmd;
 	int					in_file;

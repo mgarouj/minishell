@@ -6,9 +6,9 @@ char **ft_envsplit(char *env, char c)
     char    **str;
 
     i = 0;
-    str = malloc(sizeof(char *) * 3);
-    if (!str)
-        return (NULL);
+    str = gar_coll(sizeof(char *) * 3, 'a');
+    // if (!str)
+    //     return (NULL);
     while (env[i] && env[i] != c)
         i++;
     str[0] = ft_substr(env, 0, i);

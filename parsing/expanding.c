@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/14 21:40:53 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:50:58 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,20 @@ char    *handel_afterd(char *exp, t_env *env, int expand)
             result = handle_double_quote(exp, &i, result, env, expand);
         else if (exp[i] == '$' && expand && exp[i+1] &&  exp[i+1] != ' ' && exp[i+1] != '\t' && exp[i+1] != ',')
         {
+            
             i++;
-            result = expand_variable(exp, &i, env, result);
+            if(exp[i] == '$')
+            {
+                result = str_append(result, ft_itoa((int)getpid()));
+                i++;
+            }
+            else if(exp[i] == '?')
+            {
+                result = str_append(result, ft_itoa(env->exit_status));
+                i++;
+            }
+            else
+             result = expand_variable(exp, &i, env, result);
         }
         else
         {

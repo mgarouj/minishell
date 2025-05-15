@@ -33,9 +33,8 @@ t_env *lstnew_env(char *key, char *value)
 {
     t_env *lst;
 
-    lst = malloc(sizeof(t_env));
-    if (!lst)
-        return (NULL);
+    // lst = malloc(sizeof(t_env));
+    lst = gar_coll(sizeof(t_env), 'a');
     lst->key = key;
     lst->value = value;
     lst->next = NULL;

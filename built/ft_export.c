@@ -8,7 +8,8 @@ char *ft_strjoin_3(char *s1, char *s2)
 
     if (!s2)
         return (ft_strdup(s1));
-    join3 = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
+    // join3 = malloc(ft_strlen(s1) + ft_strlen(s2) + 2);
+    join3 = gar_coll(ft_strlen(s1) + ft_strlen(s2) + 2, 'a');
     i = 0;
     while (s1[i])
     {

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/14 20:49:54 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:18:08 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int	main(int ac, char **av, char **env)
 	
 	while (1)
 	{
-		signal_handler();
-		line = readline("prompt ");
+		// signal_handler();
+		line = readline("\001\033[1;32m\002minishell> \001\033[0m\002");
 		if (!line)
 		{
 			print_err("exit");
@@ -62,17 +62,17 @@ int	main(int ac, char **av, char **env)
 			if (!parssing(trim))
 				continue ;
 			token = tokenize(trim);
-
+			
 			//remove quotes and expaind only if there is no heredoc before
 			expand_rm_quotes(token, l);
 			tmp = token;
-			while (tmp)
-			{
-				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-				tmp = tmp->next;
-			}
+			// while (tmp)
+			// {
+			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+			// 	tmp = tmp->next;
+			// }
 			
-			printf("***************************\n");
+			// printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list))
 				continue;
@@ -101,8 +101,9 @@ int	main(int ac, char **av, char **env)
 				}
 			
 			
-			// // execution 
-			// execute_cmd(&exec_list, &l);
+			// execution 
+			execute_cmd(&exec_list, &l);
+			// printf("exit status = %d \n", l->exit_status);
 		}
 		else
 			free(line);

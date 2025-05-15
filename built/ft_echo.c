@@ -1,58 +1,50 @@
 #include "../minishell.h"
 
-// echo command if -nnnnnnnn print the flag without the \n -nnnnnnnnf print the flag with \n
-
 bool check_flag(char *flag)
 {
     int i;
-
     i = 0;
-    if (flag[i] != '-')
-        return (0);
+    if (!flag || flag[i] != '-')
+        return (false);
     i++;
-    while(flag[i])
+    while (flag[i])
     {
         if (flag[i] != 'n')
-            return (0);
+            return (false);
         i++;
     }
-    return (1);
+    return (true);
 }
 
-void print_arg(char **arg)
+void print_args(char **args, bool n_flag)
 {
     int i;
 
     i = 0;
-    while (arg[i])
+    while (args[i])
     {
-        if (arg[i + 1])
-            ft_3putstr(arg[i], " ", NULL, NULL);
-        else 
-            ft_putstr_fd(arg[i], 1);
+        ft_putstr_fd(args[i], 1);
+        if (args[i + 1])
+            ft_putstr_fd(" ", 1);
         i++;
     }
+    if (!n_flag)
+        ft_putstr_fd("\n", 1);
 }
-
-int ft_echo(char **arg)
+int ft_echo(char **args)
 {
     int i;
-    bool flag;
+    bool n_flag;
 
     i = 1;
-    if (!arg[1])
+    n_flag = false;
+    if (!args[i])
+        return (ft_putstr_fd("\n", 1), 0);
+    if (check_flag(args[i]))
     {
-        ft_putstr_fd("\n", 1);
-        return (1);
-    }
-    if (check_flag(arg[i]))
-    {
-        flag = 1;
+        n_flag = true;
         i++;
     }
-    else
-        flag = 0;
-    print_arg(arg + i);
-    return (0);
+    print_args(args + i, n_flag);
+    return 0;
 }
-

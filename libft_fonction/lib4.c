@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib4.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 21:32:48 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/13 14:56:47 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/15 17:02:47 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ char	*ft_itoa(int n)
 
 	nbr = n;
 	len = ft_num_len(nbr);
-	str = (char *)malloc(len + 1);
-	if (!str)
-		return (NULL);
+	str = gar_coll(len + 1, 'a');
+	// if (!str)
+	// 	return (NULL);
 	str[len--] = '\0';
 	if (nbr < 0)
 	{

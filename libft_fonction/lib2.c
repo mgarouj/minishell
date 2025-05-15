@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 09:46:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/13 20:02:18 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/15 17:03:21 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (ft_strdup(s2));
 	if (!s2)
 		return (ft_strdup(s1));
-	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!str)
-		return (NULL);
+	// str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	str = gar_coll(ft_strlen(s1) + ft_strlen(s2) + 1,'a');
+	// if (!str)
+	// 	return (NULL);
 	return (join_str(str, s1, s2));
 }
 int	ft_isalpha(int c)

@@ -1,11 +1,5 @@
 #include "../minishell.h"
 
-// This function checks if the path is valid
-// If the path is NULL, it returns the HOME directory
-// If the path is not NULL, it returns the path
-// If the HOME environment variable is not set, it prints an error message
-// and returns NULL
-// If the path is valid, it returns the path
 
 char *get_path(char **arg, t_env *env)
 {
@@ -29,26 +23,16 @@ char *get_path(char **arg, t_env *env)
 int change_directory(char *path, t_env *env)
 {
     char *cwd;
-
     cwd = getcwd(NULL, 0);
-    if (cwd)
-    {
-        perror("getcwd");
-        return (0);
-    }
+    if (!cwd)
+        return (perror("getcwd"), 0);
     change_env_value(&env, "OLDPWD", cwd);
     free(cwd);
     if (chdir(path) == -1)
-    {
-        perror("cd");
-        return (1);
-    }
+        return (perror("cd"), 1);
     cwd = getcwd(NULL, 0);
     if (!cwd)
-    {
-        perror("getcwd");
-        return (1);
-    }
+        return (perror("getcwd"), 1);
     change_env_value(&env, "PWD", cwd);
     free(cwd);
     return (0);
@@ -68,6 +52,6 @@ int ft_cd(char **arg, t_env *env)
 
     path = get_path(arg, env);
     if (path)
-        return (change_directory(path, env));
+        return(change_directory(path, env));
     return (1);
 }
