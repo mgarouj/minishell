@@ -15,15 +15,13 @@ void	remove_keys(char *key, t_env **env)
 				*env = cur->next;
 			else
 				prev->next = cur->next;
-			free(cur->key);
-			free(cur->value);
-			free(cur);
 			return ;
 		}
 		prev = cur;
 		cur = cur->next;
 	}
 }
+
 int	is_valid_key(char *arg)
 {
 	int	i;

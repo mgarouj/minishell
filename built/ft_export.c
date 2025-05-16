@@ -60,7 +60,7 @@ int print_sorted_env(t_env *env)
 
     j = 0;
     size = ft_lstsize(env);
-    sort_env = malloc(sizeof(char *) * (size + 1));
+    sort_env = gar_coll(sizeof(char *) * (size + 1), 'a');
     while (j < size)
     {
         if (env->value)
@@ -75,9 +75,9 @@ int print_sorted_env(t_env *env)
     while (sort_env[j])
         ft_3putstr("declare -x ", sort_env[j++], "\n", NULL);
     j = 0;
-    while (sort_env[j])
-        free(sort_env[j++]);
-    free(sort_env);
+    // while (sort_env[j])
+    //     free(sort_env[j++]);
+    // free(sort_env);
     return (0);
 }
 // export var+=new_vale --> var=old_value+new_value
