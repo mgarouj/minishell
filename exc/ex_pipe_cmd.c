@@ -7,11 +7,6 @@ void child_in_out(int prev_read, t_execution *cmd)
         dup2(prev_read, 0);
         close(prev_read);
     }
-	// if (!cmd->is_first)
-	// {
-	// 	dup2(cmd->pipe_fd[0], 0);
-	// 	close(cmd->pipe_fd[0]);
-	// }
     if (!cmd->is_last)
 	{
 		close(cmd->pipe_fd[0]);

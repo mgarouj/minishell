@@ -38,6 +38,7 @@ char    *find_path(t_execution *cmd, t_env **env)
 {
 	char *env_path;
 	char **path;
+	
 	if (!cmd || !cmd->cmd[0] || !cmd->cmd)
 		return (NULL);
 	if (ft_strchr(cmd->cmd[0], '/'))

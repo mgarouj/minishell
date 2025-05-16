@@ -45,10 +45,7 @@ int ft_unset(char **arg, t_env **env)
 
     status = 0;
 	if (!arg[1])
-	{
-		printf("mimishell: unset: arg not found\n");
-		return (1);
-	}
+		return (status);
 	i = 1;
 	while (arg[i])
 	{

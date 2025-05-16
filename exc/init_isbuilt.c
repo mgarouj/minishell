@@ -2,6 +2,8 @@
 
 int ft_isbuilt(t_execution *cmd)
 {
+    if (!cmd || !cmd->cmd || !cmd->cmd[0])
+        return 0;
     if (ft_strcmp(cmd->cmd[0], "env") == 0)
         return (1);
     else if (ft_strcmp(cmd->cmd[0], "cd") == 0)
