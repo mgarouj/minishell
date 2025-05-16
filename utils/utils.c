@@ -173,8 +173,8 @@ char *ft_strdup(char *s)
     i = 0;
     l = ft_strlen(s);
     r = gar_coll((l + 1) * sizeof(char), 'a');
-    if (!r)
-        return (NULL);
+    // if (!r)
+    //     return (NULL);
     while (s[i])
     {
         r[i] = s[i];
@@ -199,8 +199,6 @@ char *ft_substr(char *s, unsigned int start, int len)
     else
         slen = len;
     r = (char *)gar_coll((slen + 1) * sizeof(char), 'a');
-    if (!r)
-        return (NULL);
     i = 0;
     while (i < slen)
     {

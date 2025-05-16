@@ -9,6 +9,8 @@ void normal_export(t_env **env, char *arg)
     i = 0;
     while (arg[i] && !(arg[i] == '='))
         i++;
+    if (!arg[i])
+        return ;
     key = ft_substr(arg, 0, i);
     value = ft_strdup(arg + i + 1);
     export_in_env(env, key, value);
@@ -34,11 +36,8 @@ void export_plus_equal(t_env **env, char *arg)
     {
         old_value = exist->value;
         new_value = ft_strjoin(old_value, value);
-        free(exist->value);
         exist->value = new_value;
     }
     else
         export_in_env(env, key, value);
-    free(key);
-    free(value);
 }

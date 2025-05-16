@@ -19,7 +19,12 @@ void export_in_env(t_env **env, char *key, char *value)
     t_env *new;
 
     exist = find_var(*env, key);
-    if (!exist)
+    if (exist)
+    {
+        free(exist->value);
+        exist->value = ft_strdup(value);
+    }
+    else
     {
         // new = malloc(sizeof(t_env));
         new = gar_coll(sizeof(t_env), 'a');
@@ -29,10 +34,5 @@ void export_in_env(t_env **env, char *key, char *value)
         new->value = ft_strdup(value);
         new->next = *env;
         *env = new;
-    }
-    else
-    {
-        free(exist->value);
-        exist->value = ft_strdup(value);
     }
 }

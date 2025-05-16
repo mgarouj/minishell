@@ -92,7 +92,7 @@ void child_for_one_cmd(t_execution *cmd, t_env **env)
 	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
 	{
 		perror("execve");
-		exit (1);
+		exit (127);
 	}
 }
 
@@ -119,6 +119,5 @@ void execute_execve_cmd(t_execution *cmd, t_env **env)
 			restore_std(backup_in, backup_out);
 		if (WIFEXITED(exit_status))
 			set_exit_status(env, WEXITSTATUS(exit_status));
-			// exit_value(env, WEXITSTATUS(exit_status));
 	}
 }

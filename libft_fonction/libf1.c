@@ -12,8 +12,6 @@
 
 #include "../minishell.h"
 
-
-
 char	*ft_strnstr(char *haystack, char *needle, int len)
 {
 	int	i;
