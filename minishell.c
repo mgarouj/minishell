@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/15 18:18:08 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/16 20:08:32 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ int	main(int ac, char **av, char **env)
 	
 	(void)ac;
 	(void)av;
+	// if env == NULL
+	if (!env || !*env)
+		return 1;
+
+
+	
 	l = NULL;
 	token = NULL;
 	i = 0;
@@ -76,29 +82,29 @@ int	main(int ac, char **av, char **env)
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list))
 				continue;
-			t_execution *t = exec_list;
-			int i;
+			// t_execution *t = exec_list;
+			// int i;
 				
-				while (t)
-				{
-					printf("Command:\n");
-					i = 0;
-					if (t->cmd)
-					{
-						while (t->cmd[i])
-						{
-							printf("  [%d]: %s\n", i, t->cmd[i]);
-							i++;
-						}
-					}
-					else
-						printf("no command\n");
-					printf("  [%d]: in_file = %d\n", i, t->in_file);
-					printf("  [%d]: out_file = %d\n", i, t->out_file);
+			// 	while (t)
+			// 	{
+			// 		printf("Command:\n");
+			// 		i = 0;
+			// 		if (t->cmd)
+			// 		{
+			// 			while (t->cmd[i])
+			// 			{
+			// 				printf("  [%d]: %s\n", i, t->cmd[i]);
+			// 				i++;
+			// 			}
+			// 		}
+			// 		else
+			// 			printf("no command\n");
+			// 		printf("  [%d]: in_file = %d\n", i, t->in_file);
+			// 		printf("  [%d]: out_file = %d\n", i, t->out_file);
 						
 					
-					t = t->next;
-				}
+			// 		t = t->next;
+			// 	}
 			
 			
 			// execution 

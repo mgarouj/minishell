@@ -86,7 +86,13 @@ void execute_pipe_cmd(t_execution **list_cmd, t_env **env, int n_cmds)
 		tmp_cmd = tmp_cmd->next;
     }
 	tmp_cmd = *list_cmd;
+
 	waitpid(-1, &exit_status, 0);
+	// while (tmp_cmd)
+	// {
+	// 	waitpid(tmp_cmd->pid, &exit_status, 0);
+	// 	tmp_cmd = tmp_cmd->next;
+	// }
 	set_exit_status(env, WEXITSTATUS(exit_status));
 	// printf("exit status ----------------------------= %d \n", (env)->exit_status);
 }
