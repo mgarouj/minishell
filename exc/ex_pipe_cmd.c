@@ -34,8 +34,8 @@ void child_run_cmd(t_execution *cmd, t_env **env)
 	}
 	else
 	{
-        printf("child rn cmd if not is built ");
-		execve(cmd->full_path, cmd->cmd, cmd->env);
+        // printf("child rn cmd if not is built ");
+		execve(cmd->path, cmd->cmd, cmd->env);
 		perror("execve");
 		exit(1);
 	}
@@ -77,7 +77,13 @@ void execute_pipe_cmd(t_execution **list_cmd, t_env **env, int n_cmds)
         tmp_cmd->pid = ft_fork("fork in pipe");
         if (!tmp_cmd->pid)
         {
-			tmp_cmd->full_path = find_path(tmp_cmd, env);
+			tmp_cmd->path = find_path(tmp_cmd, env);
+			if (!tmp_cmd->path)
+			{
+				ft_putstr_fd("minishell: ", 2);
+				ft_putstr_fd(tmp_cmd->cmd[0], 2);
+				ft_putstr_fd(": command not found\n", 2);
+			}
             child_in_out(prev_read, tmp_cmd);
             child_run_cmd(tmp_cmd, env);
         }  
@@ -87,12 +93,12 @@ void execute_pipe_cmd(t_execution **list_cmd, t_env **env, int n_cmds)
     }
 	tmp_cmd = *list_cmd;
 
-	waitpid(-1, &exit_status, 0);
-	// while (tmp_cmd)
-	// {
-	// 	waitpid(tmp_cmd->pid, &exit_status, 0);
-	// 	tmp_cmd = tmp_cmd->next;
-	// }
+	// waitpid(-1, &exit_status, 0);
+	while (tmp_cmd)
+	{
+		waitpid(tmp_cmd->pid, &exit_status, 0);
+		tmp_cmd = tmp_cmd->next;
+	}
 	set_exit_status(env, WEXITSTATUS(exit_status));
 	// printf("exit status ----------------------------= %d \n", (env)->exit_status);
 }

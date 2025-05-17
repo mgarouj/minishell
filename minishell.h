@@ -60,7 +60,6 @@ typedef struct s_execution
 {
 	pid_t				pid;
 	bool				is_builtin;
-	char				*full_path;
 	int pipe_fd[2];	
 	bool				is_last;
 	// bool 				is_first;

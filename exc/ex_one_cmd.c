@@ -86,7 +86,11 @@ void child_for_one_cmd(t_execution *cmd, t_env **env)
 
 	path = find_path(cmd, env);
 	if (!path)
-		return ;
+	{
+		ft_putstr_fd(cmd->cmd[0], 2);
+		ft_putstr_fd(": command not found\n", 2);
+		exit(127);
+	}
 	cmd->path = path;
 	cmd->env = change_envlist_to_envchar(*env);
 	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)

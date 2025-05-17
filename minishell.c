@@ -19,6 +19,21 @@ void	exit_minishell(void)
 	exit(0);
 }
 
+
+
+void update_shelvl(t_env **env_list)
+{
+	t_env *tmp_env;
+	char *old_value;
+	int new_value;
+
+	tmp_env = *env_list;
+	old_value = get_env_value("SHLVL", tmp_env);
+	new_value = ft_atoi(old_value);
+	new_value++;
+	export_in_env(env_list, "SHLVL", ft_itoa(new_value));
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*line;
@@ -33,10 +48,7 @@ int	main(int ac, char **av, char **env)
 	(void)ac;
 	(void)av;
 	// if env == NULL
-	if (!env || !*env)
-		return 1;
-
-
+	
 	
 	l = NULL;
 	token = NULL;
@@ -46,6 +58,8 @@ int	main(int ac, char **av, char **env)
 		handel_env(env[i], &l);
 		i++;
 	}
+
+	update_shelvl(&l);
 	
 	// l = env_to_list(env);
 	
@@ -106,7 +120,11 @@ int	main(int ac, char **av, char **env)
 			// 		t = t->next;
 			// 	}
 			
-			
+			// while (l)
+			// {
+			// 	printf("key = %s \n", l->key);
+			// 	l = l->next;
+			// }
 			// execution 
 			execute_cmd(&exec_list, &l);
 			// printf("exit status = %d \n", l->exit_status);
