@@ -20,10 +20,10 @@ void export_in_env(t_env **env, char *key, char *value)
 
     exist = find_var(*env, key);
     if (exist)
-    {
-        free(exist->value);
         exist->value = ft_strdup(value);
-    }
+    // {
+        // free(exist->value);
+    // }
     else
     {
         // new = malloc(sizeof(t_env));

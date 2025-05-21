@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/13 21:16:56 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:56:59 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,5 +287,3 @@ char **ft_split(char *s, char c)
         return (NULL);
     return (copy(s, c, r));
 }
-
-

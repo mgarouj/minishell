@@ -15,8 +15,8 @@ int ft_env(char **arg, t_env **env)
     tmp = *env;
     if (!get_env_value("PATH", *env))
     {
-        write(2, "env: No such file or directory\n", 31);
-		return (1);
+        write(2, "minishell: env: No such file or directory\n", 43);
+		return (127);
     }
     if (arg[1])
     {

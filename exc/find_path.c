@@ -21,16 +21,16 @@ char *check_path(char **path, t_execution *cmd)
     {
         test = ft_strjoin(path[i], "/");
 		full = ft_strjoin(test, cmd->cmd[0]);
-		free(test);
+		// free(test);
 		if (access(full, X_OK) == 0)
 		{
-			free_paths(path);
+			// free_paths(path);
 			return (full);
 		}
-		free(full);
+		// free(full);
 		i++;
 	}
-	free_paths(path);
+	// free_paths(path);
 	return (NULL);
 }
 

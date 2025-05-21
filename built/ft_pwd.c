@@ -1,20 +1,27 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 18:38:58 by mgarouj           #+#    #+#             */
+/*   Updated: 2025/05/20 19:34:22 by mgarouj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 int ft_pwd(t_env **env)
 {
-    char *cwd;
+	char	*cwd;
 
-    cwd = getcwd(NULL, 0);
-    if (!cwd)
-    {
-        perror("getcwd ");
-        set_exit_status(env, 1);
-        return (1);
-    }
-    else
-    {
-        ft_3putstr(cwd, "\n", NULL, NULL);
-        set_exit_status(env, 0);
-        return (0);
-    }
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		perror("getcwd ");
+		return (1);
+	}
+	ft_3putstr(cwd, "\n", NULL, NULL);
+	return (0);
 }

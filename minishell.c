@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/16 20:08:32 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/19 16:07:03 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,32 @@ void	exit_minishell(void)
 }
 
 
+void add_path(t_env **env_list)
+{
+	t_env *env;
+	char *path;
 
-void update_shelvl(t_env **env_list)
+	env = *env_list;
+	path = get_env_value("PATH", env);
+	if (!path)
+		export_in_env(env_list, "PATH",
+				"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+}
+
+void add_underscore(t_env **env_list)
+{
+	t_env *env;
+	char *path;
+
+	env = *env_list;
+	path = get_env_value("_", env);
+	if (!path)
+		export_in_env(env_list, "_",
+				"/usr/bin/env");
+}
+
+
+void shelvl_path_underscore(t_env **env_list)
 {
 	t_env *tmp_env;
 	char *old_value;
@@ -29,9 +53,21 @@ void update_shelvl(t_env **env_list)
 
 	tmp_env = *env_list;
 	old_value = get_env_value("SHLVL", tmp_env);
-	new_value = ft_atoi(old_value);
-	new_value++;
-	export_in_env(env_list, "SHLVL", ft_itoa(new_value));
+	if (!old_value)
+		export_in_env(env_list, "SHLVL", "0");
+	else
+	{
+		new_value = ft_atoi(old_value);
+		if (new_value >= 999)
+		{
+			ft_putstr_fd("minishell: warning: shell level (1000) too high, resetting to 1\n", 1);
+			new_value = 0;
+		}
+		new_value++;
+		export_in_env(env_list, "SHLVL", ft_itoa(new_value));
+	}
+	add_path(env_list);
+	add_underscore(env_list);
 }
 
 int	main(int ac, char **av, char **env)
@@ -49,7 +85,6 @@ int	main(int ac, char **av, char **env)
 	(void)av;
 	// if env == NULL
 	
-	
 	l = NULL;
 	token = NULL;
 	i = 0;
@@ -59,7 +94,7 @@ int	main(int ac, char **av, char **env)
 		i++;
 	}
 
-	update_shelvl(&l);
+	shelvl_path_underscore(&l);
 	
 	// l = env_to_list(env);
 	
@@ -132,5 +167,7 @@ int	main(int ac, char **av, char **env)
 		else
 			free(line);
 	}
+
+	// gcc parsing/*.c utils/*.c env_list/*.c libft_fonction/*.c exc/*.c built/*.c minishell.c -lreadline
 	return (0);
 }

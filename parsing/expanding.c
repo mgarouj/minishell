@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/15 17:50:58 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/17 16:48:56 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,14 @@ char    *str_append_char(char *s, char c)
 
 char    *get_env_value(char *key, t_env *env)
 {
-    while (env)
+    t_env *env_tmp;
+
+    env_tmp = env;
+    while (env_tmp)
     {
-        if (ft_strcmp(env->key, key) == 0)
-            return (env->value);
-        env = env->next;
+        if (ft_strcmp(env_tmp->key, key) == 0)
+            return (env_tmp->value);
+        env_tmp = env_tmp->next;
     }
     return (NULL);
 }

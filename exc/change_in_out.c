@@ -1,8 +1,8 @@
 #include "../minishell.h"
 
-void change_in_out(t_execution *cmd)
+void	change_in_out(t_execution *cmd)
 {
-    if (cmd->in_file != 0)
+	if (cmd->in_file != 0)
 	{
 		dup2(cmd->in_file, 0);
 		close(cmd->in_file);
@@ -14,10 +14,10 @@ void change_in_out(t_execution *cmd)
 	}
 }
 
-void restore_std(int in, int out)
+void	restore_std(int in, int out)
 {
-    dup2(in, 0);  // restore stdin
-    dup2(out, 1); // restore stdout
-    close(in);
-    close(out);
+	dup2(in, 0);
+	dup2(out, 1);
+	close(in);
+	close(out);
 }

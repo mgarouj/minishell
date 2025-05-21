@@ -82,7 +82,7 @@ int print_sorted_env(t_env *env)
 }
 // export var+=new_vale --> var=old_value+new_value
 
-int ft_export(char **args, t_env **env)
+int     ft_export(char **args, t_env **env)
 {
 
     // export -> print -> sorted env

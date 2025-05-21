@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
+/*   Updated: 2025/05/21 16:04:58 by mgarouj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void child_in_out(int prev_read, t_execution *cmd)
@@ -34,7 +46,6 @@ void child_run_cmd(t_execution *cmd, t_env **env)
 	}
 	else
 	{
-        // printf("child rn cmd if not is built ");
 		execve(cmd->path, cmd->cmd, cmd->env);
 		perror("execve");
 		exit(1);
@@ -59,7 +70,6 @@ void	set_exit_status(t_env **env, int exit_status)
 
 	tmp_env = *env;
 	tmp_env->exit_status = exit_status;
-	// printf("exit status ----------------------------= %d \n", tmp_env->exit_status);
 }
 
 void execute_pipe_cmd(t_execution **list_cmd, t_env **env, int n_cmds)
@@ -78,27 +88,15 @@ void execute_pipe_cmd(t_execution **list_cmd, t_env **env, int n_cmds)
         if (!tmp_cmd->pid)
         {
 			tmp_cmd->path = find_path(tmp_cmd, env);
-			if (!tmp_cmd->path)
-			{
-				ft_putstr_fd("minishell: ", 2);
-				ft_putstr_fd(tmp_cmd->cmd[0], 2);
-				ft_putstr_fd(": command not found\n", 2);
-			}
+			printf_path_error(tmp_cmd);
             child_in_out(prev_read, tmp_cmd);
             child_run_cmd(tmp_cmd, env);
-        }  
+        }
 		else
 			prev_read = handle_parent(tmp_cmd, prev_read);
 		tmp_cmd = tmp_cmd->next;
     }
 	tmp_cmd = *list_cmd;
-
-	// waitpid(-1, &exit_status, 0);
-	while (tmp_cmd)
-	{
-		waitpid(tmp_cmd->pid, &exit_status, 0);
-		tmp_cmd = tmp_cmd->next;
-	}
+	ft_wait_child(tmp_cmd, &exit_status);
 	set_exit_status(env, WEXITSTATUS(exit_status));
-	// printf("exit status ----------------------------= %d \n", (env)->exit_status);
 }

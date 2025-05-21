@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/15 17:23:30 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/21 14:14:07 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdlib.h>     
+# include <stdlib.h>    
+#include <dirent.h> 
 # include <unistd.h>     
 # include <stddef.h>     
 # include <stdbool.h>
@@ -62,7 +63,6 @@ typedef struct s_execution
 	bool				is_builtin;
 	int pipe_fd[2];	
 	bool				is_last;
-	// bool 				is_first;
 
 	char				**cmd;
 	int					in_file;
@@ -161,13 +161,13 @@ char	*find_path(t_execution *cmd, t_env **env);
 void execute_one_builtin(t_execution *cmd, t_env **env);
 void execute_execve_cmd(t_execution *cmd, t_env **env);
 int execute_builtins(t_execution *cmd, t_env **env);
-
+void ft_wait_child(t_execution *cmd, int *exit_status);
 
 
 // pipe fonction
 void execute_pipe_cmd(t_execution **list_cmd, t_env **env, int n_cmds);
 void	set_exit_status(t_env **env, int exit_status);
-
+void printf_path_error(t_execution *cmd);
 
 
 
