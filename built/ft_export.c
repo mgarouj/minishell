@@ -70,6 +70,7 @@ int print_sorted_env(t_env *env)
         j++;
         env = env->next;
     }
+    sort_env[size] = NULL;
     ft_sort_env(sort_env, size);
     j = 0;
     while (sort_env[j])

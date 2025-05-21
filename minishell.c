@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/19 16:07:03 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/21 17:53:09 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
+	signal_handler();
 	while (env[i])
 	{
 		handel_env(env[i], &l);
