@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/21 15:14:40 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/21 21:04:50 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ int append_to_cmd(char *exp, t_execution *exec)
 	if (!exp || !exec)
 		return (0);
 	i = 0;
+	j = 0;
+	while(exp[j])
+	{
+		if(exp[j] == ' ' || exp[j] == '\t')
+			i++;
+		j++;
+	}
 	if (exec->cmd)
 	{
 		while (exec->cmd[i])
@@ -59,12 +66,13 @@ int append_to_cmd(char *exp, t_execution *exec)
 	j = 0;
 	if (exec->cmd)
 	{
-		while (j < i)
+		while (j < i && exec->cmd[j])
 		{
 			new_cmd[j] = exec->cmd[j];
 			j++;
 		}
 	}
+	
 	new_cmd[j] = ft_strdup(exp);
 	if (!new_cmd[j])
 		return (0);
