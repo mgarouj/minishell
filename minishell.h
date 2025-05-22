@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/21 14:14:07 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/22 13:15:00 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ void		handel_env(char *s, t_env **env);
 void expand_rm_quotes(t_tokenn *t,t_env *l);
 int split_cmd(t_tokenn *token,t_execution **exec);
 void signal_handler(void);
-
-
+t_tokenn *create_token(enum token type, char *value);
+void retoken(t_tokenn *token);
 //gc
 
 void fd_collec(int fd, int mode);

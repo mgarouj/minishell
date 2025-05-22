@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/21 20:16:52 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/22 13:33:53 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,20 @@ void shelvl_path_underscore(t_env **env_list)
 	add_underscore(env_list);
 }
 
+int check_expand(t_tokenn *token)
+{
+	t_tokenn *tmp;
+
+	tmp = token;
+	while(tmp)
+	{
+		if(tmp->type == EXP && ft_strchr(tmp->value,'$'))
+			return(1);
+		tmp = tmp->next;
+	}
+	return(0);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*line;
@@ -78,6 +92,7 @@ int	main(int ac, char **av, char **env)
 	t_env		*l;
 	t_tokenn	*token;
 	t_tokenn	*tmp;
+	int flag;
 	
 	t_execution *exec_list;
 	
@@ -119,9 +134,13 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			token = tokenize(trim);
 			
-			//remove quotes and expaind only if there is no heredoc before
+			//remove quotes and expand only if there is no heredoc before
+			flag = check_expand(token);
 			expand_rm_quotes(token, l);
+			if(flag)
+				retoken(token);
 			tmp = token;
+			
 			// while (tmp)
 			// {
 			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
