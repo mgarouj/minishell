@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 14:11:19 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:36:50 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_tokenn
 	enum token	type;
 	char			*value;
 	int	expanded;
+    int quoted;
 	struct s_tokenn	*next;
 }	t_tokenn;
 
@@ -115,6 +116,7 @@ char		*ft_strndup(char *s, int n);
 void print_err(char *str);
 int ft_strlen(char *str);
 char	*ft_substr(char *s, unsigned int start, int len);
+char **ft_split_whitespace(char *s);
 
 // execution 
 

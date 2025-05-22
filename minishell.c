@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 14:35:44 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:56:41 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int	main(int ac, char **av, char **env)
 	t_env		*l;
 	t_tokenn	*token;
 	t_tokenn	*tmp;
-	int flag;
 	
 	t_execution *exec_list;
 	
@@ -135,18 +134,17 @@ int	main(int ac, char **av, char **env)
 			token = tokenize(trim);
 			
 			//remove quotes and expand only if there is no heredoc before
-			flag = check_expand(token);
 			expand_rm_quotes(token, l);
-			retoken(token);
+			// retoken(token);
 			tmp = token;
 			
-			// while (tmp)
-			// {
-			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-			// 	tmp = tmp->next;
-			// }
+			while (tmp)
+			{
+				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+				tmp = tmp->next;
+			}
 			
-			// printf("***************************\n");
+			printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list))
 				continue;

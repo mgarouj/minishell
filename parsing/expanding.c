@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 14:34:14 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/22 16:47:57 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char    *get_env_value(char *key, t_env *env)
     return (NULL);
 }
 
-char    *expand_variable(char *exp, int *i, t_env *env, char *result,int *expanded)
+char    *expand_variable(char *exp, int *i, t_env *env, char *result,t_tokenn **tmp)
 {
     int        start;
     char    *var_name;
@@ -69,7 +69,7 @@ char    *expand_variable(char *exp, int *i, t_env *env, char *result,int *expand
     var_value = get_env_value(var_name, env);
     if (var_value)
     {
-        *expanded = 1;
+        (*tmp)->expanded = 1;
         result = str_append(result, var_value);
     }
     return (result);
@@ -88,7 +88,7 @@ char    *handle_single_quote(char *exp, int *i, char *result)
     return (result);
 }
 
-char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int expand,int *expanded)
+char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int expand,t_tokenn **tmp)
 {
     (*i)++;
     while (exp[*i] && exp[*i] != '"')
@@ -96,7 +96,7 @@ char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int ex
         if (exp[*i] == '$' && expand && exp[(*i) + 1]!='"' && exp[(*i) + 1] != ' ' && exp[(*i) + 1] != '\t' && exp[(*i) + 1] != ',')
         {
             (*i)++;
-            result = expand_variable(exp, i, env, result,expanded);
+            result = expand_variable(exp, i, env, result,tmp);
         }
         else
         {
@@ -109,7 +109,7 @@ char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int ex
     return (result);
 }
 
-char    *handel_afterd(char *exp, t_env *env, int expand,int *expanded)
+char    *handel_afterd(char *exp, t_env *env, int expand,t_tokenn **tmp)
 {
     int        i = 0;
     char    *result = ft_strdup("");
@@ -119,7 +119,10 @@ char    *handel_afterd(char *exp, t_env *env, int expand,int *expanded)
         if (exp[i] == '\'')
             result = handle_single_quote(exp, &i, result);
         else if (exp[i] == '"')
-            result = handle_double_quote(exp, &i, result, env, expand,expanded);
+        {
+            (*tmp)->quoted=1;
+            result = handle_double_quote(exp, &i, result, env, expand,tmp);
+        }
         else if (exp[i] == '$' && expand && exp[i+1] &&  exp[i+1] != ' ' && exp[i+1] != '\t' && exp[i+1] != ',')
         {
             
@@ -135,7 +138,7 @@ char    *handel_afterd(char *exp, t_env *env, int expand,int *expanded)
                 i++;
             }
             else
-             result = expand_variable(exp, &i, env, result,expanded);
+             result = expand_variable(exp, &i, env, result,tmp);
         }
         else
         {
@@ -145,6 +148,41 @@ char    *handel_afterd(char *exp, t_env *env, int expand,int *expanded)
     }
     return (result);
 }
+
+void    retoken(t_tokenn *token)
+{
+    char        **split;
+    t_tokenn    *new_node;
+    t_tokenn    *t;
+    int         i;
+
+    split = ft_split_whitespace(token->value); // Split on space and tab
+    if (!split || !split[0])
+        return;
+
+    free(token->value); // Or let GC handle this if gar_coll used
+    token->value = ft_strdup(split[0]); // Replace with first word
+    token->expanded = 0; // Reset flag (can also keep it set if needed)
+    
+    t = token;
+    i = 1;
+    while (split[i])
+    {
+        new_node = gar_coll(sizeof(t_tokenn), 'a');
+        if (!new_node)
+            return;
+
+        new_node->type = EXP;
+        new_node->value = ft_strdup(split[i]);
+        new_node->expanded = 0;
+        new_node->next = t->next;
+        t->next = new_node;
+        t = new_node;
+        i++;
+    }
+}
+
+
 
 void    expand_rm_quotes(t_tokenn *t, t_env *env)
 {
@@ -156,8 +194,10 @@ void    expand_rm_quotes(t_tokenn *t, t_env *env)
         if (tmp->type == EXP)
         {
             int expand = !(prev && prev->type == HEREDOC);
-            tmp->value = handel_afterd(tmp->value, env, expand,&(tmp->expanded));
+            tmp->value = handel_afterd(tmp->value, env, expand,&tmp);
         }
+        if(tmp->expanded && !(tmp->quoted) && (ft_strchr(tmp->value,' ') || ft_strchr(tmp->value,'\t')))
+            retoken(tmp);
         prev = tmp;
         tmp = tmp->next;
     }
