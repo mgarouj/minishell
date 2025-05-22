@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 13:15:00 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:11:19 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_tokenn
 {
 	enum token	type;
 	char			*value;
+	int	expanded;
 	struct s_tokenn	*next;
 }	t_tokenn;
 

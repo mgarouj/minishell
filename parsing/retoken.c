@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 21:18:54 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 13:16:03 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/22 14:36:23 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void retoken(t_tokenn *token)
 	tmp = token;
 	while (tmp)
 	{
-		if (tmp->type == EXP && (ft_strchr(tmp->value, ' ') || ft_strchr(tmp->value, '\t')))
+		if (tmp->type == EXP && tmp->expanded && (ft_strchr(tmp->value, ' ') || ft_strchr(tmp->value, '\t')))
 			split_and_insert_tokens(&tmp);
 		tmp = tmp->next;
 	}

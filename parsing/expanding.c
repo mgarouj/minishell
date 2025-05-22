@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/17 16:48:56 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/22 14:34:14 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char    *get_env_value(char *key, t_env *env)
     return (NULL);
 }
 
-char    *expand_variable(char *exp, int *i, t_env *env, char *result)
+char    *expand_variable(char *exp, int *i, t_env *env, char *result,int *expanded)
 {
     int        start;
     char    *var_name;
@@ -68,7 +68,10 @@ char    *expand_variable(char *exp, int *i, t_env *env, char *result)
     var_name = sub_str(exp + start, (*i) - start);
     var_value = get_env_value(var_name, env);
     if (var_value)
+    {
+        *expanded = 1;
         result = str_append(result, var_value);
+    }
     return (result);
 }
 
@@ -85,7 +88,7 @@ char    *handle_single_quote(char *exp, int *i, char *result)
     return (result);
 }
 
-char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int expand)
+char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int expand,int *expanded)
 {
     (*i)++;
     while (exp[*i] && exp[*i] != '"')
@@ -93,7 +96,7 @@ char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int ex
         if (exp[*i] == '$' && expand && exp[(*i) + 1]!='"' && exp[(*i) + 1] != ' ' && exp[(*i) + 1] != '\t' && exp[(*i) + 1] != ',')
         {
             (*i)++;
-            result = expand_variable(exp, i, env, result);
+            result = expand_variable(exp, i, env, result,expanded);
         }
         else
         {
@@ -106,7 +109,7 @@ char    *handle_double_quote(char *exp, int *i, char *result, t_env *env, int ex
     return (result);
 }
 
-char    *handel_afterd(char *exp, t_env *env, int expand)
+char    *handel_afterd(char *exp, t_env *env, int expand,int *expanded)
 {
     int        i = 0;
     char    *result = ft_strdup("");
@@ -116,7 +119,7 @@ char    *handel_afterd(char *exp, t_env *env, int expand)
         if (exp[i] == '\'')
             result = handle_single_quote(exp, &i, result);
         else if (exp[i] == '"')
-            result = handle_double_quote(exp, &i, result, env, expand);
+            result = handle_double_quote(exp, &i, result, env, expand,expanded);
         else if (exp[i] == '$' && expand && exp[i+1] &&  exp[i+1] != ' ' && exp[i+1] != '\t' && exp[i+1] != ',')
         {
             
@@ -132,7 +135,7 @@ char    *handel_afterd(char *exp, t_env *env, int expand)
                 i++;
             }
             else
-             result = expand_variable(exp, &i, env, result);
+             result = expand_variable(exp, &i, env, result,expanded);
         }
         else
         {
@@ -153,7 +156,7 @@ void    expand_rm_quotes(t_tokenn *t, t_env *env)
         if (tmp->type == EXP)
         {
             int expand = !(prev && prev->type == HEREDOC);
-            tmp->value = handel_afterd(tmp->value, env, expand);
+            tmp->value = handel_afterd(tmp->value, env, expand,&(tmp->expanded));
         }
         prev = tmp;
         tmp = tmp->next;
