@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 16:36:50 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:43:39 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ typedef struct s_tokenn
 {
 	enum token	type;
 	char			*value;
-	int	expanded;
-    int quoted;
 	struct s_tokenn	*next;
 }	t_tokenn;
 
@@ -57,6 +55,15 @@ typedef struct s_env
 	int	exit_status;
 	struct s_env *next;
 }	t_env;
+
+typedef struct s_expand_data
+{
+	t_env *env;
+	int expanded;
+	int sh_expand;
+	int quoted;
+	
+}	t_expand_data;
 
 
 typedef struct s_execution

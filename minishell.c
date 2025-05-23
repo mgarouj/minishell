@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 14:56:41 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/23 16:27:47 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
-	signal_handler();
+	// signal_handler();
 	while (env[i])
 	{
 		handel_env(env[i], &l);
