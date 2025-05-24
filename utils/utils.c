@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 18:53:58 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/24 19:28:01 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ char	*ft_substr(char *s, unsigned int start, int len)
 	else
 		slen = len;
 	r = (char *)gar_coll((slen + 1) * sizeof(char), 'a');
+	if (!r)
+		return (NULL);
 	i = 0;
 	while (i < slen)
 	{

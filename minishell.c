@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 19:10:29 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/24 19:31:18 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
-	signal_handler();
 	while (env[i])
 	{
 		handel_env(env[i], &l);
@@ -109,6 +108,7 @@ int	main(int ac, char **av, char **env)
 	shelvl_path_underscore(&l);	
 	while (1)
 	{
+		signal_handler();
 		line = readline("\001\033[1;32m\002minishell> \001\033[0m\002");
 		if (!line)
 		{
