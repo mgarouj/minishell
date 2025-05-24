@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   garbege_collect.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 22:37:17 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/21 14:52:54 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/24 18:53:21 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static t_gc	*head;
-
 static t_gc	**gc_list(void)
 {
+	static t_gc	*head;
+
 	return (&head);
 }
 
@@ -33,9 +33,10 @@ static t_gc	*gc_create_node(void *ptr)
 
 static void	gc_add_node(t_gc *new_node)
 {
-	t_gc	**head = gc_list();
+	t_gc	**head;
 	t_gc	*temp;
 
+	head = gc_list();
 	if (!new_node)
 		return ;
 	if (!*head)
@@ -51,10 +52,12 @@ static void	gc_add_node(t_gc *new_node)
 
 static void	gc_free_all(void)
 {
-	t_gc	**head = gc_list();
-	t_gc	*current = *head;
+	t_gc	**head;
+	t_gc	*current;
 	t_gc	*next;
 
+	head = gc_list();
+	current = *head;
 	while (current)
 	{
 		next = current->next;

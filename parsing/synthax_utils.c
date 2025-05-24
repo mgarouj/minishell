@@ -6,10 +6,11 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:25:28 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/23 19:11:54 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/24 14:30:37 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../minishell.h"
 
 int	is_whitespace(char c)
 {

@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "minishell.h": "c",
+        "readline.h": "c",
+        "signal.h": "c",
+        "fcntl.h": "c"
+    }
+}

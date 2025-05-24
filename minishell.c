@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/23 16:27:47 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/24 19:10:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	exit_minishell(void)
 	fd_collec(0,0);
 	exit(0);
 }
-
 
 void add_path(t_env **env_list)
 {
@@ -96,26 +95,20 @@ int	main(int ac, char **av, char **env)
 	t_execution *exec_list;
 	
 	(void)ac;
-	(void)av;
-	// if env == NULL
-	
+	(void)av;	
 	l = NULL;
 	token = NULL;
 	i = 0;
-	// signal_handler();
+	signal_handler();
 	while (env[i])
 	{
 		handel_env(env[i], &l);
 		i++;
 	}
 
-	shelvl_path_underscore(&l);
-	
-	// l = env_to_list(env);
-	
+	shelvl_path_underscore(&l);	
 	while (1)
 	{
-		// signal_handler();
 		line = readline("\001\033[1;32m\002minishell> \001\033[0m\002");
 		if (!line)
 		{
@@ -133,58 +126,15 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			token = tokenize(trim);
 			
-			//remove quotes and expand only if there is no heredoc before
 			expand_rm_quotes(token, l);
-			// retoken(token);
-			tmp = token;
 			
-			while (tmp)
-			{
-				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-				tmp = tmp->next;
-			}
-			
-			printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list))
 				continue;
-			t_execution *t = exec_list;
-			int i;
-				
-				while (t)
-				{
-					printf("Command:\n");
-					i = 0;
-					if (t->cmd)
-					{
-						while (t->cmd[i])
-						{
-							printf("  [%d]: %s\n", i, t->cmd[i]);
-							i++;
-						}
-					}
-					else
-						printf("no command\n");
-					printf("  [%d]: in_file = %d\n", i, t->in_file);
-					printf("  [%d]: out_file = %d\n", i, t->out_file);
-						
-					
-					t = t->next;
-				}
-			
-			// while (l)
-			// {
-			// 	printf("key = %s \n", l->key);
-			// 	l = l->next;
-			// }
-			// execution 
 			execute_cmd(&exec_list, &l);
-			// printf("exit status = %d \n", l->exit_status);
 		}
 		else
 			free(line);
 	}
-
-	// gcc parsing/*.c utils/*.c env_list/*.c libft_fonction/*.c exc/*.c built/*.c minishell.c -lreadline
 	return (0);
 }
