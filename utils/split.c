@@ -6,17 +6,11 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/22 15:30:31 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/22 16:04:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:13:24 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
-static int is_whitespace(char c)
-{
-    return (c == ' ' || c == '\t');
-}
 
 static int word_count(char *s)
 {

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/13 19:57:52 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:01:40 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,45 +87,8 @@ void  handle_operator(char *line, int *i, t_tokenn **tokens)
         add_token(tokens, create_token(type,">"));
         (*i)++;
         return;
-    }
-    
-    // add_token(tokens, create_token(type, ft_strndup(&line[start], *i - start + 1)));
-    
-    // (*i)++;
-    // while(line[*i] == ' ' || line[*i] == '\t')
-    //     (*i)++;
-        
+    }    
 }
-
-// void handle_quotes(char *line, int *i, t_tokenn **tokens)
-// {
-//     int start;
-//     char quote_type;
-
-//     start = *i;
-//     quote_type = line[*i];
-//     (*i)++;
-//     while (line[*i] && line[*i] != quote_type)
-//         (*i)++;
-//     if (line[*i] == quote_type)
-//         (*i)++;
-//     // if(quote_type == '\'')
-//     //     add_token(tokens,create_token(SINGLE_QUOTE,ft_strndup(&line[start], *i - start)));
-//     // else if(quote_type == '"')
-//     //     add_token(tokens,create_token(DOUBLE_QUOTE,ft_strndup(&line[start], *i - start)));
-// }
-
-// void handle_exp(char *line, int *i, t_tokenn **tokens)
-// {
-//     int start;
-
-//     start = *i;
-//     // while (line[*i] && !is_operator(line[*i]) && line[*i] != '"' && line[*i] != '\'')
-//     //     (*i)++;
-//      while (line[*i] && !is_operator(line[*i]))
-//         (*i)++;
-//     add_token(tokens, create_token(EXP, ft_strndup(&line[start], *i - start)));
-// }
 
 void handle_exp(char *line, int *i, t_tokenn **tokens)
 {
@@ -133,7 +96,6 @@ void handle_exp(char *line, int *i, t_tokenn **tokens)
 
 	while (line[*i] && !is_operator(line[*i]))
 	{
-		// skip whitespace between EXP chunks
 		while (line[*i] == ' ' || line[*i] == '\t')
 			(*i)++;
 
@@ -160,7 +122,6 @@ void handle_exp(char *line, int *i, t_tokenn **tokens)
 	}
 }
 
-
 t_tokenn *tokenize(char *line)
 {
     t_tokenn *tokens = NULL;
@@ -170,8 +131,6 @@ t_tokenn *tokenize(char *line)
     {
         if (is_operator(line[i]))
             handle_operator(line, &i, &tokens);
-        // else if (line[i] == '"' || line[i] == '\'')
-        //     handle_quotes(line, &i, &tokens);
         else if(!is_operator(line[i]) && line[i] != ' ' && line[i] != '\t')
             handle_exp(line, &i, &tokens);
         else

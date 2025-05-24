@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/23 16:43:39 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/23 19:14:27 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,19 @@ void print_err(char *str);
 int ft_strlen(char *str);
 char	*ft_substr(char *s, unsigned int start, int len);
 char **ft_split_whitespace(char *s);
+int	is_whitespace(char c);
+int	find_dquote(char *line, int *i);
+int	find_squote(char *line, int *i);
+int	is_valid_redir_count(char *line, int *i, char redir);
+int	is_valid_redir_target(char *line, int *i);
+
+//expanding
+
+char	*str_append(char *s1, char *s2);
+char	*str_append_char(char *s, char c);
+char	*get_env_value(char *key, t_env *env);
+char	*expand_variable(char *exp, int *i, char *result, t_expand_data *data);
+char	*handle_single_quote(char *exp, int *i, char *result);
 
 // execution 
 
