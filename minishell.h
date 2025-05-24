@@ -6,13 +6,14 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 19:08:06 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/24 19:31:53 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdio.h>
 # include <dirent.h>
 # include <fcntl.h>
 # include <readline/history.h>
@@ -20,7 +21,6 @@
 # include <signal.h>
 # include <stdbool.h>
 # include <stddef.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <sys/wait.h>
 # include <unistd.h>
