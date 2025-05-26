@@ -6,13 +6,13 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 15:48:33 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 18:57:21 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 19:46:10 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_tokenn	*create_token(enum e_token type, char *value)
+t_tokenn	*create_token(enum e_token type, char *value,int quotes)
 {
 	t_tokenn	*new;
 
@@ -20,6 +20,7 @@ t_tokenn	*create_token(enum e_token type, char *value)
 	if (!new)
 		return (NULL);
 	new->type = type;
+	new->quotes = quotes;
 	new->value = value;
 	new->next = NULL;
 	return (new);

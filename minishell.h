@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/26 15:20:17 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/26 19:55:18 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct s_tokenn
 {
 	enum e_token		type;
 	char				*value;
+	int	quotes;
 	struct s_tokenn		*next;
 }						t_tokenn;
 
@@ -124,7 +125,7 @@ int						is_valid_redir_count(char *line, int *i, char redir);
 int						is_valid_redir_target(char *line, int *i);
 
 // token
-t_tokenn				*create_token(enum e_token type, char *value);
+t_tokenn				*create_token(enum e_token type, char *value,int quotes);
 void					add_token(t_tokenn **head, t_tokenn *new_token);
 int						is_operator(char c);
 void					skip_whitespace(char *line, int *i);
@@ -211,4 +212,4 @@ void					printf_path_error(t_execution *cmd);
 int	ft_lnum_export(int c);
 void	shelvl_path_underscore(t_env **env_list);
 
-#endif  MINISHELL_H
+#endif

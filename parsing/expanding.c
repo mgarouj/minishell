@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/26 16:06:53 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/26 20:30:14 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,16 @@ int	expand_rm_quotes(t_tokenn *t, t_env *env)
 	data.quoted = 0;
 	while (tmp)
 	{
-		if (tmp->type == EXP)
+		if (tmp->type == EXP && ft_strchr(tmp->value,'$') && !(tmp->quotes))
 		{
 			if(prev && (prev->type == REDIRECTION_IN || prev->type == REDIRECTION_OUT || prev->type == REDIRECTION_AP))
 			{
 				print_err("ambiguous redirect");
 				return(0);
 			}
+		}
+		else if(tmp->type == EXP)
+		{
 			data.sh_expand = !(prev && prev->type == HEREDOC);
 			tmp->value = handel_afterd(tmp->value, &data);
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/26 11:06:39 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/26 20:36:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	child_run_cmd(t_execution *cmd, t_env **env)
 	}
 	else
 	{
+		cmd->path = find_path(cmd, env);
+		printf_path_error(cmd);
 		execve(cmd->path, cmd->cmd, cmd->env);
 		perror("execve");
 		exit(1);
@@ -89,8 +91,6 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 		tmp_cmd->pid = ft_fork("fork in pipe");
 		if (!tmp_cmd->pid)
 		{
-			tmp_cmd->path = find_path(tmp_cmd, env);
-			printf_path_error(tmp_cmd);
 			child_in_out(prev_read, tmp_cmd);
 			child_run_cmd(tmp_cmd, env);
 		}

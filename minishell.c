@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/26 16:14:05 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/26 18:37:32 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	main(int ac, char **av, char **env)
 			token = tokenize(trim);
 			
 			//remove quotes and expaind only if there is no heredoc before
-			expand_rm_quotes(token, l);
+			if(!expand_rm_quotes(token, l))
+				continue;
 			// tmp = token;
 			// while (tmp)
 			// {
