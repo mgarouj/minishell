@@ -39,23 +39,8 @@ char	*handle_double_quote(char *exp, int *i, char *result,
 void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
 {
 	(*i)++;
-	pid_t pid;
 	if (exp[*i] == '$')
-	{
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("fork");
-			exit (1);
-		}
-		if (!pid)
-			exit (0);
-		else
-		{
-			wait(NULL);
-			*result = str_append(*result, ft_itoa((int)pid));
-			
-		}
+	{	
 		(*i)++;
 	}
 	else if (exp[*i] == '?')
@@ -123,7 +108,7 @@ void	retoken(t_tokenn *token)
 	}
 }
 
-void	expand_rm_quotes(t_tokenn *t, t_env *env)
+int	expand_rm_quotes(t_tokenn *t, t_env *env)
 {
 	t_tokenn		*tmp;
 	t_tokenn		*prev;
@@ -138,6 +123,11 @@ void	expand_rm_quotes(t_tokenn *t, t_env *env)
 	{
 		if (tmp->type == EXP)
 		{
+			if(prev && (prev->type == REDIRECTION_IN || prev->type == REDIRECTION_OUT || prev->type == REDIRECTION_AP))
+			{
+				print_err("ambiguous redirect");
+				return(0);
+			}
 			data.sh_expand = !(prev && prev->type == HEREDOC);
 			tmp->value = handel_afterd(tmp->value, &data);
 		}
@@ -147,4 +137,5 @@ void	expand_rm_quotes(t_tokenn *t, t_env *env)
 		prev = tmp;
 		tmp = tmp->next;
 	}
+	return(1);
 }

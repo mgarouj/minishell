@@ -91,7 +91,7 @@ typedef struct s_fds
 int						parssing(char *line);
 t_tokenn				*tokenize(char *line);
 void					handel_env(char *s, t_env **env);
-void					expand_rm_quotes(t_tokenn *t, t_env *l);
+int					expand_rm_quotes(t_tokenn *t, t_env *l);
 int						split_cmd(t_tokenn *token, t_execution **exec);
 void					signal_handler(void);
 void					retoken(t_tokenn *token);
@@ -211,4 +211,4 @@ void					printf_path_error(t_execution *cmd);
 int	ft_lnum_export(int c);
 void	shelvl_path_underscore(t_env **env_list);
 
-#endif // MINISHELL_H
+#endif  MINISHELL_H
