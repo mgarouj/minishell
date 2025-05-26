@@ -1,30 +1,58 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 15:38:10 by mgarouj           #+#    #+#             */
+/*   Updated: 2025/05/26 10:09:36 by mgarouj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-int ft_exit(char **arg, int exit_status)
+void	ft_exit_minishell(int exit_value)
 {
-    int i;
+	gar_coll(0, 'f');
+	fd_collec(0,0);
+	exit(exit_value);
+}
 
-    i = 0;
-    ft_putstr_fd("exit\n", 1);
-    if (arg[0] && arg[1] && arg[2])
-    {
-        printf("minishell: exit: too many arguments\n");
-        return (1);
-    }
-    if (arg[1])
-    {
-        if (arg[1][0] == '-' || arg[1][0] == '+')
+void	exit_error(char *s2, int f)
+{
+	if (f == 1)
+		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+	else if (f == 2)
+	{
+		ft_putstr_fd("exit\nminishell: exit: ", 2);
+		if (s2)
+			ft_putstr_fd(s2, 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
+	}
+}
+
+int	ft_exit(char **arg, int exit_status)
+{
+	int	i;
+
+	i = 0;
+	ft_putstr_fd("exit\n", 1);
+	if (arg[0] && arg[1] && arg[2])
+		return (exit_error(NULL, 1), 1);
+	if (arg[1])
+	{
+		if (arg[1][0] == '-' || arg[1][0] == '+')
 			i++;
-        while (arg[i])
-        {
-            if (!(arg[1][i] >= '0' && arg[1][i] <= '9'))
-            {
-                ft_3putstr("exit\nminishell: exit: ", arg[1], " numeric argument required\n", NULL);
-                exit(255);
-            }
-            i++;
-	    }
-	    exit(ft_atoi(arg[1]) % 256);
-    }
-    exit(exit_status);
+		while (arg[i])
+		{
+			if (!(arg[1][i] >= '0' && arg[1][i] <= '9'))
+				(exit_error(arg[1], 2), ft_exit_minishell(255));
+			i++;
+		}
+		ft_exit_minishell(ft_atoi(arg[1]) % 256);
+	}
+	gar_coll(0, 'f');
+	fd_collec(0,0);
+	exit(exit_status);
 }

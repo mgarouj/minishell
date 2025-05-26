@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 16:05:17 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/06 13:44:43 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/23 16:38:44 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	ft_lstsize(t_env *lst)
 
 int	ft_lstsize_cmd_list(t_execution *cmd_list)
 {
-	int	count;
-	t_execution *tmp;
+	int			count;
+	t_execution	*tmp;
 
 	tmp = cmd_list;
 	count = 0;

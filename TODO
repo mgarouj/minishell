@@ -5,3 +5,25 @@
 5. linked list of execution
 6. no such file or directory instead of command not found
 
+
+
+bash-3.2$ export a+b=mohame
+bash: export: `a+b=mohame': not a valid identifier
+bash-3.2$ export a-d-moham
+bash: export: `a-d-moham': not a valid identifier
+bash-3.2$ export -sfldj=hhhhhhhh
+bash: export: -s: invalid option
+
+
+//parsing
+
+
+getpid()
+handle exit status -> syntax error 
+
+
+//my part 
+
+handle env in pipe cmd 
+handle empty cmd
+

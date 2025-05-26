@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 19:31:53 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:20:17 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@ typedef struct s_tokenn
 
 typedef struct s_env
 {
-	char				*key;
-	char				*value;
-	int					exit_status;
-	struct s_env		*next;
-}						t_env;
+	char *key;
+	char *value;
+	int	exit_status;
+	char	*pwd;
+	struct s_env *next;
+}	t_env;
 
 typedef struct s_expand_data
 {
@@ -149,6 +150,8 @@ int						ft_isalnum(int c);
 pid_t					ft_fork(const char *msg);
 int						ft_isalpha(int c);
 void					ft_3putstr(char *s1, char *s2, char *s3, char *s4);
+int	handle_arg1(char *v);
+void    init_env_cmd(t_env *env, t_execution **cmd);
 
 // splitcmd
 t_execution				*creat_node(void);
@@ -180,7 +183,7 @@ void					export_in_env(t_env **env, char *key, char *value);
 int						ft_cd(char **arg, t_env *env);
 int						ft_echo(char **arg);
 int						ft_export(char **args, t_env **env);
-void					export_plus_equal(t_env **env, char *arg);
+void	export_plus_equal(t_env **env, char *arg, int i);
 void					normal_export(t_env **env, char *arg);
 int						ft_unset(char **arg, t_env **env);
 int						ft_env(char **arg, t_env **env);
@@ -201,9 +204,11 @@ int						execute_builtins(t_execution *cmd, t_env **env);
 void					ft_wait_child(t_execution *cmd, int *exit_status);
 
 // pipe fonction
-void					execute_pipe_cmd(t_execution **list_cmd, t_env **env,
-							int n_cmds);
+void	execute_pipe_cmd(t_execution **list_cmd, t_env **env);
+void	handle_in(void);
 void					set_exit_status(t_env **env, int exit_status);
 void					printf_path_error(t_execution *cmd);
+int	ft_lnum_export(int c);
+void	shelvl_path_underscore(t_env **env_list);
 
 #endif // MINISHELL_H

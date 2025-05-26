@@ -1,44 +1,52 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_path.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 16:13:08 by mgarouj           #+#    #+#             */
+/*   Updated: 2025/05/23 16:14:25 by mgarouj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
-void	free_paths(char **paths)
-{
-	int i = 0;
-	if (!paths)
-		return;
-	while (paths[i])
-		free(paths[i++]);
-	free(paths);
-}
+// void	free_paths(char **paths)
+// {
+// 	int	i;
 
-char *check_path(char **path, t_execution *cmd)
-{
-    int i;
-    char *test;
-    char *full;
+// 	i = 0;
+// 	if (!paths)
+// 		return ;
+// 	while (paths[i])
+// 		free(paths[i++]);
+// 	free(paths);
+// }
 
-    i = 0;
-    while (path[i])
-    {
-        test = ft_strjoin(path[i], "/");
+char	*check_path(char **path, t_execution *cmd)
+{
+	int		i;
+	char	*test;
+	char	*full;
+
+	i = 0;
+	while (path[i])
+	{
+		test = ft_strjoin(path[i], "/");
 		full = ft_strjoin(test, cmd->cmd[0]);
-		// free(test);
 		if (access(full, X_OK) == 0)
-		{
-			// free_paths(path);
 			return (full);
-		}
-		// free(full);
 		i++;
 	}
-	// free_paths(path);
 	return (NULL);
 }
 
-char    *find_path(t_execution *cmd, t_env **env)
+char	*find_path(t_execution *cmd, t_env **env)
 {
-	char *env_path;
-	char **path;
-	
+	char	*env_path;
+	char	**path;
+
 	if (!cmd || !cmd->cmd[0] || !cmd->cmd)
 		return (NULL);
 	if (ft_strchr(cmd->cmd[0], '/'))

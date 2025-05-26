@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/23 16:12:37 by mgarouj           #+#    #+#             */
+/*   Updated: 2025/05/26 11:45:38 by mgarouj          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	execute_one_cmd(t_execution **cmd_list, t_env **list_env)
@@ -11,16 +23,28 @@ void	execute_one_cmd(t_execution **cmd_list, t_env **list_env)
 		execute_execve_cmd(tmp_cmd, list_env);
 }
 
+void init_pwd(t_env **env)
+{
+	t_env *e;
+
+	e = *env;
+	e->pwd = ft_strdup(get_env_value("PWD", e));
+}
+
 void	execute_cmd(t_execution **cmd_list, t_env **list_env)
 {
-	int n_cmds;
+	int	n_cmds;
 
 	n_cmds = ft_lstsize_cmd_list(*cmd_list);
 	if (n_cmds <= 0)
 		return ;
 	init_cmd(cmd_list, n_cmds);
+	init_pwd(list_env);
+	init_env_cmd(*list_env, cmd_list);
+	if (!(*cmd_list)->cmd)
+		return ;
 	if (n_cmds == 1)
 		execute_one_cmd(cmd_list, list_env);
 	else
-		execute_pipe_cmd(cmd_list, list_env, n_cmds);
+		execute_pipe_cmd(cmd_list, list_env);
 }

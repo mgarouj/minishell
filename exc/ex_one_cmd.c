@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/21 14:16:47 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/23 16:09:51 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ char	**change_envlist_to_envchar(t_env *env)
 	return (env_array);
 }
 
-void child_for_one_cmd(t_execution *cmd, t_env **env)
+void	child_for_one_cmd(t_execution *cmd, t_env **env)
 {
-	char *path;
+	char	*path;
 
 	path = find_path(cmd, env);
 	if (!path)

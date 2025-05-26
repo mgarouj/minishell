@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/23 18:08:36 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 16:06:53 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,29 @@ char	*handle_double_quote(char *exp, int *i, char *result,
 void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
 {
 	(*i)++;
+	pid_t pid;
 	if (exp[*i] == '$')
 	{
-		*result = str_append(*result, ft_itoa((int)getpid()));
-		i++;
+		pid = fork();
+		if (pid == -1)
+		{
+			perror("fork");
+			exit (1);
+		}
+		if (!pid)
+			exit (0);
+		else
+		{
+			wait(NULL);
+			*result = str_append(*result, ft_itoa((int)pid));
+			
+		}
+		(*i)++;
 	}
 	else if (exp[*i] == '?')
 	{
 		*result = str_append(*result, ft_itoa(data->env->exit_status));
-		i++;
+		(*i)++;
 	}
 	else
 		*result = expand_variable(exp, i, *result, data);

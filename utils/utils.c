@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:03 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 19:28:01 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:13:28 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ char	*ft_substr(char *s, unsigned int start, int len)
 
 	if (!s)
 		return (NULL);
-	if (start > ft_strlen(s) || len == 0)
+	if ((int)start > ft_strlen(s) || len == 0)
 		return (ft_strdup(""));
-	if (ft_strlen(s) - start < len)
-		slen = ft_strlen(s) - start;
+	if (ft_strlen(s) - (int)start < len)
+		slen = ft_strlen(s) - (int)start;
 	else
 		slen = len;
 	r = (char *)gar_coll((slen + 1) * sizeof(char), 'a');
