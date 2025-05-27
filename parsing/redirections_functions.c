@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 18:34:56 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 21:02:44 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,33 @@ int	process_heredoc_input(int pipe_fd, char *delimiter)
 {
 	char	*line;
 
-	while (1)
+	int pid = fork();
+	if (pid == 0)
 	{
-		line = readline("> ");
-		if (!line)
+		signal_handler(0);
+		while (1)
 		{
-			print_err("heredoc input error");
-			return (0);
-		}
-		if (!ft_strcmp(line, delimiter))
-		{
+			line = readline("> ");
+			if (!line)
+			{
+				print_err("heredoc input error");
+				return (0);
+			}
+			if (!ft_strcmp(line, delimiter))
+			{
+				free(line);
+				break ;
+			}
+			write(pipe_fd, line, ft_strlen(line));
+			write(pipe_fd, "\n", 1);
 			free(line);
-			break ;
 		}
-		write(pipe_fd, line, ft_strlen(line));
-		write(pipe_fd, "\n", 1);
-		free(line);
+	}
+	else
+	{
+		signal(SIGINT, SIG_IGN);
+		wait(NULL);
+		signal_handler(1);
 	}
 	return (1);
 }

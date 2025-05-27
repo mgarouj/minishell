@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:26:35 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 18:34:29 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 21:12:13 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,17 @@ void	sig_int_handler(int sig)
 	rl_redisplay();
 }
 
-void	signal_handler(void)
+void	signal_handler(int f)
 {
-	signal(SIGINT, sig_int_handler);
-	signal(SIGQUIT, SIG_IGN);
+	if (f == 1)
+	{
+		signal(SIGINT, sig_int_handler);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else 
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }
+

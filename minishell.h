@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/26 19:55:18 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 21:10:17 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_tokenn				*tokenize(char *line);
 void					handel_env(char *s, t_env **env);
 int					expand_rm_quotes(t_tokenn *t, t_env *l);
 int						split_cmd(t_tokenn *token, t_execution **exec);
-void					signal_handler(void);
+void					signal_handler(int f);
 void					retoken(t_tokenn *token);
 // gc
 
@@ -151,8 +151,8 @@ int						ft_isalnum(int c);
 pid_t					ft_fork(const char *msg);
 int						ft_isalpha(int c);
 void					ft_3putstr(char *s1, char *s2, char *s3, char *s4);
-int	handle_arg1(char *v);
-void    init_env_cmd(t_env *env, t_execution **cmd);
+int						handle_arg1(char *v);
+void    				init_env_cmd(t_env *env, t_execution **cmd);
 
 // splitcmd
 t_execution				*creat_node(void);

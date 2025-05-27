@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/26 18:37:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/26 21:05:06 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
-	signal_handler();
+	signal_handler(1);
 	while (env[i])
 	{
 		handel_env(env[i], &l);
@@ -62,6 +62,7 @@ int	main(int ac, char **av, char **env)
 			print_err("exit");
 			exit_minishell();
 		}
+		signal(SIGINT, SIG_IGN);
 		if (line[0] != '\0')
 		{
 			add_history(line);
