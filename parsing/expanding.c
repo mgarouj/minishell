@@ -128,6 +128,11 @@ int	expand_rm_quotes(t_tokenn *t, t_env *env)
 				print_err("ambiguous redirect");
 				return(0);
 			}
+			else
+			{
+				data.sh_expand = !(prev && prev->type == HEREDOC);
+				tmp->value = handel_afterd(tmp->value, &data);
+			}
 		}
 		else if(tmp->type == EXP)
 		{

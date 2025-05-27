@@ -30,7 +30,7 @@ int	main(int ac, char **av, char **env)
 	int			i;
 	t_env		*l;
 	t_tokenn	*token;
-	// t_tokenn	*tmp;
+	t_tokenn	*tmp;
 	// atexit(leak);
 	
 	t_execution *exec_list;
@@ -80,14 +80,14 @@ int	main(int ac, char **av, char **env)
 			//remove quotes and expaind only if there is no heredoc before
 			if(!expand_rm_quotes(token, l))
 				continue;
-			// tmp = token;
-			// while (tmp)
-			// {
-			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-			// 	tmp = tmp->next;
-			// }
+			tmp = token;
+			while (tmp)
+			{
+				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+				tmp = tmp->next;
+			}
 			
-			// printf("***************************\n");
+			printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list,l))
 				continue;
