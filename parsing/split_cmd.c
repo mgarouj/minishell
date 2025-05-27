@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 19:20:35 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/27 21:11:50 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	append_to_cmd(char *exp, t_execution *exec)
 	return (1);
 }
 
-int	handel_redirections(t_tokenn *token, char *file_name, t_execution *exec)
+int	handel_redirections(t_tokenn *token, char *file_name, t_execution *exec,t_env *env)
 {
 	if (token->type == REDIRECTION_IN)
 		return (handel_redin(file_name, exec));
@@ -38,11 +38,11 @@ int	handel_redirections(t_tokenn *token, char *file_name, t_execution *exec)
 	else if (token->type == REDIRECTION_AP)
 		return (handel_redappend(file_name, exec));
 	else if (token->type == HEREDOC)
-		return (handle_heredoc(file_name, exec));
+		return (handle_heredoc(file_name, exec,env));
 	return (0);
 }
 
-static int	process_command(t_tokenn **tmp, t_execution *exec)
+static int	process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
 {
 	while (*tmp && (*tmp)->type != PIPE)
 	{
@@ -54,7 +54,7 @@ static int	process_command(t_tokenn **tmp, t_execution *exec)
 		else if (is_redirection((*tmp)->value))
 		{
 			if (!(*tmp)->next || !handel_redirections(*tmp, (*tmp)->next->value,
-					exec))
+					exec,env))
 			{
 				print_err("invalid redirection");
 				return (0);
@@ -66,7 +66,7 @@ static int	process_command(t_tokenn **tmp, t_execution *exec)
 	return (1);
 }
 
-int	split_cmd(t_tokenn *token, t_execution **exec_list)
+int	split_cmd(t_tokenn *token, t_execution **exec_list,t_env *env)
 {
 	t_tokenn	*tmp;
 	t_execution	*exec;
@@ -77,7 +77,7 @@ int	split_cmd(t_tokenn *token, t_execution **exec_list)
 		exec = creat_node();
 		if (!exec)
 			return (0);
-		if (!process_command(&tmp, exec))
+		if (!process_command(&tmp, exec,env))
 			return (0);
 		add_node_to_list(exec_list, exec);
 		if (tmp && tmp->type == PIPE)

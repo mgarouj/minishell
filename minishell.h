@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/26 21:10:17 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/27 21:17:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int						parssing(char *line);
 t_tokenn				*tokenize(char *line);
 void					handel_env(char *s, t_env **env);
 int					expand_rm_quotes(t_tokenn *t, t_env *l);
-int						split_cmd(t_tokenn *token, t_execution **exec);
+int						split_cmd(t_tokenn *token, t_execution **exec,t_env *env);
 void					signal_handler(int f);
 void					retoken(t_tokenn *token);
 // gc
@@ -166,8 +166,8 @@ int						copy_and_append_cmd(char **new_cmd, t_execution *exec,
 int						handel_redin(char *filename, t_execution *exec);
 int						handel_reout(char *filename, t_execution *exec);
 int						handel_redappend(char *filename, t_execution *exec);
-int						process_heredoc_input(int pipe_fd, char *delimiter);
-int						handle_heredoc(char *delimiter, t_execution *exec);
+int						process_heredoc_input(int pipe_fd, char *delimiter,t_env *env);
+int						handle_heredoc(char *delimiter, t_execution *exec,t_env *env);
 
 // env
 char					*get_env_value(char *key, t_env *env);

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/26 21:05:06 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/27 21:17:37 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int ac, char **av, char **env)
 			
 			// printf("***************************\n");
 			exec_list = NULL;
-			if(!split_cmd(token,&exec_list))
+			if(!split_cmd(token,&exec_list,l))
 				continue;
 			t_execution *t = exec_list;
 			int i;
