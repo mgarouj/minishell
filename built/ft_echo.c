@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:36:05 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/23 15:37:02 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/28 15:50:40 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,14 @@ bool	check_flag(char *flag)
 	if (!flag || flag[i] != '-')
 		return (false);
 	i++;
+	if (!flag[i])
+		return (false);
 	while (flag[i])
 	{
-		if (flag[i] != 'n')
+		if (flag[i] == 'n')
+			i++;
+		else
 			return (false);
-		i++;
 	}
 	return (true);
 }

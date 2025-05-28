@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/27 21:17:37 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:10:58 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	main(int ac, char **av, char **env)
 				}
 			
 			// execution 
+			printf("\n\n**********************************************************************************************************\n");
 			execute_cmd(&exec_list, &l);
 			// printf("exit status = %d \n", l->exit_status);
 		}

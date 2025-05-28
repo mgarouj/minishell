@@ -27,3 +27,8 @@ handle exit status -> syntax error
 handle env in pipe cmd 
 handle empty cmd
 
+
+
+> $var 
+expand 
+
