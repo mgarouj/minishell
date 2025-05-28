@@ -90,7 +90,6 @@ void	retoken(t_tokenn *token)
 	split = ft_split_whitespace(token->value);
 	if (!split || !split[0])
 		return ;
-	free(token->value);
 	token->value = ft_strdup(split[0]);
 	t = token;
 	i = 1;

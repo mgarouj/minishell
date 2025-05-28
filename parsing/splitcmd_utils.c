@@ -61,23 +61,27 @@ int	is_redirection(char *s)
 // 	return (size + 2);
 // }
 
-int	calculate_required_size(char *exp, t_execution *exec)
+int    calculate_required_size(char* exp, t_execution *exec)
 {
-	int	size;
-	int	i;
+    int    size;
+    int    i;
 
-	size = 0;
-	i = 0;
-	while (exp && exp[i])
-	{
-		if (exp[i] == ' ' || exp[i] == '\t')
-			size++;
-		i++;
-	}
-	if (exec->cmd)
-		while (exec->cmd[size])
-			size++;
-	return (size + 2);
+    size = 0;
+    i = 0;
+    while (exp && exp[i])
+    {
+        if (exp[i] == ' ' || exp[i] == '\t')
+            size++;
+        i++;
+    }
+    if (exec->cmd)
+    {
+        i = 0;
+        while (exec->cmd[i])
+            i++;
+        size+=i;
+    }
+    return (size + 2);
 }
 
 int	copy_and_append_cmd(char **new_cmd, t_execution *exec, char *exp)

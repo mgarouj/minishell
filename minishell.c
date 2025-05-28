@@ -41,7 +41,7 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
-	signal_handler(1);
+	// signal_handler(1);
 	while (env[i])
 	{
 		handel_env(env[i], &l);
