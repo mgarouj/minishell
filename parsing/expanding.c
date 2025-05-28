@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/28 17:04:23 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:23:32 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int	expand_rm_quotes(t_tokenn *t, t_env *env)
 			tmp->value = handel_afterd(tmp->value, &data);
 		}
 		if (data.expanded && !(data.quoted) && (ft_strchr(tmp->value, ' ')
-				|| ft_strchr(tmp->value, '\t')))
+				|| ft_strchr(tmp->value, '\t')) && !ft_strchr(tmp->value,'='))
 			retoken(tmp);
 		prev = tmp;
 		tmp = tmp->next;
