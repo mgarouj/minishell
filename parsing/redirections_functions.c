@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/27 21:41:17 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:09:16 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int	handel_redin(char *filename, t_execution *exec)
 	fd_collec(fd, 1);
 	if (fd == -1)
 	{
-		print_err("failed to open input file");
 		fd_collec(0, 0);
 		return (0);
 	}
@@ -38,7 +37,6 @@ int	handel_reout(char *filename, t_execution *exec)
 	fd_collec(fd, 1);
 	if (fd == -1)
 	{
-		print_err("failed to open output file");
 		fd_collec(0, 0);
 		return (0);
 	}

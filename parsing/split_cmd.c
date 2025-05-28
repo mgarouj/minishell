@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/27 21:11:50 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/28 17:08:25 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
 			if (!(*tmp)->next || !handel_redirections(*tmp, (*tmp)->next->value,
 					exec,env))
 			{
-				print_err("invalid redirection");
+				print_err("No such file or directory");
 				return (0);
 			}
 			*tmp = (*tmp)->next;

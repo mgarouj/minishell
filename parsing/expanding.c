@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/28 16:17:35 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/28 17:04:23 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,8 +124,12 @@ int	expand_rm_quotes(t_tokenn *t, t_env *env)
 		{
 			if(prev && (prev->type == REDIRECTION_IN || prev->type == REDIRECTION_OUT || prev->type == REDIRECTION_AP))
 			{
-				print_err("ambiguous redirect");
-				return(0);
+				tmp->value=handel_afterd(tmp->value,&data);
+				if(ft_strchr(tmp->value,' ') || ft_strchr(tmp->value,'\t'))
+				{
+					print_err("ambiguous redirect");
+					return(0);
+				}
 			}
 			else
 			{
