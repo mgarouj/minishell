@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/28 18:53:05 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/28 18:56:52 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,10 @@
 char	*handle_double_quote(char *exp, int *i, char *result,
 		t_expand_data *data)
 {
-	bool is_escaped = (*i) > 0 && exp[(*i) - 1] != '\\';
 	(*i)++;
 	while (exp[*i] && exp[*i] != '"')
 	{
-		if (exp[*i] == '$' && is_escaped && data->sh_expand && exp[(*i) + 1] != '"'
+		if (exp[*i] == '$' && data->sh_expand && exp[(*i) + 1] != '"'
 			&& exp[(*i) + 1] != ' ' && exp[(*i) + 1] != '\t' && exp[(*i)
 				+ 1] != ',')
 		{
