@@ -126,7 +126,7 @@ int	main(int ac, char **av, char **env)
 				}
 			
 			// // execution 
-			// printf("\n\n**********************************************************************************************************\n");
+			printf("\n\n*********************\n");
 			execute_cmd(&exec_list, &l);
 			// printf("exit status = %d \n", l->exit_status);
 		}

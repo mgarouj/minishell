@@ -57,7 +57,7 @@ int	ft_echo(char **args)
 	n_flag = false;
 	if (!args[i])
 		return (ft_putstr_fd("\n", 1), 0);
-	if (check_flag(args[i]))
+	while (check_flag(args[i]))
 	{
 		n_flag = true;
 		i++;
