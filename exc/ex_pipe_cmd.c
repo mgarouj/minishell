@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/26 20:36:29 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/29 18:32:34 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void	child_run_cmd(t_execution *cmd, t_env **env)
 		cmd->path = find_path(cmd, env);
 		printf_path_error(cmd);
 		execve(cmd->path, cmd->cmd, cmd->env);
-		perror("execve");
+		if (!ft_strcmp(cmd->cmd[0],".."))
+			print_err("command not found");
+		else
+			perror("execve");
 		exit(1);
 	}
 }

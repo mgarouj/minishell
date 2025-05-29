@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:16:41 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/23 16:20:28 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/29 19:33:04 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,22 @@ void	add_underscore(t_env **env_list)
 			"/usr/bin/env");
 }
 
+void	add_pwd(t_env **env)
+{
+	char *pwd;
+	// t_env *tmp_pwd;
+	char *path;
+
+	pwd = getcwd(NULL, 0);
+	
+	if (!pwd)
+		return ;
+	path = get_env_value("PWD", *env);
+	if (!path)
+		export_in_env(env, "PWD",pwd);
+	free(pwd);
+}
+
 void	shelvl_path_underscore(t_env **env_list)
 {
 	t_env	*tmp_env;
@@ -43,6 +59,7 @@ void	shelvl_path_underscore(t_env **env_list)
 	int		new_value;
 
 	tmp_env = *env_list;
+	new_value = 0;
 	old_value = get_env_value("SHLVL", tmp_env);
 	if (!old_value)
 		export_in_env(env_list, "SHLVL", "0");
@@ -60,6 +77,7 @@ void	shelvl_path_underscore(t_env **env_list)
 	}
 	add_path(env_list);
 	add_underscore(env_list);
+	add_pwd(env_list);
 }
 
 void	handle_in(void)

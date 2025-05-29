@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/28 15:10:58 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/29 18:51:01 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,13 @@ void leak(void){
 	system("leaks minishell");
 }
 
+// void test_mini()
+void	add_pwd_shlvl(t_env **l)
+{
+	export_in_env(l, "PWD", getcwd(NULL, 0));
+	printf("env = %s\n", (*l)->value);
+}
+
 int	main(int ac, char **av, char **env)
 {
 	char		*line;
@@ -30,7 +37,7 @@ int	main(int ac, char **av, char **env)
 	int			i;
 	t_env		*l;
 	t_tokenn	*token;
-	t_tokenn	*tmp;
+	// t_tokenn	*tmp;
 	// atexit(leak);
 	
 	t_execution *exec_list;
@@ -41,14 +48,18 @@ int	main(int ac, char **av, char **env)
 	l = NULL;
 	token = NULL;
 	i = 0;
+	
+	// if (!env && !env[0])
+		// add_pwd_shlvl(&l);
 	// signal_handler(1);
 	while (env[i])
 	{
+		printf("====================\n");
 		handel_env(env[i], &l);
 		i++;
 	}
-
 	shelvl_path_underscore(&l);
+
 	
 	// l = env_to_list(env);
 	
@@ -80,14 +91,14 @@ int	main(int ac, char **av, char **env)
 			//remove quotes and expaind only if there is no heredoc before
 			if(!expand_rm_quotes(token, l))
 				continue;
-			tmp = token;
-			while (tmp)
-			{
-				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-				tmp = tmp->next;
-			}
+			// tmp = token;
+			// while (tmp)
+			// {
+			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+			// 	tmp = tmp->next;
+			// }
 			
-			printf("***************************\n");
+			// printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list,l))
 				continue;
@@ -115,8 +126,8 @@ int	main(int ac, char **av, char **env)
 					t = t->next;
 				}
 			
-			// execution 
-			printf("\n\n**********************************************************************************************************\n");
+			// // execution 
+			// printf("\n\n**********************************************************************************************************\n");
 			execute_cmd(&exec_list, &l);
 			// printf("exit status = %d \n", l->exit_status);
 		}
