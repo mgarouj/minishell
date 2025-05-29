@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/29 18:51:01 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/29 19:44:39 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int	main(int ac, char **av, char **env)
 	// signal_handler(1);
 	while (env[i])
 	{
-		printf("====================\n");
 		handel_env(env[i], &l);
 		i++;
 	}

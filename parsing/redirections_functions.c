@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_functions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/28 17:09:16 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/29 20:02:11 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int	process_heredoc_input(int pipe_fd, char *delimiter,t_env *env)
 				free(line);
 				break ;
 			}
-			if(ft_strchr(line,'$'))
+			if(ft_strchr(line,'$') && (ft_strchr(delimiter,'"') || ft_strchr(delimiter,'\'')))
 			{
 				tmp = replace(line,env);
 				write(pipe_fd, tmp, ft_strlen(tmp));

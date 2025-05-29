@@ -20,7 +20,7 @@ bash: export: -s: invalid option
 
 getpid()
 handle exit status -> syntax error 
-
+# ###
 
 //my part 
 
@@ -52,57 +52,24 @@ GNOME_TERMINAL_SERVICE=:1.84
 HOME=/home/mgarouj
 PATH=/home/mgarouj/bin:/home/mgarouj/bin:/home/mgarouj/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
 XDG_RUNTIME_DIR=/run/user/104042
-minishell> ls
-ls: command not found
 
-=================================================================
-==1384563==ERROR: LeakSanitizer: detected memory leaks
 
-Direct leak of 46 byte(s) in 1 object(s) allocated from:
-    #0 0x49a589 in realloc (/home/mgarouj/Desktop/my_project/c4/minishell/minishell+0x49a589)
-    #1 0x7f112a2367bc in getcwd io/../sysdeps/unix/sysv/linux/getcwd.c:86:8
-    #2 0x4cb9f7 in change_directory /home/mgarouj/Desktop/my_project/c4/minishell/built/ft_cd.c:31:8
-    #3 0x4cbd0a in ft_cd /home/mgarouj/Desktop/my_project/c4/minishell/built/ft_cd.c:69:11
-    #4 0x4cebfa in execute_builtins /home/mgarouj/Desktop/my_project/c4/minishell/exc/ex_one_cmd.c:20:11
-    #5 0x4cf0a8 in execute_one_builtin /home/mgarouj/Desktop/my_project/c4/minishell/exc/ex_one_cmd.c:46:16
-    #6 0x4ce867 in execute_one_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:21:3
-    #7 0x4cea29 in execute_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:47:3
-    #8 0x4dec09 in main /home/mgarouj/Desktop/my_project/c4/minishell/minishell.c:120:4
-    #9 0x7f112a14ad8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
 
-SUMMARY: AddressSanitizer: 46 byte(s) leaked in 1 allocation(s).
 
- ✘ mgarouj@e1r9p12  ~/Desktop/my_project/c4/minishell   main ±  env -i ./minishell    ********
-minishell> ls
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==1384901==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0000004ddfb7 bp 0x7ffda69cf850 sp 0x7ffda69cf830 T0)
-==1384901==The signal is caused by a READ memory access.
-==1384901==Hint: address points to the zero page.
-    #0 0x4ddfb7 in ft_strlen /home/mgarouj/Desktop/my_project/c4/minishell/utils/utils2.c:20:2
-    #1 0x4dd42b in ft_strdup /home/mgarouj/Desktop/my_project/c4/minishell/utils/utils.c:65:6
-    #2 0x4ce8d3 in init_pwd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:31:11
-    #3 0x4ce97b in execute_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:42:2
-    #4 0x4dec09 in main /home/mgarouj/Desktop/my_project/c4/minishell/minishell.c:120:4
-    #5 0x7f2051154d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
-    #6 0x7f2051154e3f in __libc_start_main csu/../csu/libc-start.c:392:3
-    #7 0x41f3a4 in _start (/home/mgarouj/Desktop/my_project/c4/minishell/minishell+0x41f3a4)
 
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV /home/mgarouj/Desktop/my_project/c4/minishell/utils/utils2.c:20:2 in ft_strlen
-==1384901==ABORTING
 
 minishell> ""
 minishell> ''
 
 heredoc more that 16 case
+
 garouj@e1r9p12:~/Desktop/my_project/c4/minishell$  <<e<<e<<e<<e<<e<<e<<e<<e<<e<<e<<e<<e<<e<<e<<e<<e<<e
 bash: maximum here-document count exceeded
  ✘ mgarouj@e1r9p12  ~/Desktop/my_project/c4/minishell   main ±  $?
 zsh: command not found: 2
 
 
---*-*-*-*-*-*-*-*-change the heredoc from pipe to file
+--*-*-*-*-*-*-*-*-change the heredoc from pipe to file //
 
 
 --- if exist uqotes in the delimiter nothing gets expanded inside the herdoc
@@ -129,6 +96,14 @@ minishell> export $a=hhhhhh
 this case is not ambig
 minishell> ls >$a
 error :ambiguous redirect
+ls > $a
+bash: $a: ambiguous redirect
+
+mgarouj@e1r9p12:~/Desktop/my_project/c4/minishell$ ls >$a
+bash: $a: ambiguous redirect
+mgarouj@e1r9p12:~/Desktop/my_project/c4/minishell$ 
+
+
 minishell> echo "$a"
       ls      
 minishell> 
@@ -141,28 +116,15 @@ execve: Permission denied
  ls >a>b>c>$adsf>d>e>f | ps        ps should be executed
 
 
-  mgarouj@e1r9p12  ~/Desktop/my_project/c4/minishell   main ±  unset PWD
- mgarouj@e1r9p12  ~/Desktop/my_project/c4/minishell   main ±  ./minishell 
-minishell> ls
-AddressSanitizer:DEADLYSIGNAL
-=================================================================
-==1410946==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0000004ddfb7 bp 0x7ffc20194bb0 sp 0x7ffc20194b90 T0)
-==1410946==The signal is caused by a READ memory access.
-==1410946==Hint: address points to the zero page.
-    #0 0x4ddfb7 in ft_strlen /home/mgarouj/Desktop/my_project/c4/minishell/utils/utils2.c:20:2
-    #1 0x4dd42b in ft_strdup /home/mgarouj/Desktop/my_project/c4/minishell/utils/utils.c:65:6
-    #2 0x4ce8d3 in init_pwd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:31:11
-    #3 0x4ce97b in execute_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:42:2
-    #4 0x4dec09 in main /home/mgarouj/Desktop/my_project/c4/minishell/minishell.c:120:4
-    #5 0x7f481901ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
-    #6 0x7f481901ee3f in __libc_start_main csu/../csu/libc-start.c:392:3
-    #7 0x41f3a4 in _start (/home/mgarouj/Desktop/my_project/c4/minishell/minishell+0x41f3a4)
-
-AddressSanitizer can not provide additional info.
-SUMMARY: AddressSanitizer: SEGV /home/mgarouj/Desktop/my_project/c4/minishell/utils/utils2.c:20:2 in ft_strlen
-==1410946==ABORTING
 
 minishell> exit 5456456465456456465456456460418179817987987456456487
 exit
  ✘ mgarouj@e1r9p12  ~/Desktop/my_project/c4/minishell   main ±  
  should overflow
+
+
+ minishell> export $sdkfj=llll
+Command:
+  [0]: export
+  [1]: in_file = 0
+  [1]: out_file = 1
