@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 02:14:12 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/26 13:43:36 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/30 18:55:47 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ int	ft_cd(char **arg, t_env *env)
 			ft_putstr_fd("minishell: cd: HOME not set\n", 1);
 			return (1);
 		}
+	}
+	else if (arg[1][0] == '\0') // يعني: cd ""
+	{
+		ft_putstr_fd("minishell: cd: : No such file or directory\n", 1);
+		return (1);
 	}
 	else
 		path = arg[1];

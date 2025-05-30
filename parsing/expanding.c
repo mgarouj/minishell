@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/30 17:45:36 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/30 19:02:45 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*handle_double_quote(char *exp, int *i, char *result,
 	{
 		if (exp[*i] == '$' && data->sh_expand && exp[(*i) + 1] != '"'
 			&& exp[(*i) + 1] != ' ' && exp[(*i) + 1] != '\t' && exp[(*i)
-				+ 1] != ',')
+				+ 1] != ',' && exp[*i + 1] != ':' && exp[*i + 1] != '=')
 		{
 			(*i)++;
 			result = expand_variable(exp, i, result, data);
@@ -78,7 +78,12 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 				i++;
 			}
 	}
-	return (result);
+	if (ft_strlen(result) == 0)
+	{
+		free(result);
+		result = ft_strdup("\0");
+	}
+		return (result);
 }
 
 void	retoken(t_tokenn *token)
