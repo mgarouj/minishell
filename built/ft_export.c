@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/30 16:24:06 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/30 17:27:42 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*ft_strjoin_3(char *s1, char *s2)
+char	*ft_strjoin_3sort(char *s1, char *s2)
 {
 	char	*join3;
 	int		i;
@@ -77,7 +77,7 @@ int	print_sorted_env(t_env *env)
 	while (j < size)
 	{
 		if (env->value)
-			sort_env[j] = ft_strjoin_3(env->key, env->value);
+			sort_env[j] = ft_strjoin_3sort(env->key, env->value);
 		else
 			sort_env[j] = ft_strdup(env->key);
 		j++;

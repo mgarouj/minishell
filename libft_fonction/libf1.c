@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libf1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mohammedali <mohammedali@student.42.fr>    +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 12:55:56 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/24 04:22:44 by mohammedali      ###   ########.fr       */
+/*   Updated: 2025/05/30 17:28:10 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,31 @@ char	*ft_strnstr(char *haystack, char *needle, int len)
 		i++;
 	}
 	return (NULL);
+}
+
+char	*ft_strjoin_3(char *s1, char *s2)
+{
+	char	*join3;
+	int		i;
+	int		j;
+
+	if (!s2)
+		return (ft_strdup(s1));
+	join3 = gar_coll(ft_strlen(s1) + ft_strlen(s2) + 2, 'a');
+	i = 0;
+	while (s1[i])
+	{
+		join3[i] = s1[i];
+		i++;
+	}
+	join3[i++] = '=';
+	j = 0;
+	while (s2[j])
+	{
+		join3[i] = s2[j];
+		j++;
+		i++;
+	}
+	join3[i] = '\0';
+	return (join3);
 }
