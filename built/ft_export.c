@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/28 14:55:23 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/30 16:24:06 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin_3(char *s1, char *s2)
 
 	if (!s2)
 		return (ft_strdup(s1));
-	join3 = gar_coll(ft_strlen(s1) + ft_strlen(s2) + 2, 'a');
+	join3 = gar_coll(ft_strlen(s1) + ft_strlen(s2) + 2 + 2, 'a');
 	i = 0;
 	while (s1[i])
 	{
@@ -28,6 +28,7 @@ char	*ft_strjoin_3(char *s1, char *s2)
 		i++;
 	}
 	join3[i++] = '=';
+	join3[i++] = '\"';
 	j = 0;
 	while (s2[j])
 	{
@@ -35,6 +36,7 @@ char	*ft_strjoin_3(char *s1, char *s2)
 		j++;
 		i++;
 	}
+	join3[i++] = '\"';
 	join3[i] = '\0';
 	return (join3);
 }
