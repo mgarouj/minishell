@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:32:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/25 18:28:26 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/30 16:05:07 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	handle_arg1(char *v)
 	flag = 0;
 	while (v[i] && v[i] != '=')
 	{
-		if (!ft_lnum_export(v[i]))
-			flag = 1;
+		if (!ft_lnum_export(v[i]) && v[i+1] != '=')
+			flag++;
 		i++;
 	}
 	if (flag)
