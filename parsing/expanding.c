@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/29 17:47:38 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/30 17:45:36 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 				result = handle_double_quote(exp, &i, result, data);
 			}
 			else if (exp[i] == '$' && data->sh_expand && exp[i + 1] && exp[i
-					+ 1] != ' ' && exp[i + 1] != '\t' && exp[i + 1] != ',')
+					+ 1] != ' ' && exp[i + 1] != '\t' && exp[i + 1] != ',' && exp[i + 1] != ':' && exp[i + 1] != '=')
 				handel_specials(&result, exp, data, &i);
 			else
 			{

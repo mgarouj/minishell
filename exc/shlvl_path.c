@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:16:41 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/30 17:19:48 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/30 17:41:43 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,7 @@ void	shelvl_path_underscore(t_env **env_list)
 		export_in_env(env_list, "SHLVL", "0");
 	else
 	{
-		printf("oldvaleu = %s\n", old_value);
 		new_value = ft_atoi(old_value);
-		printf("new value = %d \n", new_value);
 		if (new_value >= 999)
 		{
 			ft_putstr_fd("minishell: warning: ", 1);
@@ -75,7 +73,6 @@ void	shelvl_path_underscore(t_env **env_list)
 			new_value = 0;
 		}
 		new_value++;
-		printf("new value = %d \n", new_value);
 		export_in_env(env_list, "SHLVL", ft_itoa(new_value));
 	}
 	add_path(env_list);
