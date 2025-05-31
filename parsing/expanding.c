@@ -80,7 +80,7 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 	}
 	if (ft_strlen(result) == 0)
 	{
-		free(result);
+		// free(result);   // double free
 		result = ft_strdup("\0");
 	}
 		return (result);

@@ -43,12 +43,21 @@ typedef struct s_tokenn
 	struct s_tokenn		*next;
 }						t_tokenn;
 
+typedef struct s_export
+{
+	char *key;
+	char *value;
+	int	flag_env;
+	struct s_export *next;
+}	t_export;
+
 typedef struct s_env
 {
 	char *key;
 	char *value;
 	int	exit_status;
 	char	*pwd;
+	t_export 	*export;
 	struct s_env *next;
 }	t_env;
 
