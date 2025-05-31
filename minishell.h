@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/27 21:17:29 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:26:47 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int						find_dquote(char *line, int *i);
 int						find_squote(char *line, int *i);
 int						is_valid_redir_count(char *line, int *i, char redir);
 int						is_valid_redir_target(char *line, int *i);
-
+int	is_num(char c);
 // token
 t_tokenn				*create_token(enum e_token type, char *value,int quotes);
 void					add_token(t_tokenn **head, t_tokenn *new_token);

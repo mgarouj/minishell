@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/29 19:44:39 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/31 17:15:18 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int ac, char **av, char **env)
 	int			i;
 	t_env		*l;
 	t_tokenn	*token;
-	// t_tokenn	*tmp;
+	t_tokenn	*tmp;
 	// atexit(leak);
 	
 	t_execution *exec_list;
@@ -90,14 +90,14 @@ int	main(int ac, char **av, char **env)
 			//remove quotes and expaind only if there is no heredoc before
 			if(!expand_rm_quotes(token, l))
 				continue;
-			// tmp = token;
-			// while (tmp)
-			// {
-			// 	printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-			// 	tmp = tmp->next;
-			// }
+			tmp = token;
+			while (tmp)
+			{
+				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
+				tmp = tmp->next;
+			}
 			
-			// printf("***************************\n");
+			printf("***************************\n");
 			exec_list = NULL;
 			if(!split_cmd(token,&exec_list,l))
 				continue;

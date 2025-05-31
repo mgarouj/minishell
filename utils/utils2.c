@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 18:45:42 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/29 17:36:30 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/05/31 18:26:38 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,9 @@ char	**ft_split(char *s, char c)
 	if (!r)
 		return (NULL);
 	return (copy(s, c, r));
+}
+
+int	is_num(char c)
+{
+	return (c >= '0' && c <= '9');
 }

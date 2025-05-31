@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:07:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/30 20:55:22 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/31 18:59:46 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*expand_variable(char *exp, int *i, char *result, t_expand_data *data)
 	start = *i;
 	while (exp[*i] && exp[*i] != ' ' && exp[*i] != '\t' && exp[*i] != '"'
 		&& exp[*i] != '\'' && exp[*i] != '$' && exp[*i] != ','
-		&& exp[*i] != ';' && exp[*i] != '.' && exp[*i] != '[' && exp[*i] != ']' && exp[*i] != '=')
+		&& exp[*i] != ';' && exp[*i] != '.' && exp[*i] != '[' && exp[*i] != ']' && exp[*i] != '=' && exp[*i] != '%' && exp[*i] != '*')
 		(*i)++;
 	var_name = sub_str(exp + start, (*i) - start);
 	var_value = get_env_value(var_name, data->env);

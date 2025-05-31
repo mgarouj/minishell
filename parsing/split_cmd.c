@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/28 17:08:25 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/31 17:51:37 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
 {
 	while (*tmp && (*tmp)->type != PIPE)
 	{
-		if ((*tmp)->type == EXP && (*tmp)->value && (*tmp)->value[0])
+		if ((*tmp)->type == EXP && (*tmp)->value)
 		{
 			if (!append_to_cmd((*tmp)->value, exec))
 				return (0);

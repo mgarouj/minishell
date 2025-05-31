@@ -6,35 +6,11 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/30 19:02:45 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/05/31 20:00:20 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-char	*handle_double_quote(char *exp, int *i, char *result,
-		t_expand_data *data)
-{
-	(*i)++;
-	while (exp[*i] && exp[*i] != '"')
-	{
-		if (exp[*i] == '$' && data->sh_expand && exp[(*i) + 1] != '"'
-			&& exp[(*i) + 1] != ' ' && exp[(*i) + 1] != '\t' && exp[(*i)
-				+ 1] != ',' && exp[*i + 1] != ':' && exp[*i + 1] != '=')
-		{
-			(*i)++;
-			result = expand_variable(exp, i, result, data);
-		}
-		else
-		{
-			result = str_append_char(result, exp[*i]);
-			(*i)++;
-		}
-	}
-	if (exp[*i] == '"')
-		(*i)++;
-	return (result);
-}
 
 void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
 {
@@ -48,9 +24,47 @@ void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
 		*result = str_append(*result, ft_itoa(data->env->exit_status));
 		(*i)++;
 	}
+	else if(is_num(exp[*i]))
+	{
+		(*i)++;
+		while(exp[*i])
+		{
+			*result= str_append_char(*result,exp[*i]);
+			(*i)++;
+		}
+	}
 	else
 		*result = expand_variable(exp, i, *result, data);
 }
+
+char	*handle_double_quote(char *exp, int *i, char *result,
+		t_expand_data *data)
+{
+	(*i)++;
+	while (exp[*i] && exp[*i] != '"')
+	{
+		if(exp[*i] == '$' && data->sh_expand && exp[(*i) + 1] && exp[*i+ 1] != ' ' && 
+			exp[(*i) + 1] != '\t' && exp[(*i) + 1] != ',' && exp[(*i) + 1] != ':' && exp[(*i) + 1] != '=' && exp[(*i) + 1] != '+' 
+			&& exp[(*i) + 1] != '"')
+				handel_specials(&result,exp,data,i);
+		// if (exp[*i] == '$' && data->sh_expand && exp[(*i) + 1] != '"'
+		// 	&& exp[(*i) + 1] != ' ' && exp[(*i) + 1] != '\t' && exp[(*i)
+		// 		+ 1] != ',' && exp[*i + 1] != ':' && exp[*i + 1] != '=')
+		// {
+		// 	(*i)++;
+		// 	result = expand_variable(exp, i, result, data);
+		// }
+		else
+		{
+			result = str_append_char(result, exp[*i]);
+			(*i)++;
+		}
+	}
+	if (exp[*i] == '"')
+		(*i)++;
+	return (result);
+}
+
 
 char	*handel_afterd(char *exp, t_expand_data *data)
 {
@@ -61,7 +75,6 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 	result = ft_strdup("");
 	while (exp[i])
 	{
-		
 			if (exp[i] == '\'')
 				result = handle_single_quote(exp, &i, result);
 			else if (exp[i] == '"')
@@ -70,18 +83,13 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 				result = handle_double_quote(exp, &i, result, data);
 			}
 			else if (exp[i] == '$' && data->sh_expand && exp[i + 1] && exp[i
-					+ 1] != ' ' && exp[i + 1] != '\t' && exp[i + 1] != ',' && exp[i + 1] != ':' && exp[i + 1] != '=')
+					+ 1] != ' ' && exp[i + 1] != '\t' && exp[i + 1] != ',' && exp[i + 1] != ':' && exp[i + 1] != '=' && exp[i + 1] != '+')
 				handel_specials(&result, exp, data, &i);
 			else
 			{
 				result = str_append_char(result, exp[i]);
 				i++;
 			}
-	}
-	if (ft_strlen(result) == 0)
-	{
-		free(result);
-		result = ft_strdup("\0");
 	}
 		return (result);
 }
