@@ -19,9 +19,17 @@ void	print_error_env(char *arg)
 	write(2, ": No such file or directory\n", 28);
 }
 
+int	check_argument(char *env)
+{
+	if (!ft_strcmp(env, "env") || !ft_strcmp(env, "ENV"))
+		return (1);
+	return(0);
+}
+
 int	ft_env(char **arg, t_env **env)
 {
 	t_env	*tmp;
+	int		i;
 
 	tmp = *env;
 	if (!get_env_value("PATH", *env))
@@ -29,10 +37,15 @@ int	ft_env(char **arg, t_env **env)
 		write(2, "minishell: env: No such file or directory\n", 43);
 		return (127);
 	}
-	if (arg[1])
+	i = 0;
+	while (arg[i])
 	{
-		print_error_env(arg[1]);
-		return (127);
+		if (!check_argument(arg[i]))
+		{
+			print_error_env(arg[1]);
+			return (127);
+		}
+		i++;
 	}
 	while (tmp)
 	{
