@@ -49,6 +49,11 @@ int	ft_env(char **arg, t_env **env)
 	}
 	while (tmp)
 	{
+		if (!tmp->value)
+		{
+			tmp = tmp->next;
+			continue;
+		}
 		ft_3putstr(tmp->key, "=", tmp->value, "\n");
 		tmp = tmp->next;
 	}

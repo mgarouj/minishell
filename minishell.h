@@ -184,8 +184,8 @@ void					change_env_value(t_env **env, char *key,
 							char *new_value);
 t_env					*find_var(t_env *env, char *key);
 void					ft_lstadd_back(t_env **lst, t_env *new);
-t_env					*env_to_list(char **env);
-char					**ft_envsplit(char *env, char c);
+// t_env					*env_to_list(char **env);
+// char					**ft_envsplit(char *env, char c);
 
 // builtins
 
@@ -200,6 +200,7 @@ int						ft_env(char **arg, t_env **env);
 int						ft_exit(char **arg, int exit_status);
 int						ft_pwd(t_env **env);
 char					*ft_strjoin_3(char *s1, char *s2);
+void null_value(t_env **env, char *arg);
 
 // exec
 

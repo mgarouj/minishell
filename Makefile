@@ -2,7 +2,7 @@ CC      = cc
 CFLAGS  = -Wall -Wextra -Werror -fsanitize=address -g
 RL_FLAG = -lreadline
 
-SRC     = built/exporttttt.c built/ft_cd.c built/ft_echo.c built/ft_env.c built/ft_exit.c built/ft_export.c built/ft_fork.c built/ft_pwd.c built/ft_unset.c \
+SRC     = built/expot_shit.c built/exporttttt.c built/ft_cd.c built/ft_echo.c built/ft_env.c built/ft_exit.c built/ft_export.c built/ft_fork.c built/ft_pwd.c built/ft_unset.c \
           env_list/export.c env_list/change_env_value.c \
           exc/init_cmd_env.c exc/change_in_out.c exc/execute_cmd.c exc/ex_one_cmd.c exc/ex_pipe_cmd.c exc/find_path.c exc/init_isbuilt.c exc/shlvl_path.c exc/wait_for_child.c \
           libft_fonction/ft_3putstr.c libft_fonction/lib2.c libft_fonction/lib3.c libft_fonction/lib4.c libft_fonction/libf1.c libft_fonction/lib_lst.c \

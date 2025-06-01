@@ -136,7 +136,9 @@ int	ft_export(char **args, t_env **env)
 		return (print_sorted_env(*env));
 	else if (ft_strnstr(args[1], "+=", ft_strlen(args[1])))
 		export_plus_equal(env, args[1], 0);
-	else
+	else if (ft_strchr(args[1], '='))
 		normal_export(env, args[1]);
+	else 
+		null_value(env, args[1]);
 	return (0);
 }

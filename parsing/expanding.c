@@ -91,14 +91,14 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 				i++;
 			}
 	}
-<<<<<<< HEAD
-=======
+// <<<<<<< HEAD
+// =======
 	if (ft_strlen(result) == 0)
 	{
 		// free(result);   // double free
 		result = ft_strdup("\0");
 	}
->>>>>>> mohammed_ali
+// >>>>>>> mohammed_ali
 		return (result);
 }
 

@@ -65,6 +65,8 @@ int	ft_cd(char **arg, t_env *env)
 	}
 	else
 		path = arg[1];
+	if (path[0] == '\0')
+		path = ft_strdup(".");
 	if (path)
 		return (change_directory(path, env));
 	return (1);
