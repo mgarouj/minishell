@@ -175,8 +175,9 @@ int						copy_and_append_cmd(char **new_cmd, t_execution *exec,
 int						handel_redin(char *filename, t_execution *exec);
 int						handel_reout(char *filename, t_execution *exec);
 int						handel_redappend(char *filename, t_execution *exec);
-int						process_heredoc_input(int pipe_fd, char *delimiter,t_env *env);
-int						handle_heredoc(char *delimiter, t_execution *exec,t_env *env);
+// int						process_heredoc_input(int pipe_fd, char *delimiter,t_env *env);
+// int						handle_heredoc(char *delimiter, t_execution *exec,t_env *env);
+int heredoc(char *delimiter,int quotes,t_execution *exec,t_env *env);
 
 // env
 char					*get_env_value(char *key, t_env *env);
@@ -221,5 +222,6 @@ void					set_exit_status(t_env **env, int exit_status);
 void					printf_path_error(t_execution *cmd);
 int	ft_lnum_export(int c);
 void	shelvl_path_underscore(t_env **env_list);
+void	ft_wait_child(t_execution *cmd, int *exit_status);
 
 #endif

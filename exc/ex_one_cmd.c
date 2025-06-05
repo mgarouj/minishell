@@ -90,6 +90,7 @@ void	child_for_one_cmd(t_execution *cmd, t_env **env)
 	}
 	cmd->path = path;
 	cmd->env = change_envlist_to_envchar(*env);
+	signal_handler(0);
 	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
 	{
 		if (!ft_strcmp(cmd->cmd[0],".."))
@@ -121,6 +122,8 @@ void	execute_execve_cmd(t_execution *cmd, t_env **env)
 		wait(&exit_status);
 		if (cmd->in_file != 0 || cmd->out_file != 1)
 			restore_std(backup_in, backup_out);
+		if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
+			write(1, "\n", 1);
 		if (WIFEXITED(exit_status))
 			set_exit_status(env, WEXITSTATUS(exit_status));
 	}

@@ -50,6 +50,7 @@ void	child_run_cmd(t_execution *cmd, t_env **env)
 	{
 		cmd->path = find_path(cmd, env);
 		printf_path_error(cmd);
+		signal_handler(0); 
 		execve(cmd->path, cmd->cmd, cmd->env);
 		if (!ft_strcmp(cmd->cmd[0],".."))
 			print_err("command not found");
@@ -103,5 +104,7 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 	}
 	tmp_cmd = *list_cmd;
 	ft_wait_child(tmp_cmd, &exit_status);
+	if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
+			write(1, "\n", 1);
 	set_exit_status(env, WEXITSTATUS(exit_status));
 }

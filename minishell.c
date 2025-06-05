@@ -64,9 +64,9 @@ int	main(int ac, char **av, char **env)
 	
 	while (1)
 	{
-		// signal_handler();
+		signal_handler(1);
 		
-		line = readline("\001\033[1;32m\002minishell> \001\033[0m\002");
+		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (!line)
 		{
 			print_err("exit");

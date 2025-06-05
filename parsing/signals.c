@@ -17,8 +17,16 @@ void	sig_int_handler(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	// rl_replace_line("", 1);
+	rl_replace_line("", 1);
 	rl_redisplay();
+}
+
+
+void	sig_heredoc_child(int sig)
+{
+	(void)sig;
+	write(2, "\n", 1);
+	exit(130);
 }
 
 void	signal_handler(int f)
@@ -28,10 +36,14 @@ void	signal_handler(int f)
 		signal(SIGINT, sig_int_handler);
 		signal(SIGQUIT, SIG_IGN);
 	}
-	else 
+	else if (f == 2)
 	{
-		signal(SIGINT, SIG_DFL);
+		signal(SIGINT, sig_heredoc_child);
 		signal(SIGQUIT, SIG_IGN);
 	}
+	else
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+	}
 }
-

@@ -43,7 +43,7 @@ int	ft_env(char **arg, t_env **env)
 		if (!check_argument(arg[i]))
 		{
 			print_error_env(arg[1]);
-			return (127);
+			return (127); 
 		}
 		i++;
 	}

@@ -29,41 +29,42 @@ int	append_to_cmd(char *exp, t_execution *exec)
 	return (1);
 }
 
-int	handel_redirections(t_tokenn *token, char *file_name, t_execution *exec,t_env *env)
+int    handel_redirections(t_tokenn *token, t_tokenn *name, t_execution *exec,t_env *env)
 {
-	if (token->type == REDIRECTION_IN)
-		return (handel_redin(file_name, exec));
-	else if (token->type == REDIRECTION_OUT)
-		return (handel_reout(file_name, exec));
-	else if (token->type == REDIRECTION_AP)
-		return (handel_redappend(file_name, exec));
-	else if (token->type == HEREDOC)
-		return (handle_heredoc(file_name, exec,env));
-	return (0);
+    if (token->type == REDIRECTION_IN)
+        return (handel_redin(name->value, exec));
+    else if (token->type == REDIRECTION_OUT)
+        return (handel_reout(name->value, exec));
+    else if (token->type == REDIRECTION_AP)
+        return (handel_redappend(name->value, exec));
+    else if (token->type == HEREDOC)
+        return (heredoc(name->value,name->quotes, exec,env));
+    return (0);
 }
 
-static int	process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
+
+static int    process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
 {
-	while (*tmp && (*tmp)->type != PIPE)
-	{
-		if ((*tmp)->type == EXP && (*tmp)->value)
-		{
-			if (!append_to_cmd((*tmp)->value, exec))
-				return (0);
-		}
-		else if (is_redirection((*tmp)->value))
-		{
-			if (!(*tmp)->next || !handel_redirections(*tmp, (*tmp)->next->value,
-					exec,env))
-			{
-				print_err("No such file or directory");
-				return (0);
-			}
-			*tmp = (*tmp)->next;
-		}
-		*tmp = (*tmp)->next;
-	}
-	return (1);
+    while (*tmp && (*tmp)->type != PIPE)
+    {
+        if ((*tmp)->type == EXP && (*tmp)->value)
+        {
+            if (!append_to_cmd((*tmp)->value, exec))
+                return (0);
+        }
+        else if (is_redirection((*tmp)->value))
+        {
+            if (!(*tmp)->next || !handel_redirections(*tmp, (*tmp)->next,
+                    exec,env))
+            {
+                print_err("No such file or directory");
+                return (0);
+            }
+            *tmp = (*tmp)->next;
+        }
+        *tmp = (*tmp)->next;
+    }
+    return (1);
 }
 
 int	split_cmd(t_tokenn *token, t_execution **exec_list,t_env *env)
