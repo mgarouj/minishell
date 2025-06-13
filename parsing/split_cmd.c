@@ -57,6 +57,8 @@ static int    process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
             if (!(*tmp)->next || !handel_redirections(*tmp, (*tmp)->next,
                     exec,env))
             {
+                if (env->exit_status == 130)
+                    return (0);
                 print_err("No such file or directory");
                 return (0);
             }

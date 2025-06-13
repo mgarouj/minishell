@@ -167,7 +167,7 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 			if(!line)
 			{
 				print_err("heredoc input error");
-				exit (0);
+				exit (20);
 			}
 			if (!ft_strcmp(delimiter, line))
 			{        
@@ -187,30 +187,32 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 				write(fd_write, "\n", 1);
 				free(line);
 			}
-			free(line);
+			// free(line);
 		}
 		close(fd_write);
 		fd_read = open(".tmp_file", O_RDONLY);
-		if (fd_read < 0){
+		if (fd_read < 0)
+		{
 			print_err("heredoc input error");
-			exit(1);}
+			exit(1);
+		}
 		unlink(".tmp_file");
 		exec->in_file = fd_read;
 		exit(0);
 	}
 	else
 	{
-			waitpid(pid, &exit_status, 0);
-	signal_handler(1); // رجّع signals ديال prompt
-
-	if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
-	{
-		write(1, "\n", 1);
-		set_exit_status(&env, 130); // ⬅️ خاص ترجع 130 يدوياً
-		return (0); // ⬅️ خاص توقف execution ديال heredoc
-	}
-	else if (WIFEXITED(exit_status))
-		set_exit_status(&env, WEXITSTATUS(exit_status));
+		waitpid(pid, &exit_status, 0);
+		signal_handler(1);
+		printf("exit ctrl d = %d\n", WEXITSTATUS(exit_status));
+		if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
+		{
+			write(1, "\n", 1);
+			set_exit_status(&env, 130);
+			return (0);
+		}
+		else if (WIFEXITED(exit_status))
+			set_exit_status(&env, WEXITSTATUS(exit_status));
 	}
 	return (0);
 }

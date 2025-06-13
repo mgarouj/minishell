@@ -194,14 +194,14 @@ void					export_in_env(t_env **env, char *key, char *value);
 int						ft_cd(char **arg, t_env *env);
 int						ft_echo(char **arg);
 int						ft_export(char **args, t_env **env);
-void	export_plus_equal(t_env **env, char *arg, int i);
+void					export_plus_equal(t_env **env, char *arg, int i);
 void					normal_export(t_env **env, char *arg);
 int						ft_unset(char **arg, t_env **env);
 int						ft_env(char **arg, t_env **env);
 int						ft_exit(char **arg, int exit_status);
 int						ft_pwd(t_env **env);
 char					*ft_strjoin_3(char *s1, char *s2);
-void null_value(t_env **env, char *arg);
+void 					null_value(t_env **env, char *arg);
 
 // exec
 
