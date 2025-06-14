@@ -91,7 +91,7 @@ void	child_for_one_cmd(t_execution *cmd, t_env **env)
 	cmd->path = path;
 	cmd->env = change_envlist_to_envchar(*env);
 	signal_handler(0);
-	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
+	if (execve(cmd->peath, cmd->cmd, cmd->env) == -1)
 	{
 		if (!ft_strcmp(cmd->cmd[0],".."))
 			print_err("command not found");
