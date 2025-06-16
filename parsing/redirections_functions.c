@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 18:09:25 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 19:18:18 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,27 +151,37 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 	int		exit_status;
 
 	signal(SIGINT, SIG_IGN);
+	if (!access(".tmp_file", F_OK))
+		unlink(".tmp_file");
+	fd_write = open(".tmp_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (fd_write < 0)
+	{
+		print_err("heredoc: failed to open for writing");
+		exit(1);
+	}
+	fd_read = open(".tmp_file", O_RDONLY);
+		if (fd_read < 0)
+		{
+			print_err("heredoc input error");
+			exit(1);
+		}
+		unlink(".tmp_file");
+		exec->in_file = fd_read;
+
 	pid = fork();
 	if (pid == 0)
 	{
 		signal_handler(2);
-		if (!access(".tmp_file", F_OK))
-		unlink(".tmp_file");
-		fd_write = open(".tmp_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd_write < 0)
-		{
-			print_err("heredoc: failed to open for writing");
-			exit(1);
-		}
+		
 		while (1)
 		{
 			line = readline("> ");
-			if(!line)
-			{
-				print_err("warning: here-document delimited by end-of-file");
-				exit (20);
-			}
-			if (!ft_strcmp(delimiter, line))
+			// if(!line)
+			// {
+			// 	print_err("warning: here-document delimited by end-of-file");
+			// 	exit (20);
+			// }
+			if (!line || !ft_strcmp(delimiter, line))
 			{        
 				free(line);
 				break;
@@ -191,14 +201,7 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 			}
 		}
 		close(fd_write);
-		fd_read = open(".tmp_file", O_RDONLY);
-		if (fd_read < 0)
-		{
-			print_err("heredoc input error");
-			exit(1);
-		}
-		unlink(".tmp_file");
-		exec->in_file = fd_read;
+		
 		exit(0);
 	}
 	else
@@ -206,7 +209,7 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 		waitpid(pid, &exit_status, 0);
 		signal_handler(1);
 		printf("exit ctrl d = %d\n", WEXITSTATUS(exit_status));
-		if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
+		if (WEXITSTATUS(exit_status) == 130)
 		{
 			write(1, "\n", 1);
 			set_exit_status(&env, 130);
@@ -215,5 +218,155 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 		else if (WIFEXITED(exit_status))
 			set_exit_status(&env, WEXITSTATUS(exit_status));
 	}
-	return (0);
+	return (1);
 }
+
+// int heredoc(char *delimiter,int quotes,t_execution *exec,t_env *env)
+// {
+//     int fd_write;
+//     int fd_read;
+//     char *line;
+//     char *tmp;
+    
+//     if(!access(".tmp_file",F_OK))
+//         unlink(".tmp_file");
+//     fd_write = open(".tmp_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//     if(fd_write < 0)
+//     {
+//         print_err("heredoc: failed to open for writing");
+//         return (0);
+//     }
+//     while(1)
+//     {
+//         line = readline("> ");
+//         if(!line || !ft_strcmp(delimiter,line))
+//         {
+//             free(line);
+//             break;
+//         }
+//         else if (ft_strchr(line, '$') && !quotes)
+//         {
+//             tmp = handel_afterd_inherdoc(line, env);
+//             write(fd_write, tmp, ft_strlen(tmp));
+//             write(fd_write, "\n", 1);
+//             free(line);
+//         }
+//         else
+//         {
+//             write(fd_write,line,ft_strlen(line));
+//             write(fd_write,"\n",1);
+//             free(line);
+//         }
+//     }
+//     close(fd_write);
+//     fd_read = open(".tmp_file",O_RDONLY);
+//     if(fd_read < 0)
+//     {
+//         print_err("heredoc: failed to open for reading");
+//         return (0);
+//     }
+//     unlink(".tmp_file");
+//     exec->in_file = fd_read;
+//     return(1);
+// }
+// int heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
+// {
+//     pid_t pid;
+//     int fd_write, fd_read;
+//     char *line, *tmp;
+//     int exit_status;
+
+//     signal(SIGINT, SIG_IGN); // Ignorer SIGINT dans le parent
+
+//     pid = fork();
+//     if (pid == 0)
+//     {
+//         // Dans le fils
+//         signal_handler(2); // Ta fonction perso qui gère SIGINT dans le fils
+
+//         if (!access(".tmp_file", F_OK))
+//             unlink(".tmp_file");
+
+//         fd_write = open(".tmp_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+//         if (fd_write < 0)
+//         {
+//             print_err("heredoc: failed to open for writing");
+//             exit(1);
+//         }
+
+//         while (1)
+//         {
+//             line = readline("> ");
+//             if (!line)
+//             {
+//                 print_err("warning: here-document delimited by end-of-file");
+//                 close(fd_write);
+//                 exit(HEREDOC_EOF_EXIT);
+//             }
+//             if (!ft_strcmp(delimiter, line))
+//             {
+//                 free(line);
+//                 break;
+//             }
+//             if (ft_strchr(line, '$') && !quotes)
+//             {
+//                 tmp = handel_afterd_inherdoc(line, env);
+//                 write(fd_write, tmp, ft_strlen(tmp));
+//                 write(fd_write, "\n", 1);
+//                 free(tmp);
+//                 free(line);
+//             }
+//             else
+//             {
+//                 write(fd_write, line, ft_strlen(line));
+//                 write(fd_write, "\n", 1);
+//                 free(line);
+//             }
+//         }
+//         close(fd_write);
+
+//         fd_read = open(".tmp_file", O_RDONLY);
+//         if (fd_read < 0)
+//         {
+//             print_err("heredoc input error");
+//             unlink(".tmp_file");
+//             exit(1);
+//         }
+
+//         unlink(".tmp_file");
+//         exec->in_file = fd_read;
+//         exit(0);
+//     }
+//     else if (pid > 0)
+//     {
+//         // Dans le parent
+//         waitpid(pid, &exit_status, 0);
+//         signal_handler(1); // Remet le handler normal
+
+//         if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
+//         {
+//             write(1, "\n", 1);
+//             set_exit_status(&env, 130);
+//             if (access(".tmp_file", F_OK) == 0)
+//                 unlink(".tmp_file");
+//             return 0;
+//         }
+//         else if (WIFEXITED(exit_status))
+//         {
+//             int code = WEXITSTATUS(exit_status);
+//             set_exit_status(&env, code);
+//             if (code == HEREDOC_EOF_EXIT)
+//             {
+//                 if (access(".tmp_file", F_OK) == 0)
+//                     unlink(".tmp_file");
+//                 return 0; // Arrêter le heredoc, fin prématurée
+//             }
+//         }
+//     }
+//     else
+//     {
+//         print_err("heredoc: fork failed");
+//         return 0;
+//     }
+//     return 1;
+// }
