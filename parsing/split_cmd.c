@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/31 17:51:37 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:27:11 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,19 @@ int    handel_redirections(t_tokenn *token, t_tokenn *name, t_execution *exec,t_
     else if (token->type == REDIRECTION_AP)
         return (handel_redappend(name->value, exec));
     else if (token->type == HEREDOC)
-        return (heredoc(name->value,name->quotes, exec,env));
+    {
+        if(!heredoc(name->value,name->quotes, exec,env))
+            return(2);
+        else
+            return(1);
+    }
     return (0);
 }
 
 
 static int    process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
 {
+    int re;
     while (*tmp && (*tmp)->type != PIPE)
     {
         if ((*tmp)->type == EXP && (*tmp)->value)
@@ -54,12 +60,14 @@ static int    process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
         }
         else if (is_redirection((*tmp)->value))
         {
-            if (!(*tmp)->next || !handel_redirections(*tmp, (*tmp)->next,
-                    exec,env))
+            re = handel_redirections(*tmp, (*tmp)->next,
+                    exec,env);
+            if (!(*tmp)->next || !re)
             {
                 if (env->exit_status == 130)
                     return (0);
-                print_err("No such file or directory");
+                if(!re)
+                     print_err("No such file or directory");
                 return (0);
             }
             *tmp = (*tmp)->next;

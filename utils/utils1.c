@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 20:09:16 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/24 18:45:03 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:20:00 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	print_err(char *str)
 	int	i;
 
 	i = 0;
-	write(2, "error :", 7);
+	write(2, "minishell: ", 11);
 	while (str[i])
 	{
 		write(2, &str[i], 1);

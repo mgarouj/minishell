@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_one_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/29 18:30:38 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/16 15:38:17 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	child_for_one_cmd(t_execution *cmd, t_env **env)
 	cmd->path = path;
 	cmd->env = change_envlist_to_envchar(*env);
 	signal_handler(0);
-	if (execve(cmd->peath, cmd->cmd, cmd->env) == -1)
+	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
 	{
 		if (!ft_strcmp(cmd->cmd[0],".."))
 			print_err("command not found");

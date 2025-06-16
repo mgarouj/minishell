@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/01 22:25:21 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 16:17:17 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,15 +158,17 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 		if (!access(".tmp_file", F_OK))
 		unlink(".tmp_file");
 		fd_write = open(".tmp_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-		if (fd_write < 0){
+		if (fd_write < 0)
+		{
 			print_err("heredoc: failed to open for writing");
-			exit(1);}
+			exit(1);
+		}
 		while (1)
 		{
 			line = readline("> ");
 			if(!line)
 			{
-				print_err("heredoc input error");
+				print_err("warning: here-document delimited by end-of-file");
 				exit (20);
 			}
 			if (!ft_strcmp(delimiter, line))
