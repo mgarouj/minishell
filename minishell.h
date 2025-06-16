@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 18:31:11 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:19:29 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_tokenn				*tokenize(char *line);
 void					handel_env(char *s, t_env **env);
 int					expand_rm_quotes(t_tokenn *t, t_env *l);
 int						split_cmd(t_tokenn *token, t_execution **exec,t_env *env);
-void					signal_handler(int f);
+void					signal_handler(int f, t_env *l);
 void					retoken(t_tokenn *token);
 // gc
 

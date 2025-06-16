@@ -6,17 +6,17 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/31 17:15:18 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:17:44 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_minishell(void)
+void	exit_minishell(int exit_s)
 {
 	gar_coll(0, 'f');
 	fd_collec(0,0);
-	exit(0);
+	exit(exit_s);
 }
 
 void leak(void){
@@ -64,13 +64,14 @@ int	main(int ac, char **av, char **env)
 	
 	while (1)
 	{
-		signal_handler(1);
+		signal_handler(1, l);
 		
 		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (!line)
 		{
 			print_err("exit");
-			exit_minishell();
+			set_exit_status(&l, l->exit_status);
+			exit_minishell(l->exit_status);
 		}
 		signal(SIGINT, SIG_IGN);
 		if (line[0] != '\0')

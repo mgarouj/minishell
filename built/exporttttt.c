@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exporttttt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:32:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/30 16:05:07 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/16 21:32:42 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,15 @@ int	handle_arg1(char *v)
 			flag++;
 		i++;
 	}
-	if (flag || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
+	i = 0;
+	int ff = 0;
+	while (v[++i])
+	{
+		if (v[i] == '=' && v[i - 1] == ' ')
+			ff = 1;
+		i++;
+	}
+	if ((flag && ff == 1) || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
 	{
 		ft_3putstr("minishell: export: ",
 			v, ": not a valid identifier\n", NULL);

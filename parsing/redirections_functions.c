@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 19:18:18 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:20:45 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,7 +171,7 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 	pid = fork();
 	if (pid == 0)
 	{
-		signal_handler(2);
+		signal_handler(2, env);
 		
 		while (1)
 		{
@@ -183,6 +183,9 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 			// }
 			if (!line || !ft_strcmp(delimiter, line))
 			{        
+				// fd_collec(0, 0);
+				// close(fd_read);
+				// close(fd_write);
 				free(line);
 				break;
 			}
@@ -200,24 +203,26 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 				free(line);
 			}
 		}
+		close(fd_read);
 		close(fd_write);
-		
 		exit(0);
 	}
 	else
 	{
 		waitpid(pid, &exit_status, 0);
-		signal_handler(1);
-		printf("exit ctrl d = %d\n", WEXITSTATUS(exit_status));
+		signal_handler(1, env);
 		if (WEXITSTATUS(exit_status) == 130)
 		{
 			write(1, "\n", 1);
 			set_exit_status(&env, 130);
+			close(fd_write);
+			close(fd_read);
 			return (0);
 		}
-		else if (WIFEXITED(exit_status))
-			set_exit_status(&env, WEXITSTATUS(exit_status));
+		// else if (WIFEXITED(exit_status))
+		// 	set_exit_status(&env, WEXITSTATUS(exit_status));
 	}
+	close(fd_write);
 	return (1);
 }
 

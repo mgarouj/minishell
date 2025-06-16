@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:26:35 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 19:17:33 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 21:21:48 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,12 @@ void	sig_heredoc_child(int sig)
 	exit(130);
 }
 
-void	signal_handler(int f)
+void	signal_handler(int f, t_env *l)
 {
 	if (f == 1)
 	{
 		signal(SIGINT, sig_int_handler);
+		set_exit_status(&l, 130);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (f == 2)
