@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 16:17:17 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/16 18:09:25 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,7 +189,6 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 				write(fd_write, "\n", 1);
 				free(line);
 			}
-			// free(line);
 		}
 		close(fd_write);
 		fd_read = open(".tmp_file", O_RDONLY);
