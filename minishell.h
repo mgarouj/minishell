@@ -99,6 +99,16 @@ typedef struct s_fds
 	struct s_fds		*next;
 }						t_fds;
 
+typedef struct s_herdoc
+{
+	pid_t	pid;
+	int		fd_write;
+	int 	fd_read;
+	int		exit_status;
+	char	*line;
+	char	*tmp;
+}			t_her;
+
 // Parsing
 int						parssing(char *line);
 t_tokenn				*tokenize(char *line);
@@ -111,6 +121,7 @@ void					retoken(t_tokenn *token);
 
 void					fd_collec(int fd, int mode);
 void					*gar_coll(int size, char flag);
+void	exit_minishell(int exit_s);
 
 // Utils
 
@@ -180,6 +191,7 @@ int						handel_redappend(char *filename, t_execution *exec);
 // int						process_heredoc_input(int pipe_fd, char *delimiter,t_env *env);
 // int						handle_heredoc(char *delimiter, t_execution *exec,t_env *env);
 int heredoc(char *delimiter,int quotes,t_execution *exec,t_env *env);
+char	*handel_afterd_inherdoc(char *exp, t_env *env);
 
 // env
 char					*get_env_value(char *key, t_env *env);
@@ -225,5 +237,6 @@ void					printf_path_error(t_execution *cmd);
 int	ft_lnum_export(int c);
 void	shelvl_path_underscore(t_env **env_list);
 void	ft_wait_child(t_execution *cmd, int *exit_status);
+char *check_line(char *line, t_env *env_s);
 
 #endif

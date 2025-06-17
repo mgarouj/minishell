@@ -78,6 +78,7 @@ void	set_exit_status(t_env **env, int exit_status)
 
 	tmp_env = *env;
 	tmp_env->exit_status = exit_status;
+	printf("-----------------set_exit_statusexit status = %d \n", (*tmp_env).exit_status);
 }
 
 void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
@@ -106,5 +107,6 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 	ft_wait_child(tmp_cmd, &exit_status);
 	if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
 			write(1, "\n", 1);
+	printf("-----------------execute_pipe_cmd exit status = %d \n", exit_status);
 	set_exit_status(env, WEXITSTATUS(exit_status));
 }

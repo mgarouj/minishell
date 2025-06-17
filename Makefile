@@ -47,7 +47,7 @@ SRC     = built/expot_shit.c built/exporttttt.c built/ft_cd.c built/ft_echo.c bu
           env_list/export.c env_list/change_env_value.c \
           exc/init_cmd_env.c exc/change_in_out.c exc/execute_cmd.c exc/ex_one_cmd.c exc/ex_pipe_cmd.c exc/find_path.c exc/init_isbuilt.c exc/shlvl_path.c exc/wait_for_child.c \
           libft_fonction/ft_3putstr.c libft_fonction/lib2.c libft_fonction/lib3.c libft_fonction/lib4.c libft_fonction/libf1.c libft_fonction/lib_lst.c \
-          parsing/expanding_utils.c parsing/redirections_functions.c parsing/splitcmd_utils.c  parsing/token_utils.c parsing/env.c parsing/expanding.c parsing/synthax_error.c parsing/synthax_utils.c parsing/signals.c parsing/split_cmd.c parsing/token.c \
+          parsing/sig_herdoc.c parsing/expanding_utils.c parsing/redirections_functions.c parsing/splitcmd_utils.c  parsing/token_utils.c parsing/env.c parsing/expanding.c parsing/synthax_error.c parsing/synthax_utils.c parsing/signals.c parsing/split_cmd.c parsing/token.c \
           utils/split_withe_spaces.c utils/fd_collect.c utils/garbege_collect.c utils/utils.c  utils/utils1.c  utils/utils2.c \
           minishell.c
 

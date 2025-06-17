@@ -12,6 +12,8 @@
 
 #include "../minishell.h"
 
+int flag = 0;
+
 void	sig_int_handler(int sig)
 {
 	(void)sig;
@@ -19,6 +21,7 @@ void	sig_int_handler(int sig)
 	rl_on_new_line();
 	rl_replace_line("", 1);
 	rl_redisplay();
+	flag = 22;
 }
 
 
@@ -34,7 +37,9 @@ void	signal_handler(int f, t_env *l)
 	if (f == 1)
 	{
 		signal(SIGINT, sig_int_handler);
-		set_exit_status(&l, 130);
+		printf("flag == %d ++++++++++++++++++\n", flag);
+		if (flag == 22)
+			set_exit_status(&l, 130);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (f == 2)

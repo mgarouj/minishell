@@ -44,6 +44,7 @@ void	execute_one_builtin(t_execution *cmd, t_env **env)
 		change_in_out(cmd);
 	}
 	exit_status = execute_builtins(cmd, env);
+	printf("++++++++++++++++++++++++++++++++execute_one_builtin exit status = %d \n", exit_status);
 	set_exit_status(env, exit_status);
 	if (cmd->in_file != 0 || cmd->out_file != 1)
 		restore_std(backup_in, backup_out);
@@ -126,5 +127,6 @@ void	execute_execve_cmd(t_execution *cmd, t_env **env)
 			write(1, "\n", 1);
 		if (WIFEXITED(exit_status))
 			set_exit_status(env, WEXITSTATUS(exit_status));
+		printf("++++++++++++++++++++++++++++++++execute_execve_cmd exit status = %d \n", WIFEXITED(exit_status));
 	}
 }

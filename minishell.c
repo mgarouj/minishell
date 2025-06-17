@@ -70,6 +70,7 @@ int	main(int ac, char **av, char **env)
 		if (!line)
 		{
 			print_err("exit");
+			printf("-----------------main exit status = %d \n", l->exit_status);
 			set_exit_status(&l, l->exit_status);
 			exit_minishell(l->exit_status);
 		}
