@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/17 22:34:02 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/18 13:25:51 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,22 +126,23 @@ int	ft_export(char **args, t_env **env)
 	flag = 0;
 	while (args[i])
 		i++;
-	while (i > 1)
-	{
-		flag =+ handle_arg1(args[i++]);
-		i++;
-	}
+	if (i > 1)
+		flag = handle_arg1(args[1]);
 	if (i >= 2)
 		print_msj(args, i, 2);
 	if (flag)
 		return (flag);
+	i = 1;
 	if (!args[1])
 		return (print_sorted_env(*env));
 	else if (ft_strnstr(args[1], "+=", ft_strlen(args[1])))
-		export_plus_equal(env, args[1], 0);
+		while(args[i])
+			export_plus_equal(env, args[i++], 0);
 	else if (ft_strchr(args[1], '='))
-		normal_export(env, args[1]);
+		while (args[i])
+			normal_export(env, args[i++]);
 	else 
-		null_value(env, args[1]);
+		while (args[i])
+			null_value(env, args[i++]);
 	return (0);
 }
