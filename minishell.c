@@ -6,11 +6,13 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 21:17:44 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:46:43 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_env *g_env_exitval = NULL; // ✅ definition with initialization
 
 void	exit_minishell(int exit_s)
 {
@@ -58,19 +60,19 @@ int	main(int ac, char **av, char **env)
 		i++;
 	}
 	shelvl_path_underscore(&l);
-
+	
 	
 	// l = env_to_list(env);
 	
 	while (1)
 	{
+		g_env_exitval = l;
 		signal_handler(1, l);
 		
 		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (!line)
 		{
 			print_err("exit");
-			printf("-----------------main exit status = %d \n", l->exit_status);
 			set_exit_status(&l, l->exit_status);
 			exit_minishell(l->exit_status);
 		}

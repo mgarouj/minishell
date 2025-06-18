@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:32:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/16 21:32:42 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:23:15 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	export_plus_equal(t_env **env, char *arg, int i)
 		export_in_env(env, key, value);
 }
 
+//his function
 int	handle_arg1(char *v)
 {
 	int	i;
@@ -65,14 +66,7 @@ int	handle_arg1(char *v)
 		i++;
 	}
 	i = 0;
-	int ff = 0;
-	while (v[++i])
-	{
-		if (v[i] == '=' && v[i - 1] == ' ')
-			ff = 1;
-		i++;
-	}
-	if ((flag && ff == 1) || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
+	if (flag || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
 	{
 		ft_3putstr("minishell: export: ",
 			v, ": not a valid identifier\n", NULL);
@@ -80,3 +74,30 @@ int	handle_arg1(char *v)
 	}
 	return (0);
 }
+
+//mine
+// int	handle_arg1(char *v)
+// {
+// 	int		i;
+// 	char	*eq;
+
+// 	if (!v || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
+// 	{
+// 		ft_3putstr("minishell: export: ", v, ": not a valid identifier\n", NULL);
+// 		return (1);
+// 	}
+
+// 	eq = ft_strchr(v, '=');
+// 	i = 0;
+// 	while (v[i] && &v[i] != eq) // check only before '='
+// 	{
+// 		if (!ft_lnum_export(v[i]))
+// 		{
+// 			ft_3putstr("minishell: export: ", v, ": not a valid identifier\n", NULL);
+// 			return (1);
+// 		}
+// 		i++;
+// 	}
+
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:26:35 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 21:21:48 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/17 21:41:23 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	sig_int_handler(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
+	// env_exitval->exit_status = 130;
 	rl_replace_line("", 1);
 	rl_redisplay();
-	flag = 22;
+	if (g_env_exitval)
+		g_env_exitval->exit_status = 130;
 }
-
 
 void	sig_heredoc_child(int sig)
 {
@@ -34,12 +35,11 @@ void	sig_heredoc_child(int sig)
 
 void	signal_handler(int f, t_env *l)
 {
+	(void)l;
 	if (f == 1)
 	{
+		// env_exitval = l;
 		signal(SIGINT, sig_int_handler);
-		printf("flag == %d ++++++++++++++++++\n", flag);
-		if (flag == 22)
-			set_exit_status(&l, 130);
 		signal(SIGQUIT, SIG_IGN);
 	}
 	else if (f == 2)

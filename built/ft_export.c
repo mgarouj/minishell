@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/30 17:27:42 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:34:02 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,11 @@ int	ft_export(char **args, t_env **env)
 	flag = 0;
 	while (args[i])
 		i++;
-	if (i > 1)
-		flag = handle_arg1(args[1]);
+	while (i > 1)
+	{
+		flag =+ handle_arg1(args[i++]);
+		i++;
+	}
 	if (i >= 2)
 		print_msj(args, i, 2);
 	if (flag)

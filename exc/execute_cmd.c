@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:12:37 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/31 17:59:39 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:15:15 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void init_pwd(t_env **env)
 	t_env *e;
 
 	e = *env;
+	if (!get_env_value("PWD", e))
+		return ;
 	e->pwd = ft_strdup(get_env_value("PWD", e));
 }
 

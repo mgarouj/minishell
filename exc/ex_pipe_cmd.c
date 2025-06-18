@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/16 21:20:20 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/17 22:02:23 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void	child_run_cmd(t_execution *cmd, t_env **env)
 		execve(cmd->path, cmd->cmd, cmd->env);
 		if (!ft_strcmp(cmd->cmd[0],".."))
 			print_err("command not found");
-		else
-			perror("execve");
+		// else
+		// 	perror("execve");
 		exit(1);
 	}
 }
@@ -78,7 +78,6 @@ void	set_exit_status(t_env **env, int exit_status)
 
 	tmp_env = *env;
 	tmp_env->exit_status = exit_status;
-	printf("-----------------set_exit_statusexit status = %d \n", (*tmp_env).exit_status);
 }
 
 void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
@@ -107,6 +106,5 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 	ft_wait_child(tmp_cmd, &exit_status);
 	if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
 			write(1, "\n", 1);
-	printf("-----------------execute_pipe_cmd exit status = %d \n", exit_status);
 	set_exit_status(env, WEXITSTATUS(exit_status));
 }
