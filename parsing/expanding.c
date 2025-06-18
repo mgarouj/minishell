@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/17 21:02:42 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/18 14:41:34 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,19 +129,16 @@ void	retoken(t_tokenn *token)
 	}
 }
 
-
-
-
-// int	has_eq_before_space(char *s)
-// {
-// 	while (*s && *s != ' ' && *s != '\t')
-// 	{
-// 		if (*s == '=' && *s+1 && *s + 1 ==' ' && *s + 1 =='\t')
-// 			return (0);
-// 		s++;
-// 	}
-// 	return (0);
-// }
+int	has_eq_before_space(char *s)
+{
+	while (*s && *s != ' ' && *s != '\t')
+	{
+		if (*s == '=' && *s+1 && *s + 1 ==' ' && *s + 1 =='\t')
+			return (1);
+		s++;
+	}
+	return (0);
+}
 
 int	expand_rm_quotes(t_tokenn *t, t_env *env)
 {
@@ -180,7 +177,7 @@ int	expand_rm_quotes(t_tokenn *t, t_env *env)
 			tmp->value = handel_afterd(tmp->value, &data);
 		}
 		if (data.expanded && !(data.quoted) && (ft_strchr(tmp->value, ' ')
-				|| ft_strchr(tmp->value, '\t')) && !ft_strchr(tmp->value,'='))
+				|| ft_strchr(tmp->value, '\t')) && !has_eq_before_space(tmp->value))
 			retoken(tmp);
 		prev = tmp;
 		tmp = tmp->next;

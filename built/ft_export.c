@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/18 13:25:51 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/18 15:20:43 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,8 @@ void	print_msj(char **arg, int i, int start)
 	{
 		p = 0;
 		flag = 0;
-		while (arg[start][p])
-		{
-			if (!ft_lnum_export(arg[start][p]))
+		if (!ft_lnum_export(arg[start][0]))
 				flag = 1;
-			p++;
-		}
 		if (flag)
 		{
 			ft_3putstr("minishell: export: ",
@@ -117,32 +113,35 @@ void	print_msj(char **arg, int i, int start)
 	}
 }
 
-int	ft_export(char **args, t_env **env)
+int ft_export(char **args, t_env **env)
 {
-	int	i;
-	int	flag;
+    int i;
+    int flag;
 
-	i = 0;
-	flag = 0;
-	while (args[i])
-		i++;
-	if (i > 1)
-		flag = handle_arg1(args[1]);
-	if (i >= 2)
-		print_msj(args, i, 2);
-	if (flag)
-		return (flag);
-	i = 1;
-	if (!args[1])
-		return (print_sorted_env(*env));
-	else if (ft_strnstr(args[1], "+=", ft_strlen(args[1])))
-		while(args[i])
-			export_plus_equal(env, args[i++], 0);
-	else if (ft_strchr(args[1], '='))
-		while (args[i])
-			normal_export(env, args[i++]);
-	else 
-		while (args[i])
-			null_value(env, args[i++]);
-	return (0);
+    i = 0;
+    flag = 0;
+    while (args[i])
+        i++;
+    if (i > 1){
+        flag = handle_arg1(args[1]);}
+	
+    if (i >= 2)
+        print_msj(args, i, 2);
+    if (flag)
+        return (flag);
+    if (!args[1])
+        return (print_sorted_env(*env));
+
+    i = 1;
+    while (args[i])
+    {
+        if (ft_strnstr(args[i], "+=", ft_strlen(args[i])))
+            export_plus_equal(env, args[i], 0);
+        else if (ft_strchr(args[i], '='))
+            normal_export(env, args[i]);
+        else
+            null_value(env, args[i]);
+        i++;
+    }
+    return (0);
 }

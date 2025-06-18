@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_functions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 16:07:01 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 21:20:45 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/18 15:27:08 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,7 +213,7 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 		signal_handler(1, env);
 		if (WEXITSTATUS(exit_status) == 130)
 		{
-			write(1, "\n", 1);
+			// write(1, "\n", 1);
 			set_exit_status(&env, 130);
 			close(fd_write);
 			close(fd_read);
