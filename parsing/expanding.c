@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/18 14:41:34 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/18 22:00:58 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,16 +129,69 @@ void	retoken(t_tokenn *token)
 	}
 }
 
+
+
+
 int	has_eq_before_space(char *s)
 {
-	while (*s && *s != ' ' && *s != '\t')
+	while (*s)
 	{
 		if (*s == '=' && *s+1 && *s + 1 ==' ' && *s + 1 =='\t')
-			return (1);
+			return (0);
 		s++;
 	}
-	return (0);
+	return (1);
 }
+
+int	needs_retoken(char *value)
+{
+	char	*eq;
+
+	eq = ft_strchr(value, '=');
+	if (!eq)
+		return (1); // No '=', so space means separate arguments
+	if (eq == value)
+		return (1); // '=' is at the beginning → invalid identifier
+
+	// Check for space or tab before '='
+	while (value < eq)
+	{
+		if (*value == ' ' || *value == '\t')
+			return (1);
+		value++;
+	}
+	return (0); // it's a proper key=value with no space before '='
+}
+
+// int needs_retoken(char *value)
+// {
+// 	char *eq = ft_strchr(value, '=');
+// 	if (!eq)
+// 		return (1); // No '=', so space means separate arguments
+
+// 	if (eq == value)
+// 		return (1); // '=' is at the beginning → invalid identifier
+
+// 	// Check for space or tab before '='
+// 	char *p = value;
+// 	while (p < eq)
+// 	{
+// 		if (*p == ' ' || *p == '\t')
+// 			return (1);
+// 		p++;
+// 	}
+
+// 	// Check for space or tab after '='
+// 	p = eq + 1;
+// 	while (*p)
+// 	{
+// 		if (*p == ' ' || *p == '\t')
+// 			return (1); // value has space → invalid assignment
+// 		p++;
+// 	}
+
+// 	return (0); // Valid KEY=VALUE with no spaces
+// }
 
 int	expand_rm_quotes(t_tokenn *t, t_env *env)
 {
@@ -177,7 +230,7 @@ int	expand_rm_quotes(t_tokenn *t, t_env *env)
 			tmp->value = handel_afterd(tmp->value, &data);
 		}
 		if (data.expanded && !(data.quoted) && (ft_strchr(tmp->value, ' ')
-				|| ft_strchr(tmp->value, '\t')) && !has_eq_before_space(tmp->value))
+				|| ft_strchr(tmp->value, '\t')) && needs_retoken(tmp->value))
 			retoken(tmp);
 		prev = tmp;
 		tmp = tmp->next;

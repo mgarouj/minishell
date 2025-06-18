@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:13:08 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/23 16:14:25 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/18 21:25:44 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ char	*find_path(t_execution *cmd, t_env **env)
 	char	*env_path;
 	char	**path;
 
-	if (!cmd || !cmd->cmd[0] || !cmd->cmd)
-		return (NULL);
+	if (!cmd || !cmd->cmd || !cmd->cmd[0])
+		exit(0);
+	//seg in this case 
 	if (ft_strchr(cmd->cmd[0], '/'))
 		return (ft_strdup(cmd->cmd[0]));
 	env_path = get_env_value("PATH", *env);

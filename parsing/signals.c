@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:26:35 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/17 21:41:23 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/18 23:20:12 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	sig_int_handler(int sig)
 	// env_exitval->exit_status = 130;
 	rl_replace_line("", 1);
 	rl_redisplay();
-	if (g_env_exitval)
-		g_env_exitval->exit_status = 130;
+	g_env_exitval->exit_status = 130;
 }
 
 void	sig_heredoc_child(int sig)
