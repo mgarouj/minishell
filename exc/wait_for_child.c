@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:15:38 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/23 07:29:46 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/23 08:53:08 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ void	printf_path_error(t_execution *cmd, t_env *env)
 		}
 		else if (access(cmd->cmd[0], X_OK) == 0 && !get_env_value("PATH", env))
 			exit(0);
-		ft_putstr_fd(cmd->cmd[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		print_err_ex(": command not found, ", cmd->cmd[0]);
 		exit(127);
 	}
 	if (!ft_strcmp(cmd->path, "pr_dn"))
