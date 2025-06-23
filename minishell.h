@@ -275,5 +275,6 @@ t_env	*init_env_list(char **env);
 void	read_and_execute(char *line, t_env *l, char *trim);
 void	main_loop(t_env *l);
 int	calculate_required_size(t_execution *exec);
+void	print_err_ex(char *str, char *str2);
 
 #endif

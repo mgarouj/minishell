@@ -82,7 +82,7 @@ void	child_for_one_cmd(t_execution *cmd, t_env **env)
 	char	*path;
 
 	if (!ft_strcmp(cmd->cmd[0], ".."))
-		(print_err("command not found"), exit(127));
+		(print_err_ex(": command not found", cmd->cmd[0]), exit(127));
 	path = find_path(cmd, env);
 	handle_invalid_path(cmd, env, path);
 	cmd->path = path;
@@ -96,7 +96,7 @@ void	child_for_one_cmd(t_execution *cmd, t_env **env)
 			exit(0);
 		else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
 		{
-			print_err("command not found");
+			print_err_ex(": command not found", cmd->cmd[0]);
 			exit(127);
 		}
 		perror("minishell ");

@@ -6,11 +6,27 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:15:38 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/22 17:20:46 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/23 07:29:46 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	print_err_ex(char *str, char *str2)
+{
+	int	i;
+
+	i = 0;
+	write(2, "minishell: ", 11);
+	if (str2)
+		ft_putstr_fd(str2, 2);
+	while (str[i])
+	{
+		write(2, &str[i], 1);
+		i++;
+	}
+	write(2, "\n", 1);
+}
 
 void	printf_path_error(t_execution *cmd, t_env *env)
 {
@@ -33,8 +49,7 @@ void	printf_path_error(t_execution *cmd, t_env *env)
 	}
 	if (!ft_strcmp(cmd->path, "pr_dn"))
 	{
-		ft_putstr_fd(cmd->cmd[0], 2);
-		ft_putstr_fd(": Permission denied\n", 2);
+		print_err_ex(": Permission denied", cmd->cmd[0]);
 		exit(126);
 	}
 }
