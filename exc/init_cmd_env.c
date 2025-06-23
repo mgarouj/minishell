@@ -12,15 +12,15 @@
 
 #include "../minishell.h"
 
-void    init_env_cmd(t_env *env, t_execution **cmd)
+void	init_env_cmd(t_env *env, t_execution **cmd)
 {
-    int		size;
-	char	**str_env;
-	int		j;
-    t_execution *tmp_cmd;
+	int			size;
+	char		**str_env;
+	int			j;
+	t_execution	*tmp_cmd;
 
 	j = 0;
-    tmp_cmd = *cmd;
+	tmp_cmd = *cmd;
 	size = ft_lstsize(env);
 	str_env = gar_coll(sizeof(char *) * (size + 1), 'a');
 	while (j < size)
@@ -32,10 +32,10 @@ void    init_env_cmd(t_env *env, t_execution **cmd)
 		j++;
 		env = env->next;
 	}
-    str_env[size] = NULL;
-    while (tmp_cmd)
-    {
-        tmp_cmd->env = str_env;
-        tmp_cmd = tmp_cmd->next;
-    }
+	str_env[size] = NULL;
+	while (tmp_cmd)
+	{
+		tmp_cmd->env = str_env;
+		tmp_cmd = tmp_cmd->next;
+	}
 }

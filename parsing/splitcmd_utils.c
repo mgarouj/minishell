@@ -6,18 +6,19 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 18:27:47 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/05/27 21:56:13 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/20 21:29:38 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_execution	*creat_node(void)
+t_execution	*creat_node(int expanded)
 {
 	t_execution	*exec;
 
 	exec = gar_coll(sizeof(t_execution), 'a');
 	exec->cmd = NULL;
+	exec->flag_expand = expanded;
 	exec->in_file = 0;
 	exec->out_file = 1;
 	exec->next = NULL;
@@ -45,43 +46,27 @@ int	is_redirection(char *s)
 		|| !ft_strcmp(s, ">>"));
 }
 
-// int	calculate_required_size(char *exp, t_execution *exec)
-// {
-// 	int	size;
-// 	int	i;
-
-// 	size = 0;
-// 	i = 0;
-// 	while (exp && exp[i])
-// 		if (exp[i++] == ' ' || exp[i] == '\t')
-// 			size++;
-// 	if (exec->cmd)
-// 		while (exec->cmd[size])
-// 			size++;
-// 	return (size + 2);
-// }
-
-int    calculate_required_size(char* exp, t_execution *exec)
+int	calculate_required_size(char *exp, t_execution *exec)
 {
-    int    size;
-    int    i;
+	int	size;
+	int	i;
 
-    size = 0;
-    i = 0;
-    while (exp && exp[i])
-    {
-        if (exp[i] == ' ' || exp[i] == '\t')
-            size++;
-        i++;
-    }
-    if (exec->cmd)
-    {
-        i = 0;
-        while (exec->cmd[i])
-            i++;
-        size+=i;
-    }
-    return (size + 2);
+	size = 0;
+	i = 0;
+	while (exp && exp[i])
+	{
+		if (exp[i] == ' ' || exp[i] == '\t')
+			size++;
+		i++;
+	}
+	if (exec->cmd)
+	{
+		i = 0;
+		while (exec->cmd[i])
+			i++;
+		size += i;
+	}
+	return (size + 2);
 }
 
 int	copy_and_append_cmd(char **new_cmd, t_execution *exec, char *exp)

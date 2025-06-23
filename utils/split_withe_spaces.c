@@ -3,14 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   split_withe_spaces.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:10:00 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/26 15:10:01 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/21 21:26:10 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #include "../minishell.h"
 
@@ -74,4 +72,9 @@ char	**ft_split_whitespace(char *s)
 	}
 	result[i] = NULL;
 	return (result);
+}
+
+int	is_num(char c)
+{
+	return (c >= '0' && c <= '9');
 }

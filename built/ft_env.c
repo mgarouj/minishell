@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:37:36 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/23 15:37:58 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/22 17:24:51 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_argument(char *env)
 {
 	if (!ft_strcmp(env, "env") || !ft_strcmp(env, "ENV"))
 		return (1);
-	return(0);
+	return (0);
 }
 
 int	ft_env(char **arg, t_env **env)
@@ -33,18 +33,12 @@ int	ft_env(char **arg, t_env **env)
 
 	tmp = *env;
 	if (!get_env_value("PATH", *env))
-	{
-		write(2, "minishell: env: No such file or directory\n", 43);
-		return (127);
-	}
+		return (print_err("env: No such file or directory"), 127);
 	i = 0;
 	while (arg[i])
 	{
 		if (!check_argument(arg[i]))
-		{
-			print_error_env(arg[1]);
-			return (127); 
-		}
+			return (print_error_env(arg[1]), 127);
 		i++;
 	}
 	while (tmp)
@@ -52,9 +46,10 @@ int	ft_env(char **arg, t_env **env)
 		if (!tmp->value)
 		{
 			tmp = tmp->next;
-			continue;
+			continue ;
 		}
-		ft_3putstr(tmp->key, "=", tmp->value, "\n");
+		if (tmp->printed)
+			ft_3putstr(tmp->key, "=", tmp->value, "\n");
 		tmp = tmp->next;
 	}
 	return (0);

@@ -15,7 +15,7 @@
 void	ft_exit_minishell(int exit_value)
 {
 	gar_coll(0, 'f');
-	fd_collec(0,0);
+	fd_collec(0, 0);
 	exit(exit_value);
 }
 
@@ -53,6 +53,6 @@ int	ft_exit(char **arg, int exit_status)
 		ft_exit_minishell(ft_atoi(arg[1]) % 256);
 	}
 	gar_coll(0, 'f');
-	fd_collec(0,0);
+	fd_collec(0, 0);
 	exit(exit_status);
 }

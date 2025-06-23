@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:12:37 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/17 22:15:15 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/20 18:57:39 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	execute_one_cmd(t_execution **cmd_list, t_env **list_env)
 		execute_execve_cmd(tmp_cmd, list_env);
 }
 
-void init_pwd(t_env **env)
+void	init_pwd(t_env **env)
 {
-	t_env *e;
+	t_env	*e;
 
 	e = *env;
 	if (!get_env_value("PWD", e))

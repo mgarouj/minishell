@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/16 18:46:51 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/22 16:20:21 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,96 +29,94 @@ int	append_to_cmd(char *exp, t_execution *exec)
 	return (1);
 }
 
-int    handel_redirections(t_tokenn *token, t_tokenn *name, t_execution *exec,t_env *env)
+static int	process_command(t_tokenn **tmp, t_execution *exec, t_env *env)
 {
-    if (token->type == REDIRECTION_IN)
-        return (handel_redin(name->value, exec));
-    else if (token->type == REDIRECTION_OUT)
-        return (handel_reout(name->value, exec));
-    else if (token->type == REDIRECTION_AP)
-        return (handel_redappend(name->value, exec));
-    else if (token->type == HEREDOC)
-    {
-            return(heredoc(name->value,name->quotes, exec,env));
-    }
-    return (0);
-}
-
-
-static int    process_command(t_tokenn **tmp, t_execution *exec,t_env *env)
-{
-  
-    while (*tmp && (*tmp)->type != PIPE)
-    {
-        if ((*tmp)->type == EXP && (*tmp)->value)
-        {
-            if (!append_to_cmd((*tmp)->value, exec))
-                return (0);
-        }
-        else if (is_redirection((*tmp)->value))
-        {
-            if (!(*tmp)->next || !handel_redirections(*tmp, (*tmp)->next,
-                    exec,env))
-            {
-                if (env->exit_status == 130)
-                    return (0);
-                     print_err("No such file or directory");
-                return (0);
-            }
-            *tmp = (*tmp)->next;
-        }
-        *tmp = (*tmp)->next;
-    }
-    return (1);
-}
-
-// static int process_command(t_tokenn **tmp, t_execution *exec, t_env *env)
-// {
-//     int re;
-
-//     while (*tmp && (*tmp)->type != PIPE)
-//     {
-//         if ((*tmp)->type == EXP && (*tmp)->value)
-//         {
-//             if (!append_to_cmd((*tmp)->value, exec))
-//                 return (0);
-//         }
-//         else if (is_redirection((*tmp)->value))
-//         {
-//             re = handel_redirections(*tmp, (*tmp)->next, exec, env);
-
-//             if (!(*tmp)->next || !re || re == 2)
-//             {
-//                 if (env->exit_status == 130)
-//                     return (0);
-//                 if (!re)
-//                     print_err("No such file or directory");
-//                 return (0);
-//             }
-//             *tmp = (*tmp)->next;
-//         }
-//         *tmp = (*tmp)->next;
-//     }
-//     return (1);
-// }
-
-
-int	split_cmd(t_tokenn *token, t_execution **exec_list,t_env *env)
-{
-	t_tokenn	*tmp;
-	t_execution	*exec;
-
-	tmp = token;
-	while (tmp)
+	while (*tmp && (*tmp)->type != PIPE)
 	{
-		exec = creat_node();
+		if ((*tmp)->type == EXP && (*tmp)->value)
+		{
+			if (!append_to_cmd((*tmp)->value, exec))
+				return (0);
+		}
+		else if (is_redirection((*tmp)->value))
+		{
+			if ((*tmp)->type != HEREDOC && (!(*tmp)->next
+					|| !handel_redirections(*tmp, (*tmp)->next, exec)))
+			{
+				if (env->exit_status == 130)
+					return (0);
+				print_err("No such file or directory");
+				return (0);
+			}
+			*tmp = (*tmp)->next;
+		}
+		*tmp = (*tmp)->next;
+	}
+	return (1);
+}
+
+int	handle_heredocs_only(t_tokenn **tmp, t_execution *exec, t_env *env)
+{
+	while (*tmp && (*tmp)->type != PIPE)
+	{
+		if ((*tmp)->type == HEREDOC)
+		{
+			if (!(*tmp)->next || !heredoc((*tmp)->next->value,
+					(*tmp)->next->quotes, exec, env))
+				return (0);
+			*tmp = (*tmp)->next;
+		}
+		*tmp = (*tmp)->next;
+	}
+	return (1);
+}
+
+int	init_exec_list(t_tokenn **tmp, t_execution **exec_list, t_env *env)
+{
+	t_execution	*exec;
+	t_tokenn	*here;
+	int			c;
+
+	initialize(&here, *tmp, &c);
+	while (here)
+	{
+		if ((here)->type == HEREDOC)
+			c++;
+		(here) = (here)->next;
+	}
+	if (!check_c_heredoc(c))
+		return (0);
+	while (*tmp)
+	{
+		exec = creat_node((*tmp)->expan_toex);
 		if (!exec)
 			return (0);
-		if (!process_command(&tmp, exec,env))
+		if (!handle_heredocs_only(tmp, exec, env))
 			return (0);
 		add_node_to_list(exec_list, exec);
+		if (*tmp && (*tmp)->type == PIPE)
+			*tmp = (*tmp)->next;
+	}
+	return (1);
+}
+
+int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
+{
+	t_tokenn	*tmp;
+	t_execution	*iter;
+
+	tmp = token;
+	if (!init_exec_list(&tmp, exec_list, env))
+		return (0);
+	tmp = token;
+	iter = *exec_list;
+	while (tmp && iter)
+	{
+		if (!process_command(&tmp, iter, env))
+			return (0);
 		if (tmp && tmp->type == PIPE)
 			tmp = tmp->next;
+		iter = iter->next;
 	}
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/17 22:02:23 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:19:18 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,7 @@ void	child_run_cmd(t_execution *cmd, t_env **env)
 		exit(status);
 	}
 	else
-	{
-		cmd->path = find_path(cmd, env);
-		printf_path_error(cmd);
-		signal_handler(0, *env); 
-		execve(cmd->path, cmd->cmd, cmd->env);
-		if (!ft_strcmp(cmd->cmd[0],".."))
-			print_err("command not found");
-		// else
-		// 	perror("execve");
-		exit(1);
-	}
+		execve_command_handler(cmd, env);
 }
 
 int	handle_parent(t_execution *cmd, int prev_read)
@@ -94,17 +84,10 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 			pipe(tmp_cmd->pipe_fd);
 		tmp_cmd->pid = ft_fork("fork in pipe");
 		if (!tmp_cmd->pid)
-		{
-			child_in_out(prev_read, tmp_cmd);
-			child_run_cmd(tmp_cmd, env);
-		}
+			(child_in_out(prev_read, tmp_cmd), child_run_cmd(tmp_cmd, env));
 		else
 			prev_read = handle_parent(tmp_cmd, prev_read);
 		tmp_cmd = tmp_cmd->next;
 	}
-	tmp_cmd = *list_cmd;
-	ft_wait_child(tmp_cmd, &exit_status);
-	if (WIFSIGNALED(exit_status) && WTERMSIG(exit_status) == SIGINT)
-			write(1, "\n", 1);
-	set_exit_status(env, WEXITSTATUS(exit_status));
+	handle_pipe_exit(list_cmd, env, &exit_status);
 }

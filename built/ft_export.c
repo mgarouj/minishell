@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/18 15:20:43 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/22 17:21:56 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,74 +74,57 @@ int	print_sorted_env(t_env *env)
 	j = 0;
 	size = ft_lstsize(env);
 	sort_env = gar_coll(sizeof(char *) * (size + 1), 'a');
-	while (j < size)
+	while (env)
 	{
-		if (env->value)
-			sort_env[j] = ft_strjoin_3sort(env->key, env->value);
-		else
-			sort_env[j] = ft_strdup(env->key);
-		j++;
+		if (env->printed)
+		{
+			if (env->value)
+				sort_env[j] = ft_strjoin_3sort(env->key, env->value);
+			else
+				sort_env[j] = ft_strdup(env->key);
+			j++;
+		}
 		env = env->next;
 	}
-	sort_env[size] = NULL;
-	ft_sort_env(sort_env, size);
+	sort_env[j] = NULL;
+	ft_sort_env(sort_env, j);
 	j = 0;
 	while (sort_env[j])
 		ft_3putstr("declare -x ", sort_env[j++], "\n", NULL);
-	j = 0;
 	return (0);
 }
 
-void	print_msj(char **arg, int i, int start)
+void	print_export(char **args, int i)
 {
-	int	p;
-	int	flag;
-
-	start = 2;
-	while (start < i)
-	{
-		p = 0;
-		flag = 0;
-		if (!ft_lnum_export(arg[start][0]))
-				flag = 1;
-		if (flag)
-		{
-			ft_3putstr("minishell: export: ",
-				arg[start], ": not a valid identifier\n", NULL);
-		}
-		start++;
-	}
+	ft_3putstr("minishell: export: ", args[i],
+		": not a valid identifier\n", NULL);
 }
 
-int ft_export(char **args, t_env **env)
+int	ft_export(char **args, t_env **env)
 {
-    int i;
-    int flag;
+	int	i;
+	int	exit_status;
 
-    i = 0;
-    flag = 0;
-    while (args[i])
-        i++;
-    if (i > 1){
-        flag = handle_arg1(args[1]);}
-	
-    if (i >= 2)
-        print_msj(args, i, 2);
-    if (flag)
-        return (flag);
-    if (!args[1])
-        return (print_sorted_env(*env));
-
-    i = 1;
-    while (args[i])
-    {
-        if (ft_strnstr(args[i], "+=", ft_strlen(args[i])))
-            export_plus_equal(env, args[i], 0);
-        else if (ft_strchr(args[i], '='))
-            normal_export(env, args[i]);
-        else
-            null_value(env, args[i]);
-        i++;
-    }
-    return (0);
+	i = 1;
+	exit_status = 0;
+	if (!args[1])
+		return (print_sorted_env(*env));
+	while (args[i])
+	{
+		if (!is_valid_identifier(args[i]))
+		{
+			print_export(args, i);
+			exit_status = 1;
+			i++;
+			continue ;
+		}
+		if (ft_strnstr(args[i], "+=", ft_strlen(args[i])))
+			export_plus_equal(env, args[i], 0);
+		else if (ft_strchr(args[i], '='))
+			normal_export(env, args[i]);
+		else
+			null_value(env, args[i]);
+		i++;
+	}
+	return (exit_status);
 }

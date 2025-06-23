@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exporttttt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:32:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/17 22:23:15 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:22:12 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	normal_export(t_env **env, char *arg)
 		return ;
 	key = ft_substr(arg, 0, i);
 	value = ft_strdup(arg + i + 1);
-	export_in_env(env, key, value);
+	export_in_env(env, key, value, 1);
 }
 
 void	export_plus_equal(t_env **env, char *arg, int i)
@@ -48,10 +48,9 @@ void	export_plus_equal(t_env **env, char *arg, int i)
 		exist->value = new_value;
 	}
 	else
-		export_in_env(env, key, value);
+		export_in_env(env, key, value, 1);
 }
 
-//his function
 int	handle_arg1(char *v)
 {
 	int	i;
@@ -61,43 +60,16 @@ int	handle_arg1(char *v)
 	flag = 0;
 	while (v[i] && v[i] != '=')
 	{
-		if (!ft_lnum_export(v[i]) && v[i+1] != '=')
+		if (!ft_lnum_export(v[i]) && v[i + 1] != '=')
 			flag++;
 		i++;
 	}
 	i = 0;
 	if (flag || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
 	{
-		ft_3putstr("minishell: export: ",
-			v, ": not a valid identifier\n", NULL);
+		ft_3putstr("minishell: export: ", v, ": not a valid identifier\n",
+			NULL);
 		return (1);
 	}
 	return (0);
 }
-
-//mine
-// int	handle_arg1(char *v)
-// {
-// 	int		i;
-// 	char	*eq;
-
-// 	if (!v || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
-// 	{
-// 		ft_3putstr("minishell: export: ", v, ": not a valid identifier\n", NULL);
-// 		return (1);
-// 	}
-
-// 	eq = ft_strchr(v, '=');
-// 	i = 0;
-// 	while (v[i] && &v[i] != eq) // check only before '='
-// 	{
-// 		if (!ft_lnum_export(v[i]))
-// 		{
-// 			ft_3putstr("minishell: export: ", v, ": not a valid identifier\n", NULL);
-// 			return (1);
-// 		}
-// 		i++;
-// 	}
-
-// 	return (0);
-// }

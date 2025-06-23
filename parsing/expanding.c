@@ -6,192 +6,65 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/18 22:00:58 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/22 16:17:10 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
+int	has_whitespace(char *value)
 {
-	(*i)++;
-	if (exp[*i] == '$')
-	{	
-		(*i)++;
-	}
-	else if (exp[*i] == '?')
-	{
-		*result = str_append(*result, ft_itoa(data->env->exit_status));
-		(*i)++;
-	}
-	else if(is_num(exp[*i]))
-	{
-		(*i)++;
-		while(exp[*i])
-		{
-			*result= str_append_char(*result,exp[*i]);
-			(*i)++;
-		}
-	}
-	else
-		*result = expand_variable(exp, i, *result, data);
-}
-
-char	*handle_double_quote(char *exp, int *i, char *result,
-		t_expand_data *data)
-{
-	(*i)++;
-	while (exp[*i] && exp[*i] != '"')
-	{
-		if(exp[*i] == '$' && data->sh_expand && exp[(*i) + 1] && exp[*i+ 1] != ' ' && 
-			exp[(*i) + 1] != '\t' && exp[(*i) + 1] != ',' && exp[(*i) + 1] != ':' && exp[(*i) + 1] != '=' && exp[(*i) + 1] != '+' 
-			&& exp[(*i) + 1] != '"')
-				handel_specials(&result,exp,data,i);
-		// if (exp[*i] == '$' && data->sh_expand && exp[(*i) + 1] != '"'
-		// 	&& exp[(*i) + 1] != ' ' && exp[(*i) + 1] != '\t' && exp[(*i)
-		// 		+ 1] != ',' && exp[*i + 1] != ':' && exp[*i + 1] != '=')
-		// {
-		// 	(*i)++;
-		// 	result = expand_variable(exp, i, result, data);
-		// }
-		else
-		{
-			result = str_append_char(result, exp[*i]);
-			(*i)++;
-		}
-	}
-	if (exp[*i] == '"')
-		(*i)++;
-	return (result);
-}
-
-
-char	*handel_afterd(char *exp, t_expand_data *data)
-{
-	int		i;
-	char	*result;
-	
-	i = 0;
-	result = ft_strdup("");
-	while (exp[i])
-	{
-			if (exp[i] == '\'')
-				result = handle_single_quote(exp, &i, result);
-			else if (exp[i] == '"')
-			{
-				data->quoted = 1;
-				result = handle_double_quote(exp, &i, result, data);
-			}
-			else if (exp[i] == '$' && data->sh_expand && exp[i + 1] && exp[i
-					+ 1] != ' ' && exp[i + 1] != '\t' && exp[i + 1] != ',' && exp[i + 1] != ':' && exp[i + 1] != '=' && exp[i + 1] != '+')
-				handel_specials(&result, exp, data, &i);
-			else
-			{
-				result = str_append_char(result, exp[i]);
-				i++;
-			}
-	}
-// <<<<<<< HEAD
-// =======
-	if (ft_strlen(result) == 0)
-	{
-		// free(result);   // double free
-		result = ft_strdup("\0");
-	}
-// >>>>>>> mohammed_ali
-		return (result);
-}
-
-void	retoken(t_tokenn *token)
-{
-	char		**split;
-	t_tokenn	*new_node;
-	t_tokenn	*t;
-	int			i;
-
-	split = ft_split_whitespace(token->value);
-	if (!split || !split[0])
-		return ;
-	token->value = ft_strdup(split[0]);
-	t = token;
-	i = 1;
-	while (split[i])
-	{
-		new_node = gar_coll(sizeof(t_tokenn), 'a');
-		if (!new_node)
-			return ;
-		new_node->type = EXP;
-		new_node->value = ft_strdup(split[i]);
-		new_node->next = t->next;
-		t->next = new_node;
-		t = new_node;
-		i++;
-	}
-}
-
-
-
-
-int	has_eq_before_space(char *s)
-{
-	while (*s)
-	{
-		if (*s == '=' && *s+1 && *s + 1 ==' ' && *s + 1 =='\t')
-			return (0);
-		s++;
-	}
-	return (1);
-}
-
-int	needs_retoken(char *value)
-{
-	char	*eq;
-
-	eq = ft_strchr(value, '=');
-	if (!eq)
-		return (1); // No '=', so space means separate arguments
-	if (eq == value)
-		return (1); // '=' is at the beginning → invalid identifier
-
-	// Check for space or tab before '='
-	while (value < eq)
+	while (*value)
 	{
 		if (*value == ' ' || *value == '\t')
 			return (1);
 		value++;
 	}
-	return (0); // it's a proper key=value with no space before '='
+	return (0);
 }
 
-// int needs_retoken(char *value)
-// {
-// 	char *eq = ft_strchr(value, '=');
-// 	if (!eq)
-// 		return (1); // No '=', so space means separate arguments
+int	needs_retokenn(char *value, int quoted, t_context_type ctx)
+{
+	char	*eq;
 
-// 	if (eq == value)
-// 		return (1); // '=' is at the beginning → invalid identifier
+	eq = ft_strchr(value, '=');
+	if (ctx == CTX_COMMAND_ARG)
+		return (has_whitespace(value));
+	if (eq == value)
+		return (1);
+	if (quoted)
+		return (0);
+	if (ctx == CTX_EXPORT_DIRECT)
+		return (has_whitespace(value));
+	if (ctx == CTX_EXPORT_RHS)
+		return (0);
+	return (0);
+}
 
-// 	// Check for space or tab before '='
-// 	char *p = value;
-// 	while (p < eq)
-// 	{
-// 		if (*p == ' ' || *p == '\t')
-// 			return (1);
-// 		p++;
-// 	}
+static int	handle_token_expand(t_tokenn *tmp, t_tokenn *prev,
+		t_expand_data *data, t_env *env)
+{
+	t_context_type	ctx;
 
-// 	// Check for space or tab after '='
-// 	p = eq + 1;
-// 	while (*p)
-// 	{
-// 		if (*p == ' ' || *p == '\t')
-// 			return (1); // value has space → invalid assignment
-// 		p++;
-// 	}
-
-// 	return (0); // Valid KEY=VALUE with no spaces
-// }
+	ctx = CTX_COMMAND_ARG;
+	if (prev && prev->type == EXP && !ft_strcmp(prev->value, "export"))
+	{
+		if (tmp->value[0] == '$')
+			ctx = CTX_EXPORT_DIRECT;
+		else
+			ctx = CTX_EXPORT_RHS;
+	}
+	if (!handle_expand_token(tmp, prev, data, env))
+		return (0);
+	if (data->expanded && needs_retokenn(tmp->value, data->quoted, ctx)
+		&& (ft_strchr(tmp->value, ' ') || ft_strchr(tmp->value, '\t')))
+	{
+		if (!retokenn(tmp))
+			return (0);
+	}
+	tmp->expan_toex = data->expanded_toexe;
+	return (1);
+}
 
 int	expand_rm_quotes(t_tokenn *t, t_env *env)
 {
@@ -204,36 +77,16 @@ int	expand_rm_quotes(t_tokenn *t, t_env *env)
 	data.env = env;
 	data.expanded = 0;
 	data.quoted = 0;
+	data.expanded_toexe = 0;
 	while (tmp)
 	{
-		if (tmp->type == EXP && ft_strchr(tmp->value,'$') && !(tmp->quotes))
+		if (tmp->type == EXP)
 		{
-			if(prev && (prev->type == REDIRECTION_IN || prev->type == REDIRECTION_OUT || prev->type == REDIRECTION_AP))
-			{
-				tmp->value=handel_afterd(tmp->value,&data);
-				if(ft_strchr(tmp->value,' ') || ft_strchr(tmp->value,'\t') || !tmp->value)
-				{
-					print_err("ambiguous redirect");
-					set_exit_status(&env, 2);
-					return(0);
-				}
-			}
-			else
-			{
-				data.sh_expand = !(prev && prev->type == HEREDOC);
-				tmp->value = handel_afterd(tmp->value, &data);
-			}
+			if (!handle_token_expand(tmp, prev, &data, env))
+				return (0);
 		}
-		else if(tmp->type == EXP)
-		{
-			data.sh_expand = !(prev && prev->type == HEREDOC);
-			tmp->value = handel_afterd(tmp->value, &data);
-		}
-		if (data.expanded && !(data.quoted) && (ft_strchr(tmp->value, ' ')
-				|| ft_strchr(tmp->value, '\t')) && needs_retoken(tmp->value))
-			retoken(tmp);
 		prev = tmp;
 		tmp = tmp->next;
 	}
-	return(1);
+	return (1);
 }

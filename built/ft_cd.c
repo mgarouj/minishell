@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 02:14:12 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/31 17:58:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:22:22 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ int	free_cd(int f1, int f2, char *c1, char *c2)
 	return (0);
 }
 
+char	*get_old_pwd(t_env *env, int *f1)
+{
+	char	*cwd;
+
+	*f1 = 0;
+	cwd = getcwd(NULL, 0);
+	if (!cwd)
+	{
+		cwd = ft_strdup(env->pwd);
+		*f1 = 1;
+	}
+	export_in_env(&env, "OLDPWD", cwd, 1);
+	return (cwd);
+}
+
 int	change_directory(char *path, t_env *env)
 {
 	char	*cwd;
@@ -28,17 +43,14 @@ int	change_directory(char *path, t_env *env)
 	int		f2;
 	int		f1;
 
-	cwd = getcwd(NULL, 0);
-	f1 = 0;
 	f2 = 0;
-	if (!cwd)
-	{
-		cwd = ft_strdup(env->pwd);
-		f1 = 1;
-	}
-	change_env_value(&env, "OLDPWD", cwd);
+	cwd = get_old_pwd(env, &f1);
 	if (chdir(path) == -1)
+	{
+		if (!f1)
+			free(cwd);
 		return (perror("minishell: cd"), 1);
+	}
 	n_c = getcwd(NULL, 0);
 	if (!n_c)
 	{
@@ -53,7 +65,7 @@ int	change_directory(char *path, t_env *env)
 int	ft_cd(char **arg, t_env *env)
 {
 	char	*path;
-	
+
 	if (!arg[1])
 	{
 		path = get_env_value("HOME", env);

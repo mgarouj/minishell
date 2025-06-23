@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:16:41 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/30 17:41:43 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:20:04 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,16 @@ void	add_path(t_env **env_list)
 {
 	t_env	*env;
 	char	*path;
+	char	*default_path;
 
 	env = *env_list;
 	path = get_env_value("PATH", env);
 	if (!path)
-		export_in_env(env_list, "PATH",
-			"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin");
+	{
+		default_path = "/gcc/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:"
+			"/usr/sbin:/bin:/sbin:.";
+		export_in_env(env_list, "PATH", default_path, 0);
+	}
 }
 
 void	add_underscore(t_env **env_list)
@@ -32,24 +36,30 @@ void	add_underscore(t_env **env_list)
 	env = *env_list;
 	path = get_env_value("_", env);
 	if (!path)
-		export_in_env(env_list, "_",
-			"/usr/bin/env");
+		export_in_env(env_list, "_", "/usr/bin/env", 1);
 }
 
 void	add_pwd(t_env **env)
 {
-	char *pwd;
-	// t_env *tmp_pwd;
-	char *path;
+	char	*pwd;
+	char	*path;
 
 	pwd = getcwd(NULL, 0);
-	
 	if (!pwd)
 		return ;
 	path = get_env_value("PWD", *env);
 	if (!path)
-		export_in_env(env, "PWD",pwd);
+		export_in_env(env, "PWD", pwd, 1);
 	free(pwd);
+}
+
+void	add_oldpwd(t_env **env)
+{
+	char	*path;
+
+	path = get_env_value("OLDPWD", *env);
+	if (!path)
+		null_value(env, "OLDPWD");
 }
 
 void	shelvl_path_underscore(t_env **env_list)
@@ -62,7 +72,7 @@ void	shelvl_path_underscore(t_env **env_list)
 	new_value = 0;
 	old_value = get_env_value("SHLVL", tmp_env);
 	if (!old_value)
-		export_in_env(env_list, "SHLVL", "0");
+		export_in_env(env_list, "SHLVL", "0", 1);
 	else
 	{
 		new_value = ft_atoi(old_value);
@@ -73,19 +83,8 @@ void	shelvl_path_underscore(t_env **env_list)
 			new_value = 0;
 		}
 		new_value++;
-		export_in_env(env_list, "SHLVL", ft_itoa(new_value));
+		export_in_env(env_list, "SHLVL", ft_itoa(new_value), 1);
 	}
-	add_path(env_list);
-	add_underscore(env_list);
-	add_pwd(env_list);
-}
-
-void	handle_in(void)
-{
-	if (!isatty(0) || !isatty(1) || !isatty(2))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd("not running in interactive mode. Exiting...\n", 2);
-		exit(1);
-	}
+	(add_path(env_list), add_underscore(env_list));
+	(add_pwd(env_list), add_oldpwd(env_list));
 }

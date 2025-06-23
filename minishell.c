@@ -6,29 +6,29 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/17 21:46:43 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/22 21:43:56 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_env *g_env_exitval = NULL; // ✅ definition with initialization
+t_env	*g_env_exitval = NULL;
 
 void	exit_minishell(int exit_s)
 {
 	gar_coll(0, 'f');
-	fd_collec(0,0);
+	fd_collec(0, 0);
 	exit(exit_s);
 }
 
-void leak(void){
+void	leak(void)
+{
 	system("leaks minishell");
 }
 
-// void test_mini()
 void	add_pwd_shlvl(t_env **l)
 {
-	export_in_env(l, "PWD", getcwd(NULL, 0));
+	export_in_env(l, "PWD", getcwd(NULL, 0),1);
 	printf("env = %s\n", (*l)->value);
 }
 
@@ -39,43 +39,26 @@ int	main(int ac, char **av, char **env)
 	int			i;
 	t_env		*l;
 	t_tokenn	*token;
-	t_tokenn	*tmp;
-	// atexit(leak);
-	
-	t_execution *exec_list;
+	t_execution	*exec_list;
+
 	(void)ac;
 	(void)av;
-	// if env == NULL
 	handle_in();
 	l = NULL;
 	token = NULL;
 	i = 0;
-	
-	// if (!env && !env[0])
-		// add_pwd_shlvl(&l);
-	// signal_handler(1);
 	while (env[i])
 	{
 		handel_env(env[i], &l);
 		i++;
 	}
 	shelvl_path_underscore(&l);
-	
-	
-	// l = env_to_list(env);
-	
 	while (1)
 	{
 		g_env_exitval = l;
 		signal_handler(1, l);
-		
 		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
-		if (!line)
-		{
-			print_err("exit");
-			set_exit_status(&l, l->exit_status);
-			exit_minishell(l->exit_status);
-		}
+		print_main(l,line);
 		signal(SIGINT, SIG_IGN);
 		if (line[0] != '\0')
 		{
@@ -90,54 +73,15 @@ int	main(int ac, char **av, char **env)
 				continue ;
 			}
 			token = tokenize(trim);
-			
-			//remove quotes and expaind only if there is no heredoc before
-			if(!expand_rm_quotes(token, l))
-				continue;
-			tmp = token;
-			while (tmp)
-			{
-				printf("Type: %d, Value: %s\n", tmp->type, tmp->value);
-				tmp = tmp->next;
-			}
-			
-			printf("***************************\n");
+			if (!expand_rm_quotes(token, l))
+				continue ;
 			exec_list = NULL;
-			if(!split_cmd(token,&exec_list,l))
-				continue;
-			t_execution *t = exec_list;
-			int i;
-				
-				while (t)
-				{
-					printf("Command:\n");
-					i = 0;
-					if (t->cmd)
-					{
-						while (t->cmd[i])
-						{
-							printf("  [%d]: %s\n", i, t->cmd[i]);
-							i++;
-						}
-					}
-					else
-						printf("no command\n");
-					printf("  [%d]: in_file = %d\n", i, t->in_file);
-					printf("  [%d]: out_file = %d\n", i, t->out_file);
-						
-					
-					t = t->next;
-				}
-			
-			// // execution 
-			printf("\n\n*********************\n");
+			if (!split_cmd(token, &exec_list, l))
+				continue ;
 			execute_cmd(&exec_list, &l);
-			// printf("exit status = %d \n", l->exit_status);
 		}
 		else
 			free(line);
 	}
-
-	// gcc parsing/*.c utils/*.c env_list/*.c libft_fonction/*.c exc/*.c built/*.c minishell.c -lreadline
 	return (0);
 }
