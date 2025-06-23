@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/22 21:36:21 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/23 04:53:12 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,7 +208,6 @@ void    				init_env_cmd(t_env *env, t_execution **cmd);
 t_execution				*creat_node(int expanded);
 void					add_node_to_list(t_execution **exec, t_execution *node);
 int						is_redirection(char *s);
-int						calculate_required_size(char *exp, t_execution *exec);
 int						copy_and_append_cmd(char **new_cmd, t_execution *exec,
 							char *exp);
 int	check_c_heredoc(int c);
@@ -275,5 +274,6 @@ void	execve_command_handler(t_execution *cmd, t_env **env);
 t_env	*init_env_list(char **env);
 void	read_and_execute(char *line, t_env *l, char *trim);
 void	main_loop(t_env *l);
+int	calculate_required_size(t_execution *exec);
 
 #endif

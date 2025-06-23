@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:34:19 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/22 21:05:13 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/23 04:50:38 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 		if (WEXITSTATUS(var_her.exit_status) == 130)
 		{
 			set_exit_status(&env, 130);
-			fd_collec(0,0);
+			fd_collec(0, 0);
 			return (0);
 		}
 	}

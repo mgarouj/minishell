@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/22 21:11:53 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/22 21:41:57 by fbelkass         ###   ########.fr       */
+/*   Created: 2025/06/23 04:49:26 by mgarouj           #+#    #+#             */
+/*   Updated: 2025/06/23 04:50:15 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void    print_main(t_env *env_list, char *line)
+void	print_main(t_env *env_list, char *line)
 {
-    if (!line)
-    {
-        print_err("exit");
-        set_exit_status(&env_list, env_list->exit_status);
-        exit_minishell(env_list->exit_status);
-    }
+	if (!line)
+	{
+		print_err("exit");
+		set_exit_status(&env_list, env_list->exit_status);
+		exit_minishell(env_list->exit_status);
+	}
 }
+
 t_env	*init_env_list(char **env)
 {
 	t_env	*l;
@@ -36,6 +37,7 @@ t_env	*init_env_list(char **env)
 	shelvl_path_underscore(&l);
 	return (l);
 }
+
 void	read_and_execute(char *line, t_env *l, char *trim)
 {
 	t_tokenn	*token;
@@ -74,10 +76,10 @@ void	exit_minishell(int exit_s)
 
 void	main_loop(t_env *l)
 {
-	char	*line;
-    char		*trim;
+	char		*line;
+	char		*trim;
 
-    trim = NULL;
+	trim = NULL;
 	while (1)
 	{
 		g_env_exitval = l;
