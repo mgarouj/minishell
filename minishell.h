@@ -25,10 +25,6 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-
-
-
-
 enum					e_token
 {
 	EXP,
@@ -276,5 +272,8 @@ void	ft_wait_child(t_execution *cmd, int *exit_status);
 void	handle_in(void);
 void	handle_invalid_path(t_execution *cmd, t_env **env, char *path);
 void	execve_command_handler(t_execution *cmd, t_env **env);
+t_env	*init_env_list(char **env);
+void	read_and_execute(char *line, t_env *l, char *trim);
+void	main_loop(t_env *l);
 
 #endif
