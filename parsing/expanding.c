@@ -29,7 +29,7 @@ int	needs_retokenn(char *value, int quoted, t_context_type ctx)
 
 	eq = ft_strchr(value, '=');
 	if (ctx == CTX_COMMAND_ARG)
-		return (has_whitespace(value));
+		return (has_whitespace(value) && !quoted);
 	if (eq == value)
 		return (1);
 	if (quoted)

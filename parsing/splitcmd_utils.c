@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitcmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 18:27:47 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/23 04:54:34 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/20 21:29:38 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,27 @@ int	is_redirection(char *s)
 		|| !ft_strcmp(s, ">>"));
 }
 
-int	calculate_required_size(t_execution *exec)
+int	calculate_required_size(char *exp, t_execution *exec)
 {
+	int	size;
 	int	i;
 
+	size = 0;
 	i = 0;
+	while (exp && exp[i])
+	{
+		if (exp[i] == ' ' || exp[i] == '\t')
+			size++;
+		i++;
+	}
 	if (exec->cmd)
 	{
+		i = 0;
 		while (exec->cmd[i])
 			i++;
+		size += i;
 	}
-	return (i + 2);
+	return (size + 2);
 }
 
 int	copy_and_append_cmd(char **new_cmd, t_execution *exec, char *exp)

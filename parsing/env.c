@@ -21,6 +21,7 @@ t_env	*create_env(char *key, char *value)
 		return (NULL);
 	new->key = key;
 	new->value = value;
+	new->printed = 1;
 	new->exit_status = 0;
 	new->next = NULL;
 	return (new);

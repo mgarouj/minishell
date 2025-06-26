@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 15:48:33 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/22 15:36:07 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:57:16 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-t_tokenn	*create_token(enum e_token type, char *value, int quotes)
+t_tokenn	*create_token(t_token type, char *value, int quotes)
 {
 	t_tokenn	*new;
 

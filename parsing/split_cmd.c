@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/23 04:54:00 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/22 16:20:21 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	append_to_cmd(char *exp, t_execution *exec)
 
 	if (!exp || !exec)
 		return (0);
-	required_size = calculate_required_size(exec);
+	required_size = calculate_required_size(exp, exec);
 	new_cmd = gar_coll(sizeof(char *) * required_size, 'a');
 	if (!new_cmd)
 		return (0);

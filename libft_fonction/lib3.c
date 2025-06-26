@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lib3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:20:23 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/23 16:25:23 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:22:24 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,20 @@ int	ft_atoi(const char *str)
 		}
 	}
 	return (result * sign);
+}
+
+void	print_err_ex(char *str, char *s2)
+{
+	int	i;
+
+	i = 0;
+	write(2, "minishell: ", 11);
+	if (s2)
+		ft_putstr_fd(s2, 2);
+	while (str[i])
+	{
+		write(2, &str[i], 1);
+		i++;
+	}
+	write(2, "\n", 1);
 }

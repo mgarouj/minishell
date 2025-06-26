@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:13:08 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/23 07:21:27 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:30:41 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ char	*find_path(t_execution *cmd, t_env **env)
 	}
 	env_path = get_env_value("PATH", *env);
 	if (!env_path)
+	{
+		if (access(cmd->cmd[0], X_OK))
+			return (ft_strdup(cmd->cmd[0]));
 		return (NULL);
+	}
 	path = ft_split(env_path, ':');
 	if (!path)
 		return (NULL);
@@ -56,6 +60,8 @@ char	*find_path(t_execution *cmd, t_env **env)
 
 void	handle_invalid_path(t_execution *cmd, t_env **env, char *path)
 {
+	struct stat	st;
+
 	if (!path)
 	{
 		if (access(cmd->cmd[0], X_OK) == -1 && !get_env_value("PATH", *env))
@@ -64,47 +70,43 @@ void	handle_invalid_path(t_execution *cmd, t_env **env, char *path)
 			ft_putstr_fd(cmd->cmd[0], 2);
 			perror(" ");
 			if (access(cmd->cmd[0], F_OK) == -1)
-				exit (127);
+				exit(127);
 			exit(126);
 		}
 		else if (access(cmd->cmd[0], X_OK) == 0 && !get_env_value("PATH", *env))
-			exit(0);
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd->cmd[0], 2);
-		ft_putstr_fd(": command not found\n", 2);
+		{
+			if (execve(cmd->cmd[0], cmd->cmd, cmd->env) == -1)
+				handle_execve_error(cmd, &st);
+		}
+		print_err_ex(": command not found", cmd->cmd[0]);
 		exit(127);
 	}
 	if (!ft_strcmp(path, "pr_dn"))
 	{
-		ft_putstr_fd("minishell: ", 2);
-		ft_putstr_fd(cmd->cmd[0], 2);
-		ft_putstr_fd(": Permission denied\n", 2);
+		print_err_ex(": Permission denied", cmd->cmd[0]);
 		exit(126);
 	}
 }
 
-void	execve_command_handler(t_execution *cmd, t_env **env)
+void	handle_execve_error(t_execution *cmd, struct stat *st)
 {
-	if (!ft_strcmp(cmd->cmd[0], ".."))
+	if (!access(cmd->cmd[0], X_OK))
+	{
+		if (stat(cmd->cmd[0], st) == 0 && S_ISDIR(st->st_mode))
+		{
+			print_err_ex(": is a directory ", cmd->cmd[0]);
+			exit(126);
+		}
+		exit(0);
+	}
+	if (cmd->flag_expand == 1 && !ft_strcmp(cmd->cmd[0], ""))
+		exit(0);
+	else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
 	{
 		print_err_ex(": command not found", cmd->cmd[0]);
 		exit(127);
 	}
-	cmd->path = find_path(cmd, env);
-	printf_path_error(cmd, *env);
-	signal_handler(0, *env);
-	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
-	{
-		if (!access(cmd->cmd[0], X_OK))
-			exit(0);
-		if (cmd->flag_expand == 1 && !ft_strcmp(cmd->cmd[0], ""))
-			exit(0);
-		else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
-		{
-			print_err_ex(": command not found", cmd->cmd[0]);
-			exit(127);
-		}
-		perror("minishell ");
-		exit(1);
-	}
+	perror("minishell ");
+	exit(1);
 }
+

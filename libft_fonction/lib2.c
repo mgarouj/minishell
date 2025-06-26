@@ -49,21 +49,17 @@ char	*ft_strjoin(char *s1, char *s2)
 
 int	ft_isalpha(int c)
 {
-	return ((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z'));
+	return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }
 
 int	ft_lnum_export(int c)
 {
-	return ((c >= 'A' && c <= 'Z')
-		|| (c >= 'a' && c <= 'z')
-		|| (c >= '0' && c <= '9')
-		|| (c == '=') || (c == '_'));
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0'
+			&& c <= '9') || (c == '=') || (c == '_'));
 }
 
 int	ft_isalnum(int c)
 {
-	return ((c >= 'A' && c <= 'Z')
-		|| (c >= 'a' && c <= 'z')
-		|| (c >= '0' && c <= '9'));
+	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0'
+			&& c <= '9'));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_one_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/22 17:18:50 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:45:04 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,59 +49,20 @@ void	execute_one_builtin(t_execution *cmd, t_env **env)
 		restore_std(backup_in, backup_out);
 }
 
-char	**change_envlist_to_envchar(t_env *env)
-{
-	t_env	*tmp;
-	char	**env_array;
-	char	*joined;
-	int		i;
-	int		size;
-
-	tmp = env;
-	size = ft_lstsize(env);
-	env_array = gar_coll(sizeof(char *) * (size + 1), 'a');
-	if (!env_array)
-		return (NULL);
-	tmp = env;
-	i = 0;
-	while (tmp)
-	{
-		if (tmp->value)
-		{
-			joined = ft_strjoin_3(tmp->key, tmp->value);
-			env_array[i++] = joined;
-		}
-		tmp = tmp->next;
-	}
-	env_array[i] = NULL;
-	return (env_array);
-}
-
 void	child_for_one_cmd(t_execution *cmd, t_env **env)
 {
-	char	*path;
+	char		*path;
+	struct stat	st;
 
 	if (!ft_strcmp(cmd->cmd[0], ".."))
-		(print_err_ex(": command not found", cmd->cmd[0]), exit(127));
+		(print_err("command not found"), exit(127));
 	path = find_path(cmd, env);
 	handle_invalid_path(cmd, env, path);
 	cmd->path = path;
 	cmd->env = change_envlist_to_envchar(*env);
 	signal_handler(0, *env);
 	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
-	{
-		if (!access(cmd->cmd[0], X_OK))
-			exit(0);
-		if (cmd->flag_expand == 1 && !ft_strcmp(cmd->cmd[0], ""))
-			exit(0);
-		else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
-		{
-			print_err_ex(": command not found", cmd->cmd[0]);
-			exit(127);
-		}
-		perror("minishell ");
-		exit(1);
-	}
+		handle_execve_error(cmd, &st);
 }
 
 void	execute_execve_cmd(t_execution *cmd, t_env **env)

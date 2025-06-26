@@ -20,6 +20,8 @@ pid_t	ft_fork(const char *msg)
 	if (pid < 0)
 	{
 		perror(msg);
+		gar_coll(0, 1);
+		fd_collec(0, 0);
 		exit(EXIT_FAILURE);
 	}
 	return (pid);

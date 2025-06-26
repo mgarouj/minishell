@@ -37,7 +37,7 @@ int	ft_lstsize(t_env *lst)
 	while (lst)
 	{
 		count++;
-		lst = lst -> next;
+		lst = lst->next;
 	}
 	return (count);
 }
@@ -52,7 +52,7 @@ int	ft_lstsize_cmd_list(t_execution *cmd_list)
 	while (tmp)
 	{
 		count++;
-		tmp = tmp -> next;
+		tmp = tmp->next;
 	}
 	return (count);
 }

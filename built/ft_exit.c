@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:38:10 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/26 10:09:36 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:51:38 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int	ft_exit(char **arg, int exit_status)
 	int	i;
 
 	i = 0;
-	ft_putstr_fd("exit\n", 1);
+	if (isatty(0) && isatty(1) && isatty(2))
+		ft_putstr_fd("exit\n", 1);
 	if (arg[0] && arg[1] && arg[2])
 		return (exit_error(NULL, 1), 1);
 	if (arg[1])
@@ -46,7 +47,7 @@ int	ft_exit(char **arg, int exit_status)
 			i++;
 		while (arg[i])
 		{
-			if (!(arg[1][i] >= '0' && arg[1][i] <= '9'))
+			if (arg[1][i] < '0' || arg[1][i] > '9')
 				(exit_error(arg[1], 2), ft_exit_minishell(255));
 			i++;
 		}

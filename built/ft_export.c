@@ -90,14 +90,14 @@ int	print_sorted_env(t_env *env)
 	ft_sort_env(sort_env, j);
 	j = 0;
 	while (sort_env[j])
-		ft_3putstr("declare -x ", sort_env[j++], "\n", NULL);
+		ft_3putstr_err("declare -x ", sort_env[j++], "\n", NULL);
 	return (0);
 }
 
 void	print_export(char **args, int i)
 {
-	ft_3putstr("minishell: export: ", args[i],
-		": not a valid identifier\n", NULL);
+	ft_3putstr_err("minishell: export: ", args[i], ": not a valid identifier\n",
+		NULL);
 }
 
 int	ft_export(char **args, t_env **env)

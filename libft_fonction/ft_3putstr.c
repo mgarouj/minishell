@@ -23,3 +23,15 @@ void	ft_3putstr(char *s1, char *s2, char *s3, char *s4)
 	if (s4)
 		ft_putstr_fd(s4, 1);
 }
+
+void	ft_3putstr_err(char *s1, char *s2, char *s3, char *s4)
+{
+	if (s1)
+		ft_putstr_fd(s1, 2);
+	if (s2)
+		ft_putstr_fd(s2, 2);
+	if (s3)
+		ft_putstr_fd(s3, 2);
+	if (s4)
+		ft_putstr_fd(s4, 2);
+}

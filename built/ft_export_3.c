@@ -3,27 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   expot_shit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:18:27 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/20 22:58:07 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:41:25 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_env_key(char *key, t_env *env)
+int	check_env_key(char *key, t_env *env)
 {
-	t_env	*env_tmp;
-
-	env_tmp = env;
-	while (env_tmp)
+	while (env)
 	{
-		if (ft_strcmp(env_tmp->key, key) == 0)
-			return (env_tmp->key);
-		env_tmp = env_tmp->next;
+		if (ft_strcmp(env->key, key) == 0)
+			return (1);
+		env = env->next;
 	}
-	return (NULL);
+	return (0);
 }
 
 void	export_in_export(t_env **env, char *key, char *value)
@@ -33,19 +30,15 @@ void	export_in_export(t_env **env, char *key, char *value)
 	new = gar_coll(sizeof(t_env), 'a');
 	new->key = ft_strdup(key);
 	new->value = value;
+	new->printed = 1;
 	new->next = *env;
 	*env = new;
 }
 
 void	null_value(t_env **env, char *arg)
 {
-	char	*key;
-	char	*value;
-
-	key = ft_strdup(arg);
-	value = NULL;
-	if (!get_env_key(key, *env))
-		export_in_export(env, key, value);
+	if (!check_env_key(arg, *env))
+		export_in_export(env, ft_strdup(arg), NULL);
 }
 
 int	is_valid_identifier(const char *s)

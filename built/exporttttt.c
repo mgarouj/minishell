@@ -67,7 +67,7 @@ int	handle_arg1(char *v)
 	i = 0;
 	if (flag || v[0] == '=' || (v[0] >= '0' && v[0] <= '9'))
 	{
-		ft_3putstr("minishell: export: ", v, ": not a valid identifier\n",
+		ft_3putstr_err("minishell: export: ", v, ": not a valid identifier\n",
 			NULL);
 		return (1);
 	}

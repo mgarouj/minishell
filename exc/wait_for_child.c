@@ -3,30 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   wait_for_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:15:38 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/23 08:53:08 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/24 13:26:11 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	print_err_ex(char *str, char *str2)
-{
-	int	i;
-
-	i = 0;
-	write(2, "minishell: ", 11);
-	if (str2)
-		ft_putstr_fd(str2, 2);
-	while (str[i])
-	{
-		write(2, &str[i], 1);
-		i++;
-	}
-	write(2, "\n", 1);
-}
 
 void	printf_path_error(t_execution *cmd, t_env *env)
 {
@@ -38,12 +22,12 @@ void	printf_path_error(t_execution *cmd, t_env *env)
 			ft_putstr_fd(cmd->cmd[0], 2);
 			perror(" ");
 			if (access(cmd->cmd[0], F_OK) == -1)
-				exit (127);
+				exit(127);
 			exit(126);
 		}
 		else if (access(cmd->cmd[0], X_OK) == 0 && !get_env_value("PATH", env))
 			exit(0);
-		print_err_ex(": command not found, ", cmd->cmd[0]);
+		print_err_ex(": command not found", cmd->cmd[0]);
 		exit(127);
 	}
 	if (!ft_strcmp(cmd->path, "pr_dn"))
