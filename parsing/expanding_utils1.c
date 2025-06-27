@@ -101,7 +101,7 @@ char	*handle_double_quote(char *exp, int *i, char *result,
 	while (exp[*i] && exp[*i] != '"')
 	{
 		if (exp[*i] == '$' && data->sh_expand && exp[*i + 1]
-			&& !ft_strchr(" \t,:=+\"", exp[*i + 1]))
+			&& !ft_strchr(" \t,:/=+\"", exp[*i + 1]))
 			handel_specials(&result, exp, data, i);
 		else
 		{
