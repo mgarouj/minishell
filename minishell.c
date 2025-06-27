@@ -35,19 +35,32 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 	*exec_list = NULL;
 	if (!split_cmd(*token, exec_list, *env))
 		return ;
-	// t_execution *tmp = *exec_list;
-	// while (tmp)
-	// {
-	// 	if (tmp)
-	// 		printf("cmd[0] : %s\n", tmp->cmd[0]);
-	// 	if (tmp)
-	// 		printf("cmd[1] : %s\n", tmp->cmd[1]);
-	// 	printf("infile : %d\n", tmp->in_file);
-	// 	printf("outfile: %d\n", tmp->out_file);
-	// 	tmp = tmp->next;
-	// }
+	t_execution *tmp = *exec_list;
+	int i=0;
 
-	execute_cmd(exec_list, env);
+	printf("====== Execution List ======\n");
+	while (tmp)
+	{
+		if (tmp->cmd)
+		{
+			while(tmp->cmd[i])
+			{
+				printf("cmd[%d]=%s\n",i,tmp->cmd[i]);
+				i++;
+			}
+		}
+		i = 0;
+		printf("infile  : %d\n", tmp->in_file);
+		printf("outfile : %d\n", tmp->out_file);
+		printf("----------------------------\n");
+
+		tmp = tmp->next;
+	
+
+
+	}
+			execute_cmd(exec_list, env);
+
 }
 
 int	main(int ac, char **av, char **env)
@@ -72,8 +85,10 @@ int	main(int ac, char **av, char **env)
 		if (line[0])
 			process_line(line, &token, &exec_list, &env_list);
 		else
+		{
 			free(line);
-		fd_collec(0,0);
+			 fd_collec(0,0);
+		}
 	}
 	return (0);
 }

@@ -62,7 +62,7 @@ char	*expand_variable(char *exp, int *i, char *result, t_expand_data *data)
 	char	*var_value;
 
 	start = *i;
-	while (exp[*i] && !ft_strchr(" \t\"'$;%,.[]=*", exp[*i]))
+	while (exp[*i] && !ft_strchr(" \t\"'$;%,.[]=*/", exp[*i]))
 		(*i)++;
 	var_name = sub_str(exp + start, (*i) - start);
 	var_value = get_env_value(var_name, data->env);
