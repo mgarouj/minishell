@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:26:35 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/24 13:19:06 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 09:52:16 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	sig_int_handler(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	// rl_replace_line("", 1);
+	rl_replace_line("", 1);
 	fd_collec(0, 0);
 	rl_redisplay();
 	g_env_exitval->exit_status = 130;
