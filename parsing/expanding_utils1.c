@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../minishell.h"
 
 int	retokenn(t_tokenn *token)
@@ -122,7 +123,11 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 	while (exp[i])
 	{
 		if (exp[i] == '\'')
+		{
+			data->quoted = 1;
 			result = handle_single_quote(exp, &i, result);
+
+		}
 		else if (exp[i] == '"')
 		{
 			data->quoted = 1;
