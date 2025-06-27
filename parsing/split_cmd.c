@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 19:19:33 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:31:37 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
 			iter->skip = 1;
 		if (!handel_all_cmd(segment_start, iter))
 			return (0);
-		printf("%d\n", iter->skip);
 		while (tmp && tmp->type != PIPE)
 			tmp = tmp->next;
 		if (tmp && tmp->type == PIPE)

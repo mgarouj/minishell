@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:13:08 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/27 09:56:12 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 19:30:02 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,8 @@ void	handle_invalid_path(t_execution *cmd, t_env **env, char *path)
 			exit(126);
 		}
 		else if (access(cmd->cmd[0], X_OK) == 0 && !get_env_value("PATH", *env))
-		{
 			if (execve(cmd->cmd[0], cmd->cmd, cmd->env) == -1)
 				handle_execve_error(cmd, &st);
-		}
 		print_err_ex(": command not found", cmd->cmd[0]);
 		exit(127);
 	}
@@ -101,11 +99,6 @@ void	handle_execve_error(t_execution *cmd, struct stat *st)
 	}
 	if (cmd->flag_expand == 1 && !ft_strcmp(cmd->cmd[0], ""))
 		exit(0);
-	// else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
-	// {
-	// 	print_err_ex(": command not found", cmd->cmd[0]);
-	// 	exit(127);
-	// }
 	perror("minishell ");
 	exit(127);
 }

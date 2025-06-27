@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/24 13:13:24 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 19:31:15 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 		t_env **env)
 {
 	char		*trim;
-	t_execution	*tmp;
-	int			i;
 
 	add_history(line);
 	trim = ft_strtrim(line, ft_strlen(line));
@@ -37,25 +35,6 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 	*exec_list = NULL;
 	if (!split_cmd(*token, exec_list, *env))
 		return ;
-	tmp = *exec_list;
-	i = 0;
-	printf("====== Execution List ======\n");
-	while (tmp)
-	{
-		if (tmp->cmd)
-		{
-			while (tmp->cmd[i])
-			{
-				printf("cmd[%d]=%s\n", i, tmp->cmd[i]);
-				i++;
-			}
-		}
-		i = 0;
-		printf("infile  : %d\n", tmp->in_file);
-		printf("outfile : %d\n", tmp->out_file);
-		printf("----------------------------\n");
-		tmp = tmp->next;
-	}
 	execute_cmd(exec_list, env);
 }
 
@@ -81,9 +60,7 @@ int	main(int ac, char **av, char **env)
 		if (line[0])
 			process_line(line, &token, &exec_list, &env_list);
 		else
-		{
 			free(line);
-		}
 		fd_collec(0, 0);
 	}
 	return (0);
