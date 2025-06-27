@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:11:53 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 14:47:32 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 19:23:33 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ void	add_pwd_shlvl(t_env **l)
 	printf("env = %s\n", (*l)->value);
 }
 
-int	handle_eof(char *line, t_env *env)
+int	handle_eof(char *line)
 {
 	if (!line)
 	{
 		print_err("exit");
-		set_exit_status(1, env->exit_status);
-		exit_minishell(env->exit_status);
+		set_exit_status(1, set_exit_status(0, 0));
+		exit_minishell(set_exit_status(0, 0));
 		return (0);
 	}
 	return (1);

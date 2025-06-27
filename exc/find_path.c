@@ -109,4 +109,3 @@ void	handle_execve_error(t_execution *cmd, struct stat *st)
 	perror("minishell ");
 	exit(127);
 }
-

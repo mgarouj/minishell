@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../minishell.h"
 
 int	retokenn(t_tokenn *token)
@@ -44,7 +43,7 @@ int	retokenn(t_tokenn *token)
 int	handle_expand_token(t_tokenn *tmp, t_tokenn *prev, t_expand_data *data,
 		t_env *env)
 {
-	(void ) env;
+	(void)env;
 	data->sh_expand = !(prev && prev->type == HEREDOC);
 	if (ft_strchr(tmp->value, '$') && !tmp->quotes)
 	{
@@ -78,7 +77,7 @@ void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
 	}
 	else if (exp[*i] == '?')
 	{
-		*result = str_append(*result, ft_itoa(set_exit_status(0,0)));
+		*result = str_append(*result, ft_itoa(set_exit_status(0, 0)));
 		(*i)++;
 	}
 	else if (is_num(exp[*i]))
@@ -127,7 +126,6 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 		{
 			data->quoted = 1;
 			result = handle_single_quote(exp, &i, result);
-
 		}
 		else if (exp[i] == '"')
 		{

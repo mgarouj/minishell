@@ -17,7 +17,9 @@ t_env	*g_env_exitval = NULL;
 void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 		t_env **env)
 {
-	char	*trim;
+	char		*trim;
+	t_execution	*tmp;
+	int			i;
 
 	add_history(line);
 	trim = ft_strtrim(line, ft_strlen(line));
@@ -26,7 +28,7 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 		return ;
 	if (!parssing(trim))
 	{
-		(*env)->exit_status = 2;
+		set_exit_status(1, 2);
 		return ;
 	}
 	*token = tokenize(trim);
@@ -35,17 +37,16 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 	*exec_list = NULL;
 	if (!split_cmd(*token, exec_list, *env))
 		return ;
-	t_execution *tmp = *exec_list;
-	int i=0;
-
+	tmp = *exec_list;
+	i = 0;
 	printf("====== Execution List ======\n");
 	while (tmp)
 	{
 		if (tmp->cmd)
 		{
-			while(tmp->cmd[i])
+			while (tmp->cmd[i])
 			{
-				printf("cmd[%d]=%s\n",i,tmp->cmd[i]);
+				printf("cmd[%d]=%s\n", i, tmp->cmd[i]);
 				i++;
 			}
 		}
@@ -53,14 +54,9 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 		printf("infile  : %d\n", tmp->in_file);
 		printf("outfile : %d\n", tmp->out_file);
 		printf("----------------------------\n");
-
 		tmp = tmp->next;
-	
-
-
 	}
-			execute_cmd(exec_list, env);
-
+	execute_cmd(exec_list, env);
 }
 
 int	main(int ac, char **av, char **env)
@@ -78,9 +74,9 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		g_env_exitval = env_list;
-		signal_handler(1, env_list);
+		signal_handler(1);
 		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
-		if (!handle_eof(line, env_list))
+		if (!handle_eof(line))
 			break ;
 		if (line[0])
 			process_line(line, &token, &exec_list, &env_list);
@@ -88,7 +84,7 @@ int	main(int ac, char **av, char **env)
 		{
 			free(line);
 		}
-		fd_collec(0,0);
+		fd_collec(0, 0);
 	}
 	return (0);
 }

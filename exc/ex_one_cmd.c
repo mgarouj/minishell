@@ -60,7 +60,7 @@ void	child_for_one_cmd(t_execution *cmd, t_env **env)
 	handle_invalid_path(cmd, env, path);
 	cmd->path = path;
 	cmd->env = change_envlist_to_envchar(*env);
-	signal_handler(0, *env);
+	signal_handler(0);
 	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
 		handle_execve_error(cmd, &st);
 }

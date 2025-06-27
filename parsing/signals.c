@@ -19,7 +19,7 @@ void	sig_int_handler(int sig)
 	rl_replace_line("", 1);
 	fd_collec(0, 0);
 	rl_redisplay();
-	set_exit_status(1,130);
+	set_exit_status(1, 130);
 }
 
 void	sig_heredoc_child(int sig)
@@ -30,9 +30,8 @@ void	sig_heredoc_child(int sig)
 	exit(130);
 }
 
-void	signal_handler(int f, t_env *l)
+void	signal_handler(int f)
 {
-	(void)l;
 	if (f == 1)
 	{
 		signal(SIGINT, sig_int_handler);

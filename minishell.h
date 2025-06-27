@@ -3,28 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 14:55:27 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 19:26:16 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <stdio.h>
 # include <dirent.h>
 # include <fcntl.h>
+# include <stdio.h>
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
 # include <stdbool.h>
 # include <stddef.h>
 # include <stdlib.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <sys/stat.h>
 
 typedef enum e_token
 {
@@ -34,13 +34,14 @@ typedef enum e_token
 	REDIRECTION_OUT,
 	REDIRECTION_AP,
 	HEREDOC,
-}t_token;
+}						t_token;
 
-typedef enum e_context_type {
+typedef enum e_context_type
+{
 	CTX_EXPORT_RHS,
 	CTX_EXPORT_DIRECT,
 	CTX_COMMAND_ARG
-}	t_context_type;
+}						t_context_type;
 
 typedef struct s_tokenn
 {
@@ -53,32 +54,32 @@ typedef struct s_tokenn
 
 typedef struct s_export
 {
-	char			*key;
-	char			*value;
-	int				flag_env;
-	struct s_export	*next;
-}					t_export;
+	char				*key;
+	char				*value;
+	int					flag_env;
+	struct s_export		*next;
+}						t_export;
 
 typedef struct s_env
 {
-	char			*key;
-	char			*value;
-	int				exit_status;
-	int				printed;
-	char			*pwd;
-	t_export		*export;
-	struct s_env	*next;
-}					t_env;
+	char				*key;
+	char				*value;
+	int					exit_status;
+	int					printed;
+	char				*pwd;
+	t_export			*export;
+	struct s_env		*next;
+}						t_env;
 
 typedef struct s_herdoc
 {
-	pid_t	pid;
-	int		fd_write;
-	int		fd_read;
-	int		exit_status;
-	char	*line;
-	char	*tmp;
-}			t_her;
+	pid_t				pid;
+	int					fd_write;
+	int					fd_read;
+	int					exit_status;
+	char				*line;
+	char				*tmp;
+}						t_her;
 
 typedef struct s_expand_data
 {
@@ -90,7 +91,6 @@ typedef struct s_expand_data
 
 }						t_expand_data;
 
-
 typedef struct s_execution
 {
 	pid_t				pid;
@@ -101,7 +101,7 @@ typedef struct s_execution
 	char				**cmd;
 	int					in_file;
 	int					out_file;
-	int	skip;
+	int					skip;
 	char				**env;
 	char				*path;
 	struct s_execution	*next;
@@ -120,19 +120,19 @@ typedef struct s_fds
 }						t_fds;
 
 int						parssing(char *line);
-void	handle_execve_error(t_execution *cmd, struct stat *st);
+void					handle_execve_error(t_execution *cmd, struct stat *st);
 void					ft_3putstr_err(char *s1, char *s2, char *s3, char *s4);
 t_tokenn				*tokenize(char *line);
 void					handel_env(char *s, t_env **env);
 int						expand_rm_quotes(t_tokenn *t, t_env *l);
 int						split_cmd(t_tokenn *token, t_execution **exec,
 							t_env *env);
-void					signal_handler(int f, t_env *l);
+void					signal_handler(int f);
 void					retoken(t_tokenn *token);
 void					skip_quotes(const char *line, int *i, char quote);
 char					*trim_line(char *line);
 void					exit_minishell(int exit_s);
-int						handle_eof(char *line, t_env *env);
+int						handle_eof(char *line);
 t_env					*init_env(char **env);
 
 void					print_err_ex(char *str, char *s2);
@@ -197,6 +197,9 @@ int						calculate_required_size(char *exp, t_execution *exec);
 int						copy_and_append_cmd(char **new_cmd, t_execution *exec,
 							char *exp);
 int						check_c_heredoc(int c);
+int						should_skip_token(t_tokenn *tmp, t_tokenn *prev);
+int						append_to_cmd(char *exp, t_execution *exec);
+int						check_writable_file(char *filename);
 void					initialize(t_tokenn **here, t_tokenn *tmp, int *c);
 int						handel_redirections(t_tokenn *token, t_tokenn *name,
 							t_execution *exec);
@@ -241,7 +244,7 @@ void					handle_execve_exit(int status, t_env **env);
 void					print_main(t_env *env_list, char *line);
 void					execute_pipe_cmd(t_execution **list_cmd, t_env **env);
 void					handle_in(void);
-int    set_exit_status(int type, int new_status);
+int						set_exit_status(int type, int new_status);
 void					printf_path_error(t_execution *cmd, t_env *env);
 int						ft_lnum_export(int c);
 void					shelvl_path_underscore(t_env **env_list);

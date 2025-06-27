@@ -70,13 +70,13 @@ int	handle_parent(t_execution *cmd, int prev_read)
 // 	tmp_env->exit_status = exit_status;
 // }
 
-int    set_exit_status(int type, int new_status)
+int	set_exit_status(int type, int new_status)
 {
-    static int    old_status;
+	static int	old_status;
 
-    if (type)
-        old_status = new_status;
-    return (old_status);
+	if (type)
+		old_status = new_status;
+	return (old_status);
 }
 
 void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
@@ -100,6 +100,5 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 			prev_read = handle_parent(tmp_cmd, prev_read);
 		tmp_cmd = tmp_cmd->next;
 	}
-	
 	handle_pipe_exit(list_cmd, env, &exit_status);
 }

@@ -51,7 +51,7 @@ void	handle_pipe_exit(t_execution **list_cmd, t_env **env, int *status)
 	t_execution	*tmp_cmd;
 
 	tmp_cmd = *list_cmd;
-	(void ) env;
+	(void)env;
 	ft_wait_child(tmp_cmd, status);
 	if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
 	{
@@ -71,7 +71,7 @@ void	handle_execve_exit(int status, t_env **env)
 {
 	int	sig;
 
-	(void )env;
+	(void)env;
 	if (WIFSIGNALED(status))
 	{
 		sig = WTERMSIG(status);

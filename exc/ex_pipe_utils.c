@@ -11,7 +11,7 @@ void	execve_command_handler(t_execution *cmd, t_env **env)
 	}
 	cmd->path = find_path(cmd, env);
 	handle_invalid_path(cmd, env, cmd->path);
-	signal_handler(0, *env);
+	signal_handler(0);
 	if (execve(cmd->path, cmd->cmd, cmd->env) == -1)
 		handle_execve_error(cmd, &st);
 }
