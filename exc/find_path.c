@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_path.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:13:08 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/24 13:30:41 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 09:56:12 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,12 @@ void	handle_execve_error(t_execution *cmd, struct stat *st)
 	}
 	if (cmd->flag_expand == 1 && !ft_strcmp(cmd->cmd[0], ""))
 		exit(0);
-	else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
-	{
-		print_err_ex(": command not found", cmd->cmd[0]);
-		exit(127);
-	}
+	// else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
+	// {
+	// 	print_err_ex(": command not found", cmd->cmd[0]);
+	// 	exit(127);
+	// }
 	perror("minishell ");
-	exit(1);
+	exit(127);
 }
 

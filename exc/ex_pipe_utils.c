@@ -4,7 +4,7 @@ void	execve_command_handler(t_execution *cmd, t_env **env)
 {
 	struct stat	st;
 
-	if (!ft_strcmp(cmd->cmd[0], ".."))
+	if (cmd->cmd && !ft_strcmp(cmd->cmd[0], ".."))
 	{
 		print_err_ex(": command not found", cmd->cmd[0]);
 		exit(127);
