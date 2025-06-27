@@ -133,7 +133,7 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 			result = handle_double_quote(exp, &i, result, data);
 		}
 		else if (exp[i] == '$' && data->sh_expand && exp[i + 1]
-			&& !ft_strchr(" \t,:=+", exp[i + 1]))
+			&& !ft_strchr(" \t,:=+/", exp[i + 1]))
 			handel_specials(&result, exp, data, &i);
 		else
 			result = str_append_char(result, exp[i++]);
