@@ -37,7 +37,7 @@ void	handel_specials_inheredoc(char **result, char *exp, t_env *env, int *i)
 	}
 	else if (exp[*i] == '?')
 	{
-		*result = str_append(*result, ft_itoa(env->exit_status));
+		*result = str_append(*result, ft_itoa(set_exit_status(0,0)));
 		(*i)++;
 	}
 	else if (is_num(exp[*i]))
