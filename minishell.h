@@ -102,6 +102,7 @@ typedef struct s_execution
 	char				**cmd;
 	int					in_file;
 	int					out_file;
+	int	skip;
 	char				**env;
 	char				*path;
 	struct s_execution	*next;

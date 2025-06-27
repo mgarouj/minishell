@@ -9,7 +9,6 @@
 /*   Updated: 2025/06/24 13:19:06 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../minishell.h"
 
 void	sig_int_handler(int sig)
@@ -17,7 +16,7 @@ void	sig_int_handler(int sig)
 	(void)sig;
 	write(1, "\n", 1);
 	rl_on_new_line();
-	// rl_replace_line("", 1);
+	rl_replace_line("", 1);
 	fd_collec(0, 0);
 	rl_redisplay();
 	g_env_exitval->exit_status = 130;
