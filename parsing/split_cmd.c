@@ -117,6 +117,7 @@ int	handel_all_redi(t_tokenn *token, t_execution *exec, t_env *env)
 					set_exit_status(&env, env->exit_status);
 					return (0);
 				}
+				set_exit_status(&env,1);
 				return (0);
 			}
 			tmp = tmp->next;
@@ -142,6 +143,11 @@ int	handel_all_cmd(t_tokenn *token, t_execution *exec)
 				tmp = tmp->next;
 				// do NOT update prev here, keep it as is
 				continue ;
+			}
+			if (tmp->value && tmp->value[0] == '\0' && !tmp->quotes)
+			{
+				tmp = tmp->next;
+				continue; // skip unquoted empty var
 			}
 			if (!append_to_cmd(tmp->value, exec))
 				return (0);
@@ -173,11 +179,10 @@ int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
 				return (0);
 			iter->skip = 1;
 		}
-		else
-		{
-			if (!handel_all_cmd(segment_start, iter))
-				return (0);
-		}
+		
+		if (!handel_all_cmd(segment_start, iter))
+			return (0);
+		
 		printf("%d\n",iter->skip);
 		// Advance tmp to after the current pipeline segment
 		while (tmp && tmp->type != PIPE)
