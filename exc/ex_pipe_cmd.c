@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/22 17:19:18 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:14:00 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 	prev_read = -1;
 	while (tmp_cmd)
 	{
+		if (tmp_cmd->skip)
+			tmp_cmd = tmp_cmd->next;
 		if (tmp_cmd->is_last == false)
 			pipe(tmp_cmd->pipe_fd);
 		tmp_cmd->pid = ft_fork("fork in pipe");

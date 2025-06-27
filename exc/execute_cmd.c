@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:12:37 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/20 18:57:39 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 14:14:10 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	execute_cmd(t_execution **cmd_list, t_env **list_env)
 	init_cmd(cmd_list, n_cmds);
 	init_pwd(list_env);
 	init_env_cmd(*list_env, cmd_list);
-	if (!(*cmd_list)->cmd)
-		return ;
 	if (n_cmds == 1)
 		execute_one_cmd(cmd_list, list_env);
 	else
