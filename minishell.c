@@ -87,8 +87,8 @@ int	main(int ac, char **av, char **env)
 		else
 		{
 			free(line);
-			 fd_collec(0,0);
 		}
+		fd_collec(0,0);
 	}
 	return (0);
 }

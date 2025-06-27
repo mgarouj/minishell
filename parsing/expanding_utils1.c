@@ -78,7 +78,7 @@ void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
 	}
 	else if (exp[*i] == '?')
 	{
-		*result = str_append(*result, ft_itoa(data->env->exit_status));
+		*result = str_append(*result, ft_itoa(set_exit_status(0,0)));
 		(*i)++;
 	}
 	else if (is_num(exp[*i]))

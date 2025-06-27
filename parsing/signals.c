@@ -19,7 +19,7 @@ void	sig_int_handler(int sig)
 	rl_replace_line("", 1);
 	fd_collec(0, 0);
 	rl_redisplay();
-	g_env_exitval->exit_status = 130;
+	set_exit_status(1,130);
 }
 
 void	sig_heredoc_child(int sig)

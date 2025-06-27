@@ -90,7 +90,6 @@ typedef struct s_expand_data
 
 }						t_expand_data;
 
-extern t_env	*g_env_exitval;
 
 typedef struct s_execution
 {
