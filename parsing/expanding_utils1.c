@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:01:08 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/21 20:54:57 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 14:53:20 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	retokenn(t_tokenn *token)
 int	handle_expand_token(t_tokenn *tmp, t_tokenn *prev, t_expand_data *data,
 		t_env *env)
 {
+	(void ) env;
 	data->sh_expand = !(prev && prev->type == HEREDOC);
 	if (ft_strchr(tmp->value, '$') && !tmp->quotes)
 	{
@@ -56,7 +57,7 @@ int	handle_expand_token(t_tokenn *tmp, t_tokenn *prev, t_expand_data *data,
 				|| ft_strchr(tmp->value, '\t') || tmp->value[0] == '\0')
 			{
 				print_err("ambiguous redirect");
-				set_exit_status(&env, 2);
+				set_exit_status(1, 2);
 				return (0);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/22 16:20:21 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:47:32 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,10 +114,10 @@ int	handel_all_redi(t_tokenn *token, t_execution *exec, t_env *env)
 			{
 				if (env->exit_status == 130)
 				{
-					set_exit_status(&env, env->exit_status);
+					set_exit_status(1, env->exit_status);
 					return (0);
 				}
-				set_exit_status(&env,1);
+				set_exit_status(1,1);
 				return (0);
 			}
 			tmp = tmp->next;

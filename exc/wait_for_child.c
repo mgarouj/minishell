@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_for_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:15:38 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/24 13:26:11 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 14:49:45 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,39 +51,41 @@ void	handle_pipe_exit(t_execution **list_cmd, t_env **env, int *status)
 	t_execution	*tmp_cmd;
 
 	tmp_cmd = *list_cmd;
+	(void ) env;
 	ft_wait_child(tmp_cmd, status);
 	if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
 	{
 		write(1, "\n", 1);
-		set_exit_status(env, 130);
+		set_exit_status(1, 130);
 	}
 	else if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGQUIT)
 	{
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-		set_exit_status(env, 131);
+		set_exit_status(1, 131);
 	}
 	else if (WIFEXITED(*status))
-		set_exit_status(env, WEXITSTATUS(*status));
+		set_exit_status(1, WEXITSTATUS(*status));
 }
 
 void	handle_execve_exit(int status, t_env **env)
 {
 	int	sig;
 
+	(void )env;
 	if (WIFSIGNALED(status))
 	{
 		sig = WTERMSIG(status);
 		if (sig == SIGINT)
 		{
 			write(1, "\n", 1);
-			set_exit_status(env, 130);
+			set_exit_status(1, 130);
 		}
 		else if (sig == SIGQUIT)
 		{
 			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-			set_exit_status(env, 131);
+			set_exit_status(1, 131);
 		}
 	}
 	else if (WIFEXITED(status))
-		set_exit_status(env, WEXITSTATUS(status));
+		set_exit_status(1, WEXITSTATUS(status));
 }

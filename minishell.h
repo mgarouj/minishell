@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/24 15:11:57 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:55:27 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,7 @@ void					handle_execve_exit(int status, t_env **env);
 void					print_main(t_env *env_list, char *line);
 void					execute_pipe_cmd(t_execution **list_cmd, t_env **env);
 void					handle_in(void);
-void					set_exit_status(t_env **env, int exit_status);
+int    set_exit_status(int type, int new_status);
 void					printf_path_error(t_execution *cmd, t_env *env);
 int						ft_lnum_export(int c);
 void					shelvl_path_underscore(t_env **env_list);

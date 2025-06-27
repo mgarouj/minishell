@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/27 14:14:00 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:45:28 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,21 @@ int	handle_parent(t_execution *cmd, int prev_read)
 	return (-1);
 }
 
-void	set_exit_status(t_env **env, int exit_status)
-{
-	t_env	*tmp_env;
+// void	set_exit_status(t_env **env, int exit_status)
+// {
+// 	t_env	*tmp_env;
 
-	tmp_env = *env;
-	tmp_env->exit_status = exit_status;
+// 	tmp_env = *env;
+// 	tmp_env->exit_status = exit_status;
+// }
+
+int    set_exit_status(int type, int new_status)
+{
+    static int    old_status;
+
+    if (type)
+        old_status = new_status;
+    return (old_status);
 }
 
 void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)

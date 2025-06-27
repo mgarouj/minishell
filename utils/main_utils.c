@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:11:53 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/24 13:15:42 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 14:47:32 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	handle_eof(char *line, t_env *env)
 	if (!line)
 	{
 		print_err("exit");
-		set_exit_status(&env, env->exit_status);
+		set_exit_status(1, env->exit_status);
 		exit_minishell(env->exit_status);
 		return (0);
 	}

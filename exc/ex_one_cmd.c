@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_one_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/24 13:45:04 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/27 14:46:07 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	execute_one_builtin(t_execution *cmd, t_env **env)
 		change_in_out(cmd);
 	}
 	exit_status = execute_builtins(cmd, env);
-	set_exit_status(env, exit_status);
+	set_exit_status(1, exit_status);
 	if (cmd->in_file != 0 || cmd->out_file != 1)
 		restore_std(backup_in, backup_out);
 }

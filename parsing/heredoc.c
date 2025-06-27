@@ -6,9 +6,10 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 13:17:37 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 11:24:20 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 14:55:55 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	heredoc_1(t_execution *exec, t_her *var_her)
@@ -103,7 +104,7 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 		// exec->in_file points to var_her.fd_read and must remain valid
 		if (WEXITSTATUS(var_her.exit_status) == 130)
 		{
-			set_exit_status(&env, 130);
+			set_exit_status(1, 130);
 			fd_collec(0, 0);
 			return (0);
 		}
