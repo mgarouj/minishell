@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:38:10 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/27 10:27:01 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 12:06:27 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_exit(char **arg, int exit_status)
 			i++;
 		while (arg[i])
 		{
-			if (arg[1][i] < '0' || arg[1][i] > '9')
+			if (ft_isalpha(arg[1][i]))
 				(exit_error(arg[1], 2), ft_exit_minishell(2));
 			i++;
 		}
