@@ -1,0 +1,40 @@
+echo $!HOME
+ echo $HOME!
+
+
+
+
+
+
+mgarouj@e1r10p15:~/Desktop/my_project/c4/minishell$ << $$$"ls"
+> $$ls
+
+
+
+
+
+  ✘ mgarouj@e1r10p15  ~/Desktop/my_project/c4/minishell   main ±  env -i ./minishell
+minishell$ << ls
+> ^C
+minishell$ $?                                                                                
+minishell: 130: command not found
+minishell$ << ls                                                                             
+> minishell: warning: here-document delimited by end-of-file
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==166658==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000000 (pc 0x0000004d04b5 bp 0x7fffbeb888f0 sp 0x7fffbeb88700 T0)
+==166658==The signal is caused by a READ memory access.
+==166658==Hint: address points to the zero page.
+    #0 0x4d04b5 in child_for_one_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/ex_one_cmd.c:57:17
+    #1 0x4d0923 in execute_execve_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/ex_one_cmd.c:83:3
+    #2 0x4cfa59 in execute_one_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:23:3
+    #3 0x4cfbd4 in execute_cmd /home/mgarouj/Desktop/my_project/c4/minishell/exc/execute_cmd.c:47:3
+    #4 0x4e45f6 in process_line /home/mgarouj/Desktop/my_project/c4/minishell/minishell.c:38:2
+    #5 0x4e4827 in main /home/mgarouj/Desktop/my_project/c4/minishell/minishell.c:61:4
+    #6 0x7f63b8402d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16
+    #7 0x7f63b8402e3f in __libc_start_main csu/../csu/libc-start.c:392:3
+    #8 0x41f3b4 in _start (/home/mgarouj/Desktop/my_project/c4/minishell/minishell+0x41f3b4)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home/mgarouj/Desktop/my_project/c4/minishell/exc/ex_one_cmd.c:57:17 in child_for_one_cmd
+==166658==ABORTING

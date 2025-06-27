@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/27 14:46:07 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/27 20:43:00 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	child_for_one_cmd(t_execution *cmd, t_env **env)
 	char		*path;
 	struct stat	st;
 
-	if (!ft_strcmp(cmd->cmd[0], ".."))
+	if (cmd->cmd && !ft_strcmp(cmd->cmd[0], ".."))
 		(print_err("command not found"), exit(127));
 	path = find_path(cmd, env);
 	handle_invalid_path(cmd, env, path);
