@@ -9,28 +9,35 @@
 /*   Updated: 2025/06/27 11:24:20 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../minishell.h"
 
 void	heredoc_1(t_execution *exec, t_her *var_her)
 {
-	if (!access(".tmp_file", F_OK))
-		unlink(".tmp_file");
-	var_her->fd_write = open(".tmp_file", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	void	*m;
+	char	*rnd;
+	char	*file_name;
+
+	m = gar_coll(1,1);
+	rnd = ft_itoa((long)m);
+	file_name = ft_strjoin("/tmp/.tmp_file", rnd);
+	if (!access(file_name, F_OK))
+		unlink(file_name);
+	var_her->fd_write = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (var_her->fd_write < 0)
 	{
 		print_err("heredoc: failed to open for writing");
 		exit(1);
 	}
 	fd_collec(var_her->fd_write, 1);
-	var_her->fd_read = open(".tmp_file", O_RDONLY);
+	var_her->fd_read = open(file_name, O_RDONLY);
 	if (var_her->fd_read < 0)
 	{
 		print_err("heredoc input error");
+		close(var_her->fd_write);
 		exit(1);
 	}
 	fd_collec(var_her->fd_read, 1);
-	unlink(".tmp_file");
+	unlink(file_name);
 	exec->in_file = var_her->fd_read;
 }
 
@@ -40,10 +47,21 @@ void	child_herdoc(char *delimiter, t_her *var_her, int quotes, t_env *env)
 	{
 		var_her->line = readline("> ");
 		if (!var_her->line)
+		{
 			print_err("warning: here-document delimited by end-of-file");
-		if (!var_her->line || !ft_strcmp(delimiter, var_her->line))
+			// Close fds before breaking
+			close(var_her->fd_write);
+			close(var_her->fd_read);
+			// exit(0);
+			break ;
+		}
+		if (!ft_strcmp(delimiter, var_her->line))
 		{
 			free(var_her->line);
+			// Close fds before breaking
+			close(var_her->fd_write);
+			close(var_her->fd_read);
+			// exit(0) ;
 			break ;
 		}
 		if (ft_strchr(var_her->line, '$') && !quotes)
@@ -60,7 +78,7 @@ void	child_herdoc(char *delimiter, t_her *var_her, int quotes, t_env *env)
 			free(var_her->line);
 		}
 	}
-	(close(var_her->fd_read), close(var_her->fd_write), exit(0));
+	exit(0);
 }
 
 int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
@@ -79,6 +97,10 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 	{
 		waitpid(var_her.pid, &var_her.exit_status, 0);
 		signal_handler(1, env);
+		// Close only write fd here, keep read fd open for command use
+		close(var_her.fd_write);
+		// DO NOT close var_her.fd_read here!
+		// exec->in_file points to var_her.fd_read and must remain valid
 		if (WEXITSTATUS(var_her.exit_status) == 130)
 		{
 			set_exit_status(&env, 130);
@@ -86,6 +108,6 @@ int	heredoc(char *delimiter, int quotes, t_execution *exec, t_env *env)
 			return (0);
 		}
 	}
-	close(var_her.fd_write);
+	// DO NOT close var_her.fd_write here again (already closed)
 	return (1);
 }

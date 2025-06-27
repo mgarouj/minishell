@@ -73,6 +73,7 @@ int	main(int ac, char **av, char **env)
 			process_line(line, &token, &exec_list, &env_list);
 		else
 			free(line);
+		fd_collec(0,0);
 	}
 	return (0);
 }

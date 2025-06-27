@@ -29,31 +29,31 @@ int	append_to_cmd(char *exp, t_execution *exec)
 	return (1);
 }
 
-static int	process_command(t_tokenn **tmp, t_execution *exec, t_env *env)
-{
-	while (*tmp && (*tmp)->type != PIPE)
-	{
-		if ((*tmp)->type == EXP && (*tmp)->value)
-		{
-			if (!append_to_cmd((*tmp)->value, exec))
-				return (0);
-		}
-		else if (is_redirection((*tmp)->value))
-		{
-			if ((*tmp)->type != HEREDOC && (!(*tmp)->next
-					|| !handel_redirections(*tmp, (*tmp)->next, exec)))
-			{
-				if (env->exit_status == 130)
-					return (0);
-				print_err("No such file or directory");
-				return (0);
-			}
-			*tmp = (*tmp)->next;
-		}
-		*tmp = (*tmp)->next;
-	}
-	return (1);
-}
+// static int	process_command(t_tokenn **tmp, t_execution *exec, t_env *env)
+// {
+// 	while (*tmp && (*tmp)->type != PIPE)
+// 	{
+// 		if ((*tmp)->type == EXP && (*tmp)->value)
+// 		{
+// 			if (!append_to_cmd((*tmp)->value, exec))
+// 				return (0);
+// 		}
+// 		else if (is_redirection((*tmp)->value))
+// 		{
+// 			if ((*tmp)->type != HEREDOC && (!(*tmp)->next
+// 					|| !handel_redirections(*tmp, (*tmp)->next, exec)))
+// 			{
+// 				if (env->exit_status == 130)
+// 					return (0);
+// 				print_err("No such file or directory");
+// 				return (0);
+// 			}
+// 			*tmp = (*tmp)->next;
+// 		}
+// 		*tmp = (*tmp)->next;
+// 	}
+// 	return (1);
+// }
 
 int	handle_heredocs_only(t_tokenn **tmp, t_execution *exec, t_env *env)
 {
@@ -100,10 +100,62 @@ int	init_exec_list(t_tokenn **tmp, t_execution **exec_list, t_env *env)
 	return (1);
 }
 
-int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
+int	handel_all_redi(t_tokenn *token, t_execution *exec, t_env *env)
 {
 	t_tokenn	*tmp;
-	t_execution	*iter;
+
+	tmp = token;
+	while (tmp && (tmp)->type != PIPE)
+	{
+		if (is_redirection(tmp->value))
+		{
+			if (tmp->type != HEREDOC && (!tmp->next || !handel_redirections(tmp,
+						tmp->next, exec)))
+			{
+				if (env->exit_status == 130)
+				{
+					set_exit_status(&env, env->exit_status);
+					return (0);
+				}
+				return (0);
+			}
+			tmp = tmp->next;
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int	handel_all_cmd(t_tokenn *token, t_execution *exec)
+{
+	t_tokenn	*tmp;
+	t_tokenn	*prev;
+
+	tmp = token;
+	prev = NULL;
+	while (tmp && tmp->type != PIPE)
+	{
+		if (tmp->type == EXP)
+		{
+			if (prev && is_redirection(prev->value))
+			{
+				tmp = tmp->next;
+				// do NOT update prev here, keep it as is
+				continue ;
+			}
+			if (!append_to_cmd(tmp->value, exec))
+				return (0);
+		}
+		prev = tmp;
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
+{
+	t_tokenn *tmp;
+	t_execution *iter;
 
 	tmp = token;
 	if (!init_exec_list(&tmp, exec_list, env))
@@ -112,11 +164,30 @@ int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
 	iter = *exec_list;
 	while (tmp && iter)
 	{
-		if (!process_command(&tmp, iter, env))
-			return (0);
+		// Save current position to pass to redirection and command handlers
+		t_tokenn *segment_start = tmp;
+		iter->skip = 0;
+		if (!handel_all_redi(segment_start, iter, env))
+		{
+			if (env->exit_status == 130)
+				return (0);
+			iter->skip = 1;
+		}
+		else
+		{
+			if (!handel_all_cmd(segment_start, iter))
+				return (0);
+		}
+		printf("%d\n",iter->skip);
+		// Advance tmp to after the current pipeline segment
+		while (tmp && tmp->type != PIPE)
+			tmp = tmp->next;
+
 		if (tmp && tmp->type == PIPE)
 			tmp = tmp->next;
+
 		iter = iter->next;
 	}
+
 	return (1);
 }
