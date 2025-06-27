@@ -125,7 +125,6 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 			result = handle_single_quote(exp, &i, result);
 		else if (exp[i] == '"')
 		{
-			data->quoted = 1;
 			result = handle_double_quote(exp, &i, result, data);
 		}
 		else if (exp[i] == '$' && data->sh_expand && exp[i + 1]
