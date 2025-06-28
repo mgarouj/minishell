@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_one_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/28 14:17:38 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:40:40 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	execute_execve_cmd(t_execution *cmd, t_env **env)
 	int		backup_in;
 	int		backup_out;
 
-	// if (cmd->skip)
-	// 	return ;
+	if (cmd->skip)
+		return ;
 	if (cmd->in_file != 0 || cmd->out_file != 1)
 	{
 		backup_in = dup(0);

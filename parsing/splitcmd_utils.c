@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitcmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 18:27:47 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 13:56:17 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 16:38:59 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,6 @@ void	add_node_to_list(t_execution **exec, t_execution *node)
 		tmp = tmp->next;
 	tmp->next = node;
 }
-
-// int	is_redirection(char *s)
-// {
-// 	return (!ft_strcmp(s, "<") || !ft_strcmp(s, ">") || !ft_strcmp(s, "<<")
-// 		|| !ft_strcmp(s, ">>"));
-// }
-
 
 int	is_redirection(t_token s)
 {
