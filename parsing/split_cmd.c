@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 13:55:06 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 18:47:49 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,6 @@ int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
 {
 	t_tokenn	*tmp;
 	t_execution	*iter;
-	t_tokenn	*segment_start;
 
 	tmp = token;
 	if (!init_exec_list(&tmp, exec_list, env))
@@ -118,11 +117,10 @@ int	split_cmd(t_tokenn *token, t_execution **exec_list, t_env *env)
 	iter = *exec_list;
 	while (tmp && iter)
 	{
-		segment_start = tmp;
 		iter->skip = 0;
-		if (!handel_all_redi(segment_start, iter))
+		if (!handel_all_redi(tmp, iter))
 			iter->skip = 1;
-		if (!handel_all_cmd(segment_start, iter))
+		if (!handel_all_cmd(tmp, iter))
 			return (0);
 		while (tmp && tmp->type != PIPE)
 			tmp = tmp->next;
