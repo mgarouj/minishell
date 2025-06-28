@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:14:40 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 19:19:47 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 13:57:04 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	should_skip_token(t_tokenn *tmp, t_tokenn *prev)
 {
-	if (prev && is_redirection(prev->value))
+	if (prev && is_redirection(prev->type))
 		return (1);
 	if (tmp->value && tmp->value[0] == '\0' && !tmp->quotes)
 		return (1);

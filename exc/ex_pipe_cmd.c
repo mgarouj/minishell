@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/27 14:45:28 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/28 14:17:24 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	child_run_cmd(t_execution *cmd, t_env **env)
 {
 	int	status;
 
+	if (cmd->skip)
+		exit (1);
 	if (cmd->is_builtin)
 	{
 		status = execute_builtins(cmd, env);

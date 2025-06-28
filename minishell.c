@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 19:31:15 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/28 13:46:15 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,25 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 	*exec_list = NULL;
 	if (!split_cmd(*token, exec_list, *env))
 		return ;
+	t_execution *tmp = *exec_list;
+   	int i = 0;
+    printf("====== Execution List ======\n");
+    while (tmp)
+    {
+        if (tmp->cmd)
+        {
+            while (tmp->cmd[i])
+            {
+                printf("cmd[%d]=%s\n", i, tmp->cmd[i]);
+                i++;
+            }
+        }
+        i = 0;
+        printf("infile  : %d\n", tmp->in_file);
+        printf("outfile : %d\n", tmp->out_file);
+        printf("----------------------------\n");
+        tmp = tmp->next;
+    }
 	execute_cmd(exec_list, env);
 }
 

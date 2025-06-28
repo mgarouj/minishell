@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 19:26:16 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 13:56:39 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,7 +192,7 @@ int						handle_arg1(char *v);
 void					init_env_cmd(t_env *env, t_execution **cmd);
 t_execution				*creat_node(int expanded);
 void					add_node_to_list(t_execution **exec, t_execution *node);
-int						is_redirection(char *s);
+int						is_redirection(t_token s);
 int						calculate_required_size(char *exp, t_execution *exec);
 int						copy_and_append_cmd(char **new_cmd, t_execution *exec,
 							char *exp);

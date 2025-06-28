@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 18:27:47 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/20 21:29:38 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 13:56:17 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,17 @@ void	add_node_to_list(t_execution **exec, t_execution *node)
 	tmp->next = node;
 }
 
-int	is_redirection(char *s)
+// int	is_redirection(char *s)
+// {
+// 	return (!ft_strcmp(s, "<") || !ft_strcmp(s, ">") || !ft_strcmp(s, "<<")
+// 		|| !ft_strcmp(s, ">>"));
+// }
+
+
+int	is_redirection(t_token s)
 {
-	return (!ft_strcmp(s, "<") || !ft_strcmp(s, ">") || !ft_strcmp(s, "<<")
-		|| !ft_strcmp(s, ">>"));
+	return (s == REDIRECTION_IN || s == REDIRECTION_OUT || s == REDIRECTION_AP
+		|| s == HEREDOC);
 }
 
 int	calculate_required_size(char *exp, t_execution *exec)

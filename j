@@ -1,0 +1,13 @@
+built
+env_list
+exc
+j
+l
+libft_fonction
+Makefile
+minishell
+minishell.c
+minishell.h
+parsing
+saad
+utils

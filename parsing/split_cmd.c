@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 19:31:37 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/28 13:55:06 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	handel_all_redi(t_tokenn *token, t_execution *exec)
 	tmp = token;
 	while (tmp && (tmp)->type != PIPE)
 	{
-		if (is_redirection(tmp->value))
+		if (is_redirection(tmp->type))
 		{
 			if (tmp->type != HEREDOC && (!tmp->next || !handel_redirections(tmp,
 						tmp->next, exec)))
