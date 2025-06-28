@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:01:08 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 14:33:04 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 18:22:28 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ char	*handle_double_quote(char *exp, int *i, char *result,
 	while (exp[*i] && exp[*i] != '"')
 	{
 		if (exp[*i] == '$' && data->sh_expand && exp[*i + 1]
-			&& !ft_strchr(" \t,:/=+\"", exp[*i + 1]))
+			&& !ft_strchr(" \t,:/!=+\"", exp[*i + 1]))
 			handel_specials(&result, exp, data, i);
 		else
 		{
