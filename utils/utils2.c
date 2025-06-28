@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/24 18:45:42 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/21 21:25:34 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:38:12 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	count(char *s, char c)
 	return (j);
 }
 
-static char	**copy(char *s, char c, char **r)
+char	**copy(char *s, char c, char **r)
 {
 	int	i;
 	int	start;

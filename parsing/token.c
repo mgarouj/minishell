@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/16 17:56:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/21 21:15:18 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:36:20 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static void	handle_redirections(char *line, int *i, t_tokenn **tokens)
+void	handle_redirections(char *line, int *i, t_tokenn **tokens)
 {
 	if (line[*i] == '<' && line[*i + 1] == '<')
 	{
@@ -47,7 +47,7 @@ void	handle_operator(char *line, int *i, t_tokenn **tokens)
 		handle_redirections(line, i, tokens);
 }
 
-static void	token_exp(char *line, int *i, t_tokenn **tokens)
+void	token_exp(char *line, int *i, t_tokenn **tokens)
 {
 	int		start;
 	char	quote;

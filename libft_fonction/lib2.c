@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lib2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 09:46:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/19 13:58:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:35:26 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	*join_str(char *str, char *s1, char *s2)
+char	*join_str(char *str, char *s1, char *s2)
 {
 	int	x;
 	int	y;

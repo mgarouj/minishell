@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   lib4.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 21:32:48 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/05/23 16:26:01 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/28 17:35:39 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	ft_num_len(int n)
+int	ft_num_len(int n)
 {
 	int	len;
 

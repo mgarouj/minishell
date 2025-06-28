@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 20:24:34 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/22 16:17:10 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/28 17:35:05 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	needs_retokenn(char *value, int quoted, t_context_type ctx)
 	return (0);
 }
 
-static int	handle_token_expand(t_tokenn *tmp, t_tokenn *prev,
+int	handle_token_expand(t_tokenn *tmp, t_tokenn *prev,
 		t_expand_data *data, t_env *env)
 {
 	t_context_type	ctx;

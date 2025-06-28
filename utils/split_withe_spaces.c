@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   split_withe_spaces.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/26 15:10:00 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/21 21:26:10 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:38:07 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	word_count(char *s)
+int	word_count(char *s)
 {
 	int	count;
 
@@ -29,7 +29,7 @@ static int	word_count(char *s)
 	return (count);
 }
 
-static char	*word_dup(char *start, int len)
+char	*word_dup(char *start, int len)
 {
 	char	*word;
 	int		i;

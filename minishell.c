@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 16:39:22 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/28 17:44:01 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_env	*g_env_exitval = NULL;
 
 void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 		t_env **env)
@@ -52,7 +50,6 @@ int	main(int ac, char **av, char **env)
 	shelvl_path_underscore(&env_list);
 	while (1)
 	{
-		g_env_exitval = env_list;
 		signal_handler(1);
 		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
 		if (!handle_eof(line))

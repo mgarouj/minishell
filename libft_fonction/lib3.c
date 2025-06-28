@@ -6,13 +6,13 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 15:20:23 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/24 13:22:24 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/28 17:35:34 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	sign_spc(char *str, int *skip)
+int	sign_spc(char *str, int *skip)
 {
 	int	i;
 	int	sign;
