@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 13:17:37 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 14:55:55 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/29 14:00:03 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	heredoc_1(t_execution *exec, t_her *var_her)
 
 	file_name = generate_tmp_filename();
 	var_her->fd_write = open(file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	printf("-------------fd %d \n", var_her->fd_write);
 	if (var_her->fd_write < 0)
 	{
 		print_err("heredoc: failed to open for writing");
@@ -44,6 +45,7 @@ void	heredoc_1(t_execution *exec, t_her *var_her)
 	}
 	fd_collec(var_her->fd_write, 1);
 	var_her->fd_read = open(file_name, O_RDONLY);
+	printf("-------------fd %d \n", var_her->fd_read);
 	if (var_her->fd_read < 0)
 	{
 		print_err("heredoc input error");
@@ -53,6 +55,7 @@ void	heredoc_1(t_execution *exec, t_her *var_her)
 	fd_collec(var_her->fd_read, 1);
 	unlink(file_name);
 	exec->in_file = var_her->fd_read;
+	fd_collec(exec->in_file,1);
 }
 
 int	handle_line_input(char *delimiter, t_her *var_her, int quotes, t_env *env)

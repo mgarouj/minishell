@@ -3,22 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/07 21:26:35 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 09:52:16 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/29 13:57:09 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../minishell.h"
 
-void	sig_int_handler(int sig)
+// void sig_int_handler(int sig)
+// {
+// 	(void)sig;
+// 	write(1, "\n", 1);
+// 	rl_replace_line("", 0); // clear current line
+// 	rl_on_new_line();  
+// 	rl_redisplay();     // move to new line, but DON'T redisplay
+// 	set_exit_status(1, 130);
+// }
+
+void sig_int_handler(int sig)
 {
 	(void)sig;
 	write(1, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 1);
-	fd_collec(0, 0);
-	rl_redisplay();
+	if (g_in_readline)
+	{
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	 else
+    {
+        set_exit_status(1, 130);
+    }
 	set_exit_status(1, 130);
 }
 

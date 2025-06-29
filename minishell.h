@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 13:56:39 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/29 13:21:47 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <sys/stat.h>
 # include <sys/wait.h>
 # include <unistd.h>
+
+extern int	g_in_readline ;
 
 typedef enum e_token
 {

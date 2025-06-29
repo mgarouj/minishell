@@ -2,7 +2,7 @@
 
 CC      = cc
 
-CFLAGS  = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS  = -Wall -Wextra -Werror
 RL_FLAG = -lreadline 
 
 RL_FLAG = -L$(READLINE_DIR)/lib -lreadline
