@@ -1,0 +1,13 @@
+Makefile
+built
+cat
+env_list
+exc
+ik
+libft_fonction
+minishell
+minishell.c
+minishell.h
+parsing
+todo
+utils
