@@ -1,9 +1,16 @@
 
 
-CC      = cc
+# CC      = cc
 
-CFLAGS  = -Wall -Wextra -Werror
-RL_FLAG = -lreadline 
+# CFLAGS  = -Wall -Wextra -Werror
+# RL_FLAG = -lreadline 
+
+
+CC      = cc
+READLINE_DIR = $(shell brew --prefix readline)
+CFLAGS  = -Wall -Wextra -Werror -I$(READLINE_DIR)/include -fsanitize=address
+RL_FLAG = -L$(READLINE_DIR)/lib -lreadline
+
 
 RL_FLAG = -L$(READLINE_DIR)/lib -lreadline
 
