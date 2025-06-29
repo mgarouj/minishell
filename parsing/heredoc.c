@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 13:17:37 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/29 14:00:03 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:51:07 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	heredoc_1(t_execution *exec, t_her *var_her)
 	fd_collec(var_her->fd_read, 1);
 	unlink(file_name);
 	exec->in_file = var_her->fd_read;
-	fd_collec(exec->in_file,1);
+	fd_collec(exec->in_file, 1);
 }
 
 int	handle_line_input(char *delimiter, t_her *var_her, int quotes, t_env *env)

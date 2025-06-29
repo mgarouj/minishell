@@ -6,11 +6,19 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:38:10 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/27 12:06:27 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/29 14:32:55 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
 
 void	ft_exit_minishell(int exit_value)
 {
@@ -47,7 +55,7 @@ int	ft_exit(char **arg, int exit_status)
 			i++;
 		while (arg[i])
 		{
-			if (ft_isalpha(arg[1][i]))
+			if (!ft_isdigit(arg[1][i]))
 				(exit_error(arg[1], 2), ft_exit_minishell(2));
 			i++;
 		}

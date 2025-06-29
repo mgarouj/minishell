@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_one_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/29 13:38:30 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/29 14:21:11 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	execute_builtins(t_execution *cmd, t_env **env)
 	else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
 		return (ft_unset(cmd->cmd, env));
 	else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
-		return (ft_exit(cmd->cmd, 0));
+		return (ft_exit(cmd->cmd, set_exit_status(0, 0)));
 	return (1);
 }
 
