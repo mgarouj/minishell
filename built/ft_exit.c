@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:38:10 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/29 14:32:55 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:44:40 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 int	ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	return (c >= '0' && c <= '9');
 }
 
 void	ft_exit_minishell(int exit_value)
@@ -51,9 +48,10 @@ int	ft_exit(char **arg, int exit_status)
 		return (exit_error(NULL, 1), 1);
 	if (arg[1])
 	{
-		if (arg[1][0] == '-' || arg[1][0] == '+')
+		if ((arg[1][0] == '-' && arg[1][1] != '\0' ) ||
+			(arg[1][0] == '+' && arg[1][1] != '\0'))
 			i++;
-		while (arg[i])
+		while (arg[1][i])
 		{
 			if (!ft_isdigit(arg[1][i]))
 				(exit_error(arg[1], 2), ft_exit_minishell(2));

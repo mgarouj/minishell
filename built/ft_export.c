@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/29 18:35:42 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/22 17:21:56 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	print_sorted_env(t_env *env)
 	ft_sort_env(sort_env, j);
 	j = 0;
 	while (sort_env[j])
-		ft_3putstr("declare -x ", sort_env[j++], "\n", NULL);
+		ft_3putstr_err("declare -x ", sort_env[j++], "\n", NULL);
 	return (0);
 }
 

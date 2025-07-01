@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 02:14:12 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/29 19:22:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/06/29 20:37:45 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ int	change_directory(char *path, t_env *env)
 		f2 = 1;
 	}
 	change_env_value(&env, "PWD", n_c);
-	if (env && env->pwd){
-		 // check for the environement's existance before derefrencing it's value
+	if (env && env->pwd)
 		env->pwd = ft_strdup(n_c);
-	}
 	return (free_cd(f1, f2, cwd, n_c));
 }
 
