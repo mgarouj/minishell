@@ -1,15 +1,9 @@
 
 
-# CC      = cc
-
-# CFLAGS  = -Wall -Wextra -Werror
-# RL_FLAG = -lreadline 
-
-
 CC      = cc
-READLINE_DIR = $(shell brew --prefix readline)
-CFLAGS  = -Wall -Wextra -Werror -I$(READLINE_DIR)/include
-RL_FLAG = -L$(READLINE_DIR)/lib -lreadline
+
+CFLAGS  = -Wall -Wextra -Werror
+RL_FLAG = -lreadline 
 
 
 SRC     = built/ft_export_3.c built/exporttttt.c built/ft_cd.c built/ft_echo.c built/ft_env.c built/ft_exit.c built/ft_export.c built/ft_fork.c built/ft_pwd.c built/ft_unset.c \
