@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 20:57:49 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 18:29:48 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/01 16:16:39 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*expand_variable_inheredoc(char *exp, int *i, char *result, t_env *env)
 	char	*var_value;
 
 	start = *i;
-	while (exp[*i] && !ft_strchr(" \t\"'$;%,.[]=!*/?", exp[*i]))
+	while (exp[*i] && is_valid_var_char(exp[*i], *i - start))
 		(*i)++;
 	var_name = sub_str(exp + start, (*i) - start);
 	var_value = get_env_value(var_name, env);
@@ -62,7 +62,8 @@ char	*handel_afterd_inherdoc(char *exp, t_env *env)
 	result = ft_strdup("");
 	while (exp[i])
 	{
-		if (exp[i] == '$' && exp[i + 1] && !ft_strchr(" \t,:=/+!", exp[i + 1]))
+		if (exp[i] == '$' && exp[i + 1] && exp[i + 1] && (ft_isalnum(exp[i + 1])
+				|| exp[i + 1] == '_' || exp[i + 1] == '?' || exp[i + 1] == '$'))
 			handel_specials_inheredoc(&result, exp, env, &i);
 		else
 		{

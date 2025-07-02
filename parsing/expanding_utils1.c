@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:01:08 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 18:27:36 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:04:26 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ char	*handle_double_quote(char *exp, int *i, char *result,
 	while (exp[*i] && exp[*i] != '"')
 	{
 		if (exp[*i] == '$' && data->sh_expand && exp[*i + 1]
-			&& !ft_strchr(" \t,:/!=+\"", exp[*i + 1]))
+			&& (ft_isalnum(exp[*i + 1]) || exp[*i + 1] == '_' || exp[*i
+					+ 1] == '?' || exp[*i + 1] == '$'))
 			handel_specials(&result, exp, data, i);
 		else
 		{
@@ -128,11 +129,10 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 			result = handle_single_quote(exp, &i, result);
 		}
 		else if (exp[i] == '"')
-		{
 			result = handle_double_quote(exp, &i, result, data);
-		}
 		else if (exp[i] == '$' && data->sh_expand && exp[i + 1]
-			&& !ft_strchr(" \t,:=+/!", exp[i + 1]))
+			&& (ft_isalnum(exp[i + 1]) || exp[i + 1] == '_' || exp[i + 1] == '?'
+				|| exp[i + 1] == '$'))
 			handel_specials(&result, exp, data, &i);
 		else
 			result = str_append_char(result, exp[i++]);

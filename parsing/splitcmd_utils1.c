@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitcmd_utils1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 21:15:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/21 21:22:44 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/01 19:40:31 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ void	initialize(t_tokenn **here, t_tokenn *tmp, int *c)
 	*here = tmp;
 }
 
-int	handel_redirections(t_tokenn *token, t_tokenn *name, t_execution *exec)
+int	handel_redirections(t_tokenn *token, t_tokenn *name, t_execution *exec,
+		t_token last)
 {
-	if (token->type == REDIRECTION_IN)
+	if (token->type == REDIRECTION_IN && last != HEREDOC)
 		return (handel_redin(name->value, exec));
 	else if (token->type == REDIRECTION_OUT)
 		return (handel_reout(name->value, exec));
 	else if (token->type == REDIRECTION_AP)
 		return (handel_redappend(name->value, exec));
-	return (0);
+	return (1);
 }

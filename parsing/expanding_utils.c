@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 18:07:38 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/28 18:23:41 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/02 12:50:14 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,11 @@ char	*str_append_char(char *s, char c)
 	return (new_str);
 }
 
-char	*get_env_value(char *key, t_env *env)
+int	is_valid_var_char(char c, int pos)
 {
-	t_env	*env_tmp;
-
-	env_tmp = env;
-	while (env_tmp)
-	{
-		if (ft_strcmp(env_tmp->key, key) == 0)
-			return (env_tmp->value);
-		env_tmp = env_tmp->next;
-	}
-	return (NULL);
+	if (pos == 0)
+		return (ft_isalpha(c) || c == '_');
+	return (ft_isalnum(c) || c == '_');
 }
 
 char	*expand_variable(char *exp, int *i, char *result, t_expand_data *data)
@@ -62,7 +55,7 @@ char	*expand_variable(char *exp, int *i, char *result, t_expand_data *data)
 	char	*var_value;
 
 	start = *i;
-	while (exp[*i] && !ft_strchr(" \t\"'$;%,.[]=*/!?", exp[*i]))
+	while (exp[*i] && is_valid_var_char(exp[*i], *i - start))
 		(*i)++;
 	var_name = sub_str(exp + start, (*i) - start);
 	var_value = get_env_value(var_name, data->env);

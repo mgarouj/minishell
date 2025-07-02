@@ -41,8 +41,8 @@ int	needs_retokenn(char *value, int quoted, t_context_type ctx)
 	return (0);
 }
 
-int	handle_token_expand(t_tokenn *tmp, t_tokenn *prev,
-		t_expand_data *data, t_env *env)
+int	handle_token_expand(t_tokenn *tmp, t_tokenn *prev, t_expand_data *data,
+		t_env *env)
 {
 	t_context_type	ctx;
 

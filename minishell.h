@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/29 14:55:12 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:07:01 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <dirent.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <readline/history.h>
@@ -26,7 +25,7 @@
 # include <sys/wait.h>
 # include <unistd.h>
 
-extern int	g_in_readline ;
+extern int				g_in_readline;
 
 typedef enum e_token
 {
@@ -136,7 +135,9 @@ char					*trim_line(char *line);
 void					exit_minishell(int exit_s);
 int						handle_eof(char *line);
 t_env					*init_env(char **env);
-
+t_token					get_last_input_redirection(t_tokenn *start);
+int						handle_heredocs_only(t_tokenn **tmp, t_execution *exec,
+							t_env *env);
 void					print_err_ex(char *str, char *s2);
 void					fd_collec(int fd, int mode);
 void					*gar_coll(int size, char flag);
@@ -189,6 +190,7 @@ int						ft_lstsize_cmd_list(t_execution *cmd_list);
 int						ft_isalnum(int c);
 pid_t					ft_fork(const char *msg);
 int						ft_isalpha(int c);
+int						is_valid_var_char(char c, int pos);
 void					ft_3putstr(char *s1, char *s2, char *s3, char *s4);
 int						handle_arg1(char *v);
 void					init_env_cmd(t_env *env, t_execution **cmd);
@@ -204,7 +206,7 @@ int						append_to_cmd(char *exp, t_execution *exec);
 int						check_writable_file(char *filename);
 void					initialize(t_tokenn **here, t_tokenn *tmp, int *c);
 int						handel_redirections(t_tokenn *token, t_tokenn *name,
-							t_execution *exec);
+							t_execution *exec, t_token last);
 int						handel_redin(char *filename, t_execution *exec);
 int						handel_reout(char *filename, t_execution *exec);
 int						handel_redappend(char *filename, t_execution *exec);
