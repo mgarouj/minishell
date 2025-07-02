@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:16:41 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/02 14:47:48 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:14:48 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	add_path(t_env **env_list)
 	{
 		default_path = "/gcc/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:"
 			"/usr/sbin:/bin:/sbin:.";
-		export_in_env(env_list, "PATH", default_path, 0);
+		export_in_env(env_list, "PATH", default_path);
 	}
 }
 
@@ -36,7 +36,7 @@ void	add_underscore(t_env **env_list)
 	env = *env_list;
 	path = get_env_value("_", env);
 	if (!path)
-		export_in_env(env_list, "_", "/usr/bin/env", 1);
+		export_in_env(env_list, "_", "/usr/bin/env");
 }
 
 void	add_pwd(t_env **env)
@@ -48,12 +48,12 @@ void	add_pwd(t_env **env)
 	if (!pwd)
 	{
 		perror("getcwd ");
-		export_in_env(env, "PWD", "..", 1);
+		export_in_env(env, "PWD", "..");
 		return ;
 	}
 	path = get_env_value("PWD", *env);
 	if (!path)
-		export_in_env(env, "PWD", pwd, 1);
+		export_in_env(env, "PWD", pwd);
 	free(pwd);
 }
 
@@ -76,7 +76,7 @@ void	shelvl_path_underscore(t_env **env_list)
 	new_value = 0;
 	old_value = get_env_value("SHLVL", tmp_env);
 	if (!old_value)
-		export_in_env(env_list, "SHLVL", "0", 1);
+		export_in_env(env_list, "SHLVL", "0");
 	else
 	{
 		new_value = ft_atoi(old_value);
@@ -87,7 +87,7 @@ void	shelvl_path_underscore(t_env **env_list)
 			new_value = 0;
 		}
 		new_value++;
-		export_in_env(env_list, "SHLVL", ft_itoa(new_value), 1);
+		export_in_env(env_list, "SHLVL", ft_itoa(new_value));
 	}
 	(add_path(env_list), add_underscore(env_list));
 	(add_pwd(env_list), add_oldpwd(env_list));

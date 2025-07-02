@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exporttttt.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:32:22 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/22 17:22:12 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:14:18 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	normal_export(t_env **env, char *arg)
 		return ;
 	key = ft_substr(arg, 0, i);
 	value = ft_strdup(arg + i + 1);
-	export_in_env(env, key, value, 1);
+	export_in_env(env, key, value);
 }
 
 void	export_plus_equal(t_env **env, char *arg, int i)
@@ -48,7 +48,7 @@ void	export_plus_equal(t_env **env, char *arg, int i)
 		exist->value = new_value;
 	}
 	else
-		export_in_env(env, key, value, 1);
+		export_in_env(env, key, value);
 }
 
 int	handle_arg1(char *v)

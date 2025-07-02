@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 02:14:12 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/29 20:37:45 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:14:25 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*get_old_pwd(t_env *env, int *f1)
 		cwd = ft_strdup(env->pwd);
 		*f1 = 1;
 	}
-	export_in_env(&env, "OLDPWD", cwd, 1);
+	export_in_env(&env, "OLDPWD", cwd);
 	return (cwd);
 }
 

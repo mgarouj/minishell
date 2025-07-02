@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:37:36 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/22 17:24:51 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:15:51 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ int	ft_env(char **arg, t_env **env)
 			tmp = tmp->next;
 			continue ;
 		}
-		if (tmp->printed)
-			ft_3putstr(tmp->key, "=", tmp->value, "\n");
+		ft_3putstr(tmp->key, "=", tmp->value, "\n");
 		tmp = tmp->next;
 	}
 	return (0);

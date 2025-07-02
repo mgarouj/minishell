@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:11:53 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 19:23:33 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/02 15:14:52 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	exit_minishell(int exit_s)
 
 void	add_pwd_shlvl(t_env **l)
 {
-	export_in_env(l, "PWD", getcwd(NULL, 0), 1);
+	export_in_env(l, "PWD", getcwd(NULL, 0));
 	printf("env = %s\n", (*l)->value);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/02 14:46:14 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/02 15:15:38 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ typedef struct s_env
 	char				*key;
 	char				*value;
 	int					exit_status;
-	int					printed;
 	char				*pwd;
 	t_export			*export;
 	struct s_env		*next;
@@ -222,8 +221,7 @@ void					change_env_value(t_env **env, char *key,
 							char *new_value);
 t_env					*find_var(t_env *env, char *key);
 void					ft_lstadd_back(t_env **lst, t_env *new);
-void					export_in_env(t_env **env, char *key, char *value,
-							int printed);
+void					export_in_env(t_env **env, char *key, char *value);
 int						ft_cd(char **arg, t_env *env);
 int						ft_echo(char **arg);
 int						ft_export(char **args, t_env **env);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expot_shit.c                                       :+:      :+:    :+:   */
+/*   ft_export_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 19:18:27 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/24 13:41:25 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/02 15:15:57 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	export_in_export(t_env **env, char *key, char *value)
 	new = gar_coll(sizeof(t_env), 'a');
 	new->key = ft_strdup(key);
 	new->value = value;
-	new->printed = 1;
 	new->next = *env;
 	*env = new;
 }
