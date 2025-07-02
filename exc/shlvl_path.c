@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shlvl_path.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:16:41 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/27 19:24:24 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:47:48 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ void	add_pwd(t_env **env)
 
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
+	{
+		perror("getcwd ");
+		export_in_env(env, "PWD", "..", 1);
 		return ;
+	}
 	path = get_env_value("PWD", *env);
 	if (!path)
 		export_in_env(env, "PWD", pwd, 1);

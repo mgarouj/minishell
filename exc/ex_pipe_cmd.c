@@ -6,7 +6,7 @@
 /*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/28 16:41:54 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/02 14:48:20 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,14 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 	prev_read = -1;
 	while (tmp_cmd)
 	{
-		if (tmp_cmd->is_last == false)
-			pipe(tmp_cmd->pipe_fd);
-		tmp_cmd->pid = ft_fork("fork in pipe");
-		if (!tmp_cmd->pid)
+		init_pipe_or_exit(tmp_cmd, prev_read);
+		tmp_cmd->pid = try_fork_or_exit(tmp_cmd, prev_read);
+
+		if (tmp_cmd->pid == 0)
 			(child_in_out(prev_read, tmp_cmd), child_run_cmd(tmp_cmd, env));
 		else
 			prev_read = handle_parent(tmp_cmd, prev_read);
+
 		tmp_cmd = tmp_cmd->next;
 	}
 	handle_pipe_exit(list_cmd, env, &exit_status);

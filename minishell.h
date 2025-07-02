@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/02 14:07:01 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/02 14:46:14 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,10 @@ typedef struct s_fds
 	struct s_fds		*next;
 }						t_fds;
 
+void					close_safe(int fd);
+void					clean_all_and_exit(void);
+void					init_pipe_or_exit(t_execution *cmd, int prev_read);
+pid_t					try_fork_or_exit(t_execution *cmd, int prev_read);
 int						parssing(char *line);
 void					handle_execve_error(t_execution *cmd, struct stat *st);
 void					ft_3putstr_err(char *s1, char *s2, char *s3, char *s4);
