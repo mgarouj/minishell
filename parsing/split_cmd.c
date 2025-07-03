@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 18:09:09 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/03 15:51:32 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/03 18:27:47 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int	fill_exec_nodes(t_tokenn *token, t_execution *exec_list)
 {
 	t_tokenn	*tmp;
 	t_execution	*iter;
-	int			heredoc_fd;
 	t_token		last_in_type;
 
 	tmp = token;
@@ -101,7 +100,6 @@ int	fill_exec_nodes(t_tokenn *token, t_execution *exec_list)
 	while (tmp && iter)
 	{
 		iter->skip = 0;
-		heredoc_fd = iter->in_file;
 		last_in_type = get_last_input_redirection(tmp);
 		if (!handel_all_redi(tmp, iter, last_in_type))
 			iter->skip = 1;
