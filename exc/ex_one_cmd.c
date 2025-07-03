@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_one_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/29 14:21:11 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/03 15:53:09 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	execute_builtins(t_execution *cmd, t_env **env)
 	else if (ft_strcmp(cmd->cmd[0], "unset") == 0)
 		return (ft_unset(cmd->cmd, env));
 	else if (ft_strcmp(cmd->cmd[0], "exit") == 0)
-		return (ft_exit(cmd->cmd, set_exit_status(0, 0)));
+		return (ft_exit(cmd->cmd, exit_status(0, 0)));
 	return (1);
 }
 
 void	execute_one_builtin(t_execution *cmd, t_env **env)
 {
-	int	exit_status;
+	int	exit_statuss;
 	int	backup_in;
 	int	backup_out;
 
@@ -43,8 +43,8 @@ void	execute_one_builtin(t_execution *cmd, t_env **env)
 		backup_out = dup(1);
 		change_in_out(cmd);
 	}
-	exit_status = execute_builtins(cmd, env);
-	set_exit_status(1, exit_status);
+	exit_statuss = execute_builtins(cmd, env);
+	exit_status(1, exit_statuss);
 	if (cmd->in_file != 0 || cmd->out_file != 1)
 		restore_std(backup_in, backup_out);
 }

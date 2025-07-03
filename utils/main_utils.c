@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/22 21:11:53 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/02 15:14:52 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/03 15:51:45 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ int	handle_eof(char *line)
 	if (!line)
 	{
 		print_err("exit");
-		set_exit_status(1, set_exit_status(0, 0));
-		exit_minishell(set_exit_status(0, 0));
+		exit_status(1, exit_status(0, 0));
+		exit_minishell(exit_status(0, 0));
 		return (0);
 	}
 	return (1);

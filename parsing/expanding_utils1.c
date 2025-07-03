@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:01:08 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/02 14:04:26 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:50:36 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	handle_expand_token(t_tokenn *tmp, t_tokenn *prev, t_expand_data *data,
 				|| ft_strchr(tmp->value, '\t') || tmp->value[0] == '\0')
 			{
 				print_err("ambiguous redirect");
-				set_exit_status(1, 2);
+				exit_status(1, 2);
 				return (0);
 			}
 		}
@@ -77,7 +77,7 @@ void	handel_specials(char **result, char *exp, t_expand_data *data, int *i)
 	}
 	else if (exp[*i] == '?')
 	{
-		*result = str_append(*result, ft_itoa(set_exit_status(0, 0)));
+		*result = str_append(*result, ft_itoa(exit_status(0, 0)));
 		(*i)++;
 	}
 	else if (is_num(exp[*i]))

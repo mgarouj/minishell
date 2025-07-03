@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/02 15:15:38 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:42:43 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,7 +210,7 @@ int						check_writable_file(char *filename);
 void					initialize(t_tokenn **here, t_tokenn *tmp, int *c);
 int						handel_redirections(t_tokenn *token, t_tokenn *name,
 							t_execution *exec, t_token last);
-int						handel_redin(char *filename, t_execution *exec);
+int						handel_redin(char *filename, t_execution *exec,t_token last);
 int						handel_reout(char *filename, t_execution *exec);
 int						handel_redappend(char *filename, t_execution *exec);
 int						heredoc(char *delimiter, int quotes, t_execution *exec,
@@ -247,10 +247,9 @@ void					handle_pipe_exit(t_execution **list_cmd, t_env **env,
 							int *status);
 void					handle_execve_exit(int status, t_env **env);
 
-void					print_main(t_env *env_list, char *line);
 void					execute_pipe_cmd(t_execution **list_cmd, t_env **env);
 void					handle_in(void);
-int						set_exit_status(int type, int new_status);
+int						exit_status(int type, int status);
 void					printf_path_error(t_execution *cmd, t_env *env);
 int						ft_lnum_export(int c);
 void					shelvl_path_underscore(t_env **env_list);

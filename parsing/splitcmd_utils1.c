@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/21 21:15:58 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/01 19:40:31 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:45:18 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	initialize(t_tokenn **here, t_tokenn *tmp, int *c)
 int	handel_redirections(t_tokenn *token, t_tokenn *name, t_execution *exec,
 		t_token last)
 {
-	if (token->type == REDIRECTION_IN && last != HEREDOC)
-		return (handel_redin(name->value, exec));
+	if (token->type == REDIRECTION_IN)
+		return (handel_redin(name->value, exec, last));
 	else if (token->type == REDIRECTION_OUT)
 		return (handel_reout(name->value, exec));
 	else if (token->type == REDIRECTION_AP)

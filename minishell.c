@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 20:15:11 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/02 12:35:13 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/03 15:49:05 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		g_in_readline = 0;
 void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 		t_env **env)
 {
-	char		*trim;
+	char	*trim;
 
 	add_history(line);
 	trim = ft_strtrim(line, ft_strlen(line));
@@ -26,7 +26,7 @@ void	process_line(char *line, t_tokenn **token, t_execution **exec_list,
 		return ;
 	if (!parssing(trim))
 	{
-		set_exit_status(1, 2);
+		exit_status(1, 2);
 		return ;
 	}
 	*token = tokenize(trim);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirections_functions.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 18:36:31 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/06/27 19:09:56 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/03 17:53:49 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_readable_input_file(char *filename)
 	return (1);
 }
 
-int	handel_redin(char *filename, t_execution *exec)
+int	handel_redin(char *filename, t_execution *exec, t_token last)
 {
 	int	fd;
 
@@ -45,9 +45,12 @@ int	handel_redin(char *filename, t_execution *exec)
 		fd_collec(0, 0);
 		return (0);
 	}
-	if (exec->in_file != 0)
-		close(exec->in_file);
-	exec->in_file = fd;
+	if (last != HEREDOC)
+	{
+		if (exec->in_file != 0)
+			close(exec->in_file);
+		exec->in_file = fd;
+	}
 	return (1);
 }
 

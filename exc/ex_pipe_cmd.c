@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/02 14:48:20 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/03 15:45:43 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ int	handle_parent(t_execution *cmd, int prev_read)
 	return (-1);
 }
 
-int	set_exit_status(int type, int new_status)
+int	exit_status(int type, int status)
 {
-	static int	old_status;
+	static int	old;
 
 	if (type)
-		old_status = new_status;
-	return (old_status);
+		old = status;
+	return (old);
 }
 
 void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)

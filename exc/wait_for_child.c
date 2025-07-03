@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_for_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:15:38 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/06/29 14:50:55 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/03 15:50:57 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,15 @@ void	handle_pipe_exit(t_execution **list_cmd, t_env **env, int *status)
 	ft_wait_child(tmp_cmd, status);
 	if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
 	{
-		set_exit_status(1, 130);
+		exit_status(1, 130);
 	}
 	else if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGQUIT)
 	{
 		ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-		set_exit_status(1, 131);
+		exit_status(1, 131);
 	}
 	else if (WIFEXITED(*status))
-		set_exit_status(1, WEXITSTATUS(*status));
+		exit_status(1, WEXITSTATUS(*status));
 }
 
 void	handle_execve_exit(int status, t_env **env)
@@ -76,14 +76,14 @@ void	handle_execve_exit(int status, t_env **env)
 		sig = WTERMSIG(status);
 		if (sig == SIGINT)
 		{
-			set_exit_status(1, 130);
+			exit_status(1, 130);
 		}
 		else if (sig == SIGQUIT)
 		{
 			ft_putstr_fd("Quit (core dumped)\n", STDERR_FILENO);
-			set_exit_status(1, 131);
+			exit_status(1, 131);
 		}
 	}
 	else if (WIFEXITED(status))
-		set_exit_status(1, WEXITSTATUS(status));
+		exit_status(1, WEXITSTATUS(status));
 }
