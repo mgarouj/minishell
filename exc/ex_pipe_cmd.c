@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/03 15:45:43 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:43:36 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,12 +85,10 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 	{
 		init_pipe_or_exit(tmp_cmd, prev_read);
 		tmp_cmd->pid = try_fork_or_exit(tmp_cmd, prev_read);
-
 		if (tmp_cmd->pid == 0)
 			(child_in_out(prev_read, tmp_cmd), child_run_cmd(tmp_cmd, env));
 		else
 			prev_read = handle_parent(tmp_cmd, prev_read);
-
 		tmp_cmd = tmp_cmd->next;
 	}
 	handle_pipe_exit(list_cmd, env, &exit_status);

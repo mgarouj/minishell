@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/04 16:32:28 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:39:23 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ int						expand_rm_quotes(t_tokenn *t, t_env *l);
 int						split_cmd(t_tokenn *token, t_execution **exec,
 							t_env *env);
 void					signal_handler(int f);
-void					retoken(t_tokenn *token);
-int						is_expandable_dollar(char *exp, int i, t_expand_data *data);
+int						is_expandable_dollar(char *exp, int i,
+							t_expand_data *data);
 void					skip_quotes(const char *line, int *i, char quote);
 char					*trim_line(char *line);
 void					exit_minishell(int exit_s);
@@ -176,10 +176,7 @@ char					*get_env_value(char *key, t_env *env);
 char					*expand_variable(char *exp, int *i, char *result,
 							t_expand_data *data);
 char					*handle_single_quote(char *exp, int *i, char *result);
-int						handle_retoken(t_tokenn *tmp, t_expand_data *data);
 int						retokenn(t_tokenn *token);
-int						has_eq_before_space(char *s);
-int						needs_retoken(char *value);
 int						handle_expand_token(t_tokenn *tmp, t_tokenn *prev,
 							t_expand_data *data, t_env *env);
 char					*handel_afterd(char *exp, t_expand_data *data);
@@ -210,7 +207,8 @@ int						check_writable_file(char *filename);
 void					initialize(t_tokenn **here, t_tokenn *tmp, int *c);
 int						handel_redirections(t_tokenn *token, t_tokenn *name,
 							t_execution *exec, t_token last);
-int						handel_redin(char *filename, t_execution *exec,t_token last);
+int						handel_redin(char *filename, t_execution *exec,
+							t_token last);
 int						handel_reout(char *filename, t_execution *exec);
 int						handel_redappend(char *filename, t_execution *exec);
 int						heredoc(char *delimiter, int quotes, t_execution *exec,

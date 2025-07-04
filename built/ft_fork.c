@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_fork.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:04:30 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/02 14:48:50 by mgarouj          ###   ########.fr       */
+/*   Updated: 2025/07/04 16:41:48 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ pid_t	ft_fork(const char *msg)
 	}
 	return (pid);
 }
+
 void	clean_all_and_exit(void)
 {
 	gar_coll(0, 1);
@@ -46,8 +47,9 @@ void	init_pipe_or_exit(t_execution *cmd, int prev_read)
 
 pid_t	try_fork_or_exit(t_execution *cmd, int prev_read)
 {
-	pid_t pid = ft_fork("fork in pipe");
+	pid_t	pid;
 
+	pid = ft_fork("fork in pipe");
 	if (pid == -1)
 	{
 		close_safe(prev_read);

@@ -6,7 +6,7 @@
 /*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:13:08 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/03 18:47:00 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:44:36 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	handle_execve_error(t_execution *cmd, struct stat *st)
 	}
 	if (cmd->flag_expand == 1 && !ft_strcmp(cmd->cmd[0], ""))
 		exit(0);
-	else if(cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
+	else if (cmd->flag_expand == 0 && !ft_strcmp(cmd->cmd[0], ""))
 	{
 		print_err(" command not found");
 		exit(127);

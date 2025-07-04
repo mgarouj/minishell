@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 15:40:27 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/02 15:16:09 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:42:42 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ int	print_sorted_env(t_env *env)
 	sort_env = gar_coll(sizeof(char *) * (size + 1), 'a');
 	while (env)
 	{
-			if (env->value)
-				sort_env[j] = ft_strjoin_3sort(env->key, env->value);
-			else
-				sort_env[j] = ft_strdup(env->key);
-			j++;
+		if (env->value)
+			sort_env[j] = ft_strjoin_3sort(env->key, env->value);
+		else
+			sort_env[j] = ft_strdup(env->key);
+		j++;
 		env = env->next;
 	}
 	sort_env[j] = NULL;
