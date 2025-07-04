@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/13 20:28:44 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/03 17:42:43 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:32:28 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,7 @@ int						split_cmd(t_tokenn *token, t_execution **exec,
 							t_env *env);
 void					signal_handler(int f);
 void					retoken(t_tokenn *token);
+int						is_expandable_dollar(char *exp, int i, t_expand_data *data);
 void					skip_quotes(const char *line, int *i, char quote);
 char					*trim_line(char *line);
 void					exit_minishell(int exit_s);
@@ -144,7 +145,6 @@ int						handle_heredocs_only(t_tokenn **tmp, t_execution *exec,
 void					print_err_ex(char *str, char *s2);
 void					fd_collec(int fd, int mode);
 void					*gar_coll(int size, char flag);
-int						main_steps(char *line, t_env *env, t_execution **exec);
 int						check_env_key(char *key, t_env *env);
 char					*ft_strchr(char *s, int c);
 char					*ft_strcat(char *dest, char *src);
@@ -232,6 +232,7 @@ int						ft_env(char **arg, t_env **env);
 int						ft_exit(char **arg, int exit_status);
 int						ft_pwd(t_env **env);
 char					*ft_strjoin_3(char *s1, char *s2);
+int						count_words_whitespace(char *str);
 void					null_value(t_env **env, char *arg);
 char					**change_envlist_to_envchar(t_env *env);
 void					execute_cmd(t_execution **cmd_list, t_env **list_env);

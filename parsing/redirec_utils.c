@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirec_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/27 19:00:59 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/02 14:04:35 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:24:36 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,25 @@ int	handle_heredocs_only(t_tokenn **tmp, t_execution *exec, t_env *env)
 		*tmp = (*tmp)->next;
 	}
 	return (1);
+}
+
+int	count_words_whitespace(char *str)
+{
+	int	count;
+	int	in_word;
+
+	count = 0;
+	in_word = 0;
+	while (*str)
+	{
+		if (is_whitespace(*str))
+			in_word = 0;
+		else if (!in_word)
+		{
+			in_word = 1;
+			count++;
+		}
+		str++;
+	}
+	return (count);
 }

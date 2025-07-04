@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expanding_utils1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/20 13:01:08 by fbelkass          #+#    #+#             */
-/*   Updated: 2025/07/03 17:50:36 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/04 16:29:04 by fbelkass         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	handle_expand_token(t_tokenn *tmp, t_tokenn *prev, t_expand_data *data,
 				|| prev->type == REDIRECTION_AP))
 		{
 			tmp->value = handel_afterd(tmp->value, data);
-			if (!tmp->value || ft_strchr(tmp->value, ' ')
-				|| ft_strchr(tmp->value, '\t') || tmp->value[0] == '\0')
+			if (!tmp->value || count_words_whitespace(tmp->value) != 1
+				|| tmp->value[0] == '\0')
 			{
 				print_err("ambiguous redirect");
 				exit_status(1, 2);
@@ -129,10 +129,11 @@ char	*handel_afterd(char *exp, t_expand_data *data)
 			result = handle_single_quote(exp, &i, result);
 		}
 		else if (exp[i] == '"')
+		{
+			data->quoted = 1;
 			result = handle_double_quote(exp, &i, result, data);
-		else if (exp[i] == '$' && data->sh_expand && exp[i + 1]
-			&& (ft_isalnum(exp[i + 1]) || exp[i + 1] == '_' || exp[i + 1] == '?'
-				|| exp[i + 1] == '$'))
+		}
+		else if (is_expandable_dollar(exp, i, data))
 			handel_specials(&result, exp, data, &i);
 		else
 			result = str_append_char(result, exp[i++]);
