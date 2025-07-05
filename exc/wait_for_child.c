@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wait_for_child.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/23 16:15:38 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/03 15:50:57 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:06:18 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	handle_pipe_exit(t_execution **list_cmd, t_env **env, int *status)
 	ft_wait_child(tmp_cmd, status);
 	if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGINT)
 	{
+		write(STDERR_FILENO, "\n", 1);
 		exit_status(1, 130);
 	}
 	else if (WIFSIGNALED(*status) && WTERMSIG(*status) == SIGQUIT)
@@ -76,6 +77,7 @@ void	handle_execve_exit(int status, t_env **env)
 		sig = WTERMSIG(status);
 		if (sig == SIGINT)
 		{
+			write(STDERR_FILENO, "\n", 1);
 			exit_status(1, 130);
 		}
 		else if (sig == SIGQUIT)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_one_cmd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:51 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/03 15:53:09 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:16:31 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,14 @@ void	execute_execve_cmd(t_execution *cmd, t_env **env)
 		backup_out = dup(1);
 		change_in_out(cmd);
 	}
+	(signal(SIGINT, SIG_IGN), signal(SIGQUIT, SIG_IGN));
 	pid = ft_fork("fork one cmd");
 	if (!pid)
 		child_for_one_cmd(cmd, env);
 	else
 	{
-		wait(&exit_status);
+		waitpid(pid, &exit_status, 0);
+		signal_handler(1);
 		if (cmd->in_file != 0 || cmd->out_file != 1)
 			restore_std(backup_in, backup_out);
 		handle_execve_exit(exit_status, env);

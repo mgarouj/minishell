@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 02:14:12 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/02 15:14:25 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:13:22 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	ft_cd(char **arg, t_env *env)
 {
 	char	*path;
 
+	if (arg[0] && arg[1] && arg[2])
+		return (print_err_ex(": too many arguments", "cd"), 1);
 	if (!arg[1])
 	{
 		path = get_env_value("HOME", env);

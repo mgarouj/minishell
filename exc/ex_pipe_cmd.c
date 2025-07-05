@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ex_pipe_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fbelkass <fbelkass@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mgarouj <mgarouj@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:36:58 by mgarouj           #+#    #+#             */
-/*   Updated: 2025/07/04 16:43:36 by fbelkass         ###   ########.fr       */
+/*   Updated: 2025/07/05 12:16:46 by mgarouj          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	child_run_cmd(t_execution *cmd, t_env **env)
 {
 	int	status;
 
+	signal_handler(0);
 	if (cmd->skip)
 		exit (1);
 	if (cmd->is_builtin)
@@ -81,6 +82,8 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 
 	tmp_cmd = *list_cmd;
 	prev_read = -1;
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	while (tmp_cmd)
 	{
 		init_pipe_or_exit(tmp_cmd, prev_read);
@@ -92,4 +95,5 @@ void	execute_pipe_cmd(t_execution **list_cmd, t_env **env)
 		tmp_cmd = tmp_cmd->next;
 	}
 	handle_pipe_exit(list_cmd, env, &exit_status);
+	signal_handler(1);
 }
