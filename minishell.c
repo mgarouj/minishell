@@ -54,7 +54,7 @@ int	main(int ac, char **av, char **env)
 	while (1)
 	{
 		g_in_readline = 1;
-		line = readline("\001\033[1;32m\002minishell$ \001\033[0m\002");
+		line = readline("\001\033[1;32m\002mohammed ali $ \001\033[0m\002");
 		g_in_readline = 0;
 		if (!handle_eof(line))
 			break ;

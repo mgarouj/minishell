@@ -18,7 +18,6 @@ void	sig_int_handler(int sig)
 	write(1, "\n", 1);
 	if (g_in_readline)
 	{
-		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
 	}
